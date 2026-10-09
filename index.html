@@ -404,6 +404,24 @@ details.row summary .da{min-width:44px;text-align:right}
 .pcat .chip.on{background:var(--btn);color:#fff;font-weight:bold}
 @media(max-width:900px){.pwrap{grid-template-columns:1fr}.pside{position:static;order:-1}.pcat{flex-direction:row;flex-wrap:wrap}.pcat .chip{width:auto}}
 @media(max-width:600px){#pList.pl4{gap:8px}#pList.pl4 .admbtn .btn{padding:2px 6px;font-size:11px}}
+
+/* ===== 탭 글씨 위치 고정 ===== */
+.chip{user-select:none;-webkit-user-select:none}
+.tbar{display:flex;justify-content:flex-end;gap:6px;margin:0}
+.tbar .btn{margin:0}
+body.adm .tbar{min-height:34px;margin-bottom:10px}
+.tbd{min-height:60px}
+.tbd p.empty{margin:0;font-size:13px}
+/* ===== 로라 ===== */
+.lolist{display:flex;flex-direction:column;gap:16px;max-width:860px}
+.lo{background:var(--card);border-radius:20px;padding:20px 22px;box-shadow:0 4px 18px rgba(60,64,80,.06)}
+.lo h3{margin:0 0 12px;font-size:16px;letter-spacing:.02em}
+.lo .rich img{display:block;width:100%;max-width:100%;border-radius:14px;margin:0 0 12px}
+.lo .rich p{margin:0 0 6px}
+.lo .rich a.mn{color:var(--ink);text-decoration:none;border-bottom:1px solid #c9ccd6}
+.lo .rich a.mn:hover{border-color:var(--ink)}
+.lo .admbtn{margin-top:10px}
+.lo .admbtn .btn{margin:0 6px 0 0}
 </style>
 </head>
 <body>
@@ -417,6 +435,7 @@ details.row summary .da{min-width:44px;text-align:right}
     <div class="nd"><a href="#chars" class="top">OC</a><div class="sub"><a href="#chars">메인</a><a href="#rels">페어</a><a href="#persona">페르소나</a></div></div>
     <a href="#log">로그</a>
     <a href="#prompt">프롬프트</a>
+    <a href="#lora">로라</a>
     <div class="nd"><a href="#sched" class="top">기록</a><div class="sub"><a href="#sched">스케줄러</a><a href="#threads">감상타래</a></div></div>
   </nav>
 </div></header>
@@ -539,6 +558,13 @@ details.row summary .da{min-width:44px;text-align:right}
     </div>
     <aside class="card pside"><p class="lb">CATEGORY</p><div id="pCats" class="pcat"></div></aside>
   </div>
+</section>
+
+<!-- ================= 로라 ================= -->
+<section class="page" id="lora">
+  <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editLora()">✎ 로라 쓰기</button>
+  <h1 class="pt">LORA</h1><p class="ps"></p>
+  <div id="loList" class="lolist"></div>
 </section>
 
 <!-- ================= 스케줄러 ================= -->
@@ -848,10 +874,11 @@ var cTab='p';
 function setTab(t){cTab=t;viewChar(cur,1)}
 function panel(c,id){
   var tabs='<div style="margin-bottom:10px">'+[['p','프로필'],['s','서사'],['a','에셋']].map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+x[1]+'</button>'}).join('')+'</div>';
-  var body;
-  if(cTab==='s')body='<div class="sech" style="justify-content:flex-end"><button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button></div><div id="cStories"></div>';
-  else if(cTab==='a')body='<div class="sech" style="justify-content:flex-end"><button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button></div><div id="cAssets"></div>';
-  else body=(c.info&&c.info.trim()?rows(c.info):'<p class="empty">아직 설정이 없어요.</p>')+'<div class="admbtn" style="margin-top:14px"><button class="btn" type="button" onclick="editChar('+id+')">수정</button> <button class="btn gray" type="button" onclick="delChar('+id+')">삭제</button></div>';
+  var bar,inner;
+  if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
+  else if(cTab==='a'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button>';inner='<div id="cAssets"></div>'}
+  else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info):'<p class="empty">아직 설정이 없어요.</p>')}
+  var body='<div class="tbar">'+bar+'</div><div class="tbd">'+inner+'</div>';
   return tabs+body;
 }
 function slot(c,side){
@@ -913,7 +940,7 @@ function openForm(title,fields,save){
     else if(f.t==='negs')h+='<div id="'+id+'">'+(f.v||[]).map(negRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addNeg()">+ 네거티브 추가</button>';
     else if(f.t==='kvs')h+='<div id="'+id+'" data-area="'+(f.area?1:0)+'" data-kp="'+H(f.kp||'')+'" data-vp="'+H(f.vp||'')+'">'+(f.v||[]).map(function(r){return kvRow(r,f)}).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addKv(\''+id+'\')">+ 항목 추가</button>';
     else if(f.t==='chk')h+='<div class="chk" id="'+id+'">'+(D.chars.length?D.chars.map(function(c){return '<label class="ck"><input type="checkbox" value="'+c.id+'"'+((f.v||[]).indexOf(c.id)>-1?' checked':'')+'>'+H(c.name)+'</label>'}).join(''):'<small>캐릭터를 먼저 추가하면 고를 수 있어요.</small>')+'</div>';
-    else if(f.t==='rich')h+=richUI(f.id,f.v);
+    else if(f.t==='rich')h+=richUI(f.id,f.v,f.x);
     else if(f.t==='sel')h+='<select id="'+id+'">'+f.o.map(function(o){return '<option value="'+o[0]+'"'+(o[0]==f.v?' selected':'')+'>'+H(o[1])+'</option>'}).join('')+'</select>';
   });
   h+='<details id="g_cfg"'+(LS('gh_token')?'':' open')+'><summary>저장 설정 (처음 한 번만)</summary><label>깃허브 저장소 주소 (예: 아이디/아이디.github.io)</label><input id="g_repo" type="text" value="'+H(LS('gh_repo')||defRepo())+'"><label>토큰 (내 브라우저에만 저장돼요)</label><input id="g_tok" type="password" value="'+H(LS('gh_token'))+'"></details>';
@@ -1087,7 +1114,7 @@ function renderDiary(){
   }).join(''):'<span class="empty">아직 글이 없어요</span>';
 }
 function goBoard(){show('board');try{history.replaceState(null,'','#board')}catch(x){}}
-function renderAll(){renderSite();renderDiary();renderPrompts();renderWorks();renderBoard();renderSched();renderThreads()}
+function renderAll(){renderSite();renderDiary();renderPrompts();renderLora();renderWorks();renderBoard();renderSched();renderThreads()}
 function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;renderAll();dday()})}
 ld('site.json').then(function(d){S=d||{}}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
 
@@ -1386,7 +1413,7 @@ function rSrc(id){
   else{e.innerHTML=toEd(t.value);t.style.display='none';e.style.display=''}
 }
 function richVal(id){var t=G(id+'_src');return fromEd(t.style.display!=='none'?t.value:G(id).innerHTML)}
-function richUI(id,h){
+function richUI(id,h,x){
   var B=function(l,c,t){return '<button type="button" title="'+t+'" onmousedown="event.preventDefault()" onclick="'+c+'">'+l+'</button>'};
   return '<div class="rt">'+
     B('<b>B</b>',"rc('bold')",'굵게')+B('<i>I</i>',"rc('italic')",'기울임')+B('<u>U</u>',"rc('underline')",'밑줄')+B('<s>S</s>',"rc('strikeThrough')",'취소선')+
@@ -1395,7 +1422,7 @@ function richUI(id,h){
     B('왼쪽',"rc('justifyLeft')",'왼쪽 정렬')+B('가운데',"rc('justifyCenter')",'가운데 정렬')+B('오른쪽',"rc('justifyRight')",'오른쪽 정렬')+
     B('• 목록',"rc('insertUnorderedList')",'목록')+B('❝ 인용',"rc('formatBlock','blockquote')",'인용')+B('― 구분선',"rc('insertHorizontalRule')",'구분선')+B('▥ 2단',"rCols()",'2단 칸 넣기 (왼쪽 사진 / 오른쪽 글 등)')+
     B('🔗 링크',"rLink()",'링크')+B('🖼 사진',"rImg()",'사진 올리기')+B('🖼 주소',"rImgUrl()",'이미지 주소로 넣기')+
-    B('서식 지우기',"rc('removeFormat')",'서식 지우기')+B('&lt;/&gt; HTML',"rSrc('"+id+"')",'HTML 직접 편집')+'</div>'+
+    (x?B('🔗 로라 링크',"rLora()",'이름·주소·비중으로 로라 링크 줄 넣기'):'')+B('서식 지우기',"rc('removeFormat')",'서식 지우기')+B('&lt;/&gt; HTML',"rSrc('"+id+"')",'HTML 직접 편집')+'</div>'+
     '<div class="re" id="g_'+id+'" contenteditable="true">'+toEd(h||'')+'</div>'+
     '<textarea class="rsrc" id="g_'+id+'_src" style="display:none" placeholder="HTML을 직접 입력하세요"></textarea>'+
     '<input type="file" id="rfile" accept="image/*" multiple style="display:none" onchange="rImgPick(this)">';
@@ -1424,6 +1451,42 @@ function editBoard(id,kind){
 async function delBoard(id){
   if(!confirm('이 글을 삭제할까요?'))return;
   try{await saveSite(Object.assign({},S,{board:(S.board||[]).filter(function(x){return x.id!==id})}),'게시판 글 삭제')}catch(e){alert(e.message)}
+}
+
+// ===== 로라 =====
+function rLora(){
+  var n=prompt('로라 이름 (예: 만 만 AI LoRA | PixAI)');if(!n)return;
+  var u=prompt('주소 (https://...)');if(!u)return;
+  if(!/^https?:/.test(u))u='https://'+u;
+  var w=prompt('비중 (예: 1.2 · 비워도 돼요)')||'';
+  var host='';try{host=new URL(u).hostname}catch(e){}
+  rc('insertHTML','<p><a class="mn" href="'+H(u)+'" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain='+H(host)+'&amp;sz=64" alt="">'+H(n)+'</a>'+(w.trim()?' 비중 '+H(w.trim()):'')+'</p>');
+}
+function renderLora(){
+  var el=document.getElementById('loList');if(!el)return;
+  var l=(S.loras||[]).slice().sort(function(a,b){return b.id-a.id});
+  el.innerHTML=l.length?l.map(function(b){
+    return '<div class="lo">'+(b.title?'<h3>'+H(b.title)+'</h3>':'')+'<div class="rich">'+clean(b.html)+'</div>'+
+      '<div class="admbtn"><button class="btn" type="button" onclick="editLora('+b.id+')">수정</button><button class="btn gray" type="button" onclick="delLora('+b.id+')">삭제</button></div></div>';
+  }).join(''):'<p class="empty">아직 기록이 없어요.</p>';
+  hydrate(el);
+}
+function editLora(id){
+  var b=(S.loras||[]).filter(function(x){return x.id===id})[0]||{};
+  openForm(b.id?'로라 수정':'로라 쓰기',[
+    {id:'title',l:'제목 (비워도 돼요)',t:'text',v:b.title},
+    {id:'body',l:'내용 (가로로 긴 사진은 🖼 사진, 로라 링크는 🔗 로라 링크 버튼으로 넣어요)',t:'rich',v:b.html,x:1}
+  ],async function(g){
+    var html=richVal('body');
+    if(!/<img|<iframe|<hr/i.test(html)&&!html.replace(/<[^>]*>|&nbsp;|\s/g,''))throw new Error('내용을 적어주세요.');
+    var it={id:b.id||Date.now(),title:g('title').value.trim(),html:html},l=S.loras||[];
+    await saveSite(Object.assign({},S,{loras:b.id?l.map(function(x){return x.id===b.id?it:x}):l.concat([it])}),'로라 저장');
+    show('lora');try{history.replaceState(null,'','#lora')}catch(x){}
+  });
+}
+async function delLora(id){
+  if(!confirm('이 기록을 삭제할까요?'))return;
+  try{await saveSite(Object.assign({},S,{loras:(S.loras||[]).filter(function(x){return x.id!==id})}),'로라 삭제')}catch(e){alert(e.message)}
 }
 
 // ===== 에셋 =====
