@@ -57,6 +57,19 @@
    "img": "images/1791566657389_1595.jpg",
    "text": "1girl, solo, adult woman,\n\nupper body,\nbust shot,\nportrait,\nchest-up framing,\nupper torso visible,\nhead and shoulders visible,\ncropped above the waist,\nface focus,\nlooking at viewer,\ncentered composition,\nstraight posture,\nneutral pose,\nshoulders relaxed,\n\nCaucasian, fair skin, pale skin,\n\n1.9::light blonde hair::,\n1.9::bright blonde hair::,\n1.8::pale blonde hair::,\n1.7::champagne blonde hair::,\n1.6::soft beige blonde hair::,\n1.5::clear blonde hair color::,\n1.5::uniform blonde hair from roots to ends::,\n1.4::blonde roots::,\n1.4::blonde hair strands::,\n1.3::soft golden blonde highlights::,\n\n1.5::sky blue eyes::,\n1.4::light blue irises::,\nclear blue eyes,\n\n1.6::very long hair::,\n1.4::waist-length hair::,\n1.6::long wavy hair::,\n1.4::voluminous wavy hair::,\n1.4::soft loose waves::,\n1.3::large flowing waves::,\n1.2::softly curled hair ends::,\nthick flowing hair,\nglossy hair,\nsilky hair,\n\n1.6::forehead exposed::,\n1.5::hair swept away from forehead::,\n1.5::hair pulled back from forehead::,\n1.5::no bangs::,\n1.4::no fringe::,\n\n1.4::beautiful feminine face::,\n1.3::soft anime facial features::,\n1.3::delicate feminine face::,\n1.3::large expressive eyes::,\n1.3::long eyelashes::,\ncurled eyelashes,\n1.2::delicate facial features::,\n1.2::small straight nose::,\n\n1.4::small lips::,\n1.4::small closed mouth::,\n1.4::very pale natural lips::,\n1.3::low-saturation lip color::,\n1.3::almost colorless lips::,\n1.2::minimal lip shading::,\n1.2::matte lips::,\n1.1::subtle natural lip line::,\n\nsoft defined cheekbones,\noval face,\nsmooth clear skin,\n\n1.3::clean anime lineart::,\n1.3::simple refined linework::,\n1.2::soft cel shading::,\n1.2::minimal facial shading::,\n1.2::soft skin rendering::,\n1.2::low-saturation colors::,\n1.2::clean manga-style facial rendering::,",
    "negs": []
+  },
+  {
+   "id": 1791566684970,
+   "title": "Dylan Walker / 딜런 워커",
+   "tag": "OC",
+   "img": "",
+   "text": "1boy, solo, adult man,\n\nCaucasian, fair skin,\n\n1.5::dark brown hair::, 1.3::brown hair::,\n1.4::short hair::, 1.3::thick hair::,\n1.3::slightly messy hair::,\n1.2::soft tousled hair::,\n1.2::natural side part::,\nslightly voluminous hair,\n\n1.5::dark brown eyes::,\n1.4::deep brown irises::,\ndark pupils,\n\n1.4::handsome male::,\n1.4::masculine face::,\n1.4::strong jawline::,\n1.3::defined facial features::,\n1.1::high cheekbones::,\n1.2::straight nose::,\n1.2::thick eyebrows::,\n1.2::slightly hooded eyes::,\n\n1.4::tall::,\n1.5::athletic muscular build::,\n1.6::broad shoulders::,\n1.4::wide chest::,\n1.3::muscular chest::,\n1.4::muscular arms::,\n1.3::defined biceps::,\n1.2::strong forearms::,\n1.2::thick neck::,\n1.2::narrow waist::,\n1.4::V-shaped torso::,\n1.4::powerful athletic physique::,",
+   "negs": [
+    {
+     "label": "딜런 워커 고정 상의",
+     "text": "navy blue football jersey, red and white trim, team logo on shoulder, number \"12\" on chest, black long sleeve undershirt, athletic jersey, sports uniform, notionvc: d75a4aca-be36-4c40-8e76-76ccaa592347"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
