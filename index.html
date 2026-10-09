@@ -35,6 +35,7 @@ nav a.on,nav a:hover{color:#000;font-weight:bold}
 .col{display:flex;flex-direction:column;gap:12px}
 .banner{height:210px;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#e9dde5,#d6dbe9)}
 .banner img{width:100%;height:100%;object-fit:cover;display:block}
+body.adm .banner{cursor:pointer}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .dia{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
 .dia:last-child{border:0}
@@ -398,7 +399,7 @@ details.row summary .da{min-width:44px;text-align:right}
 
   <div class="col">
     <!-- 배너 사진: banner.jpg 라는 이름으로 올리면 나와요 -->
-    <div class="banner"><img src="banner.jpg" alt="" onerror="this.remove()"></div>
+    <div class="banner" id="bannerBox"><img src="banner.jpg" alt="" onerror="this.remove()"></div>
     <div class="two">
       <div class="card"><p class="lb">DIARY</p>
         <div id="diaList"></div>
@@ -418,7 +419,7 @@ details.row summary .da{min-width:44px;text-align:right}
     <div class="card"><p class="lb">D-DAY</p>
       <div class="dd"><div><span class="s-ddn">(기념일 이름)</span><small>기준일 <span id="ddDate">2026-01-01</span></small></div><em id="ddNum"></em></div>
     </div>
-    <div class="card"><p class="lb">TO-DO</p><div class="todo s-todo">(할 일을 적는 곳)</div></div>
+    <div class="card"><p class="lb">TO-DO</p><div class="todo" id="homeTd"><span class="empty">오늘 할 일이 없어요</span></div></div>
   </div>
 </div></section>
 
@@ -954,7 +955,8 @@ function toggleAdm(){
 }
 function renderSite(){
   if(S.profile)document.querySelectorAll('.me .ph').forEach(function(e){e.innerHTML='<img src="'+H(U(S.profile))+'" data-p="'+H(S.profile)+'" alt="" onerror="imgFail(this)">'});
-  T('.s-nick',S.nick);T('.s-tag',S.tag);T('.s-memo',S.memo);T('.s-todo',S.todo);T('.s-ddn',S.ddName);T('.s-notice',S.notice);
+  if(S.banner){var bb=document.getElementById('bannerBox');bb.innerHTML='<img src="'+H(U(S.banner))+'" data-p="'+H(S.banner)+'" alt="" onerror="imgFail(this)">'}
+  T('.s-nick',S.nick);T('.s-tag',S.tag);T('.s-memo',S.memo);T('.s-ddn',S.ddName);T('.s-notice',S.notice);
   if(S.ddDate)document.getElementById('ddDate').textContent=S.ddDate;
   if(S.kw)document.getElementById('iKw').innerHTML=S.kw.split(',').map(function(k){return k.trim()}).filter(Boolean).map(function(k){return '<span>'+H(k)+'</span>'}).join('');
   if(Array.isArray(S.infoRows)||S.info){document.getElementById('iInfo').innerHTML=infoList().filter(function(r){return r.k||r.v}).map(function(r){return r.k?'<div class="kv"><span>'+H(r.k)+'</span><b>'+H(r.v)+'</b></div>':'<p class="kp">'+H(r.v)+'</p>'}).join('')||'<span class="empty">-</span>'}
@@ -1036,16 +1038,17 @@ function editProfile(){
     await saveSite(Object.assign({},S,{profile:pimg}),'프로필 사진 저장');
   });
 }
+document.getElementById('bannerBox').addEventListener('click',function(){if(document.body.classList.contains('adm'))editSite()});
 document.querySelectorAll('.me .ph').forEach(function(e){e.style.cursor='pointer';e.addEventListener('click',function(){if(document.body.classList.contains('adm'))editProfile()})});
 function editSite(){
   var b=S.bgm||{};
   openForm('사이트 설정',[
+    {id:'banner',l:'홈 배너 사진 (가운데 큰 칸에 나와요)',t:'file',v:S.banner},
     {id:'img',l:'프로필 사진',t:'file',v:S.profile},
     {id:'fav',l:'사이트 아이콘 (브라우저 탭에 나오는 작은 그림)',t:'file',v:S.favicon},
     {id:'nick',l:'닉네임',t:'text',v:S.nick},
     {id:'tag',l:'한 줄 소개',t:'text',v:S.tag},
     {id:'memo',l:'홈 메모',t:'area',v:S.memo},
-    {id:'todo',l:'홈 할 일',t:'area',v:S.todo},
     {id:'ddName',l:'D-DAY 이름',t:'text',v:S.ddName},
     {id:'ddDate',l:'D-DAY 기준일 (예: 2026-01-01)',t:'text',v:S.ddDate},
     {id:'bgmUrl',l:'BGM 유튜브 주소',t:'text',v:b.url},
@@ -1055,7 +1058,8 @@ function editSite(){
     var v=function(k){return g(k).value.trim()};
     var pimg=S.profile||'',pfile=g('img').files[0];if(pfile)pimg=await upImg(pfile);
     var fimg=S.favicon||'',ffile=g('fav').files[0];if(ffile)fimg=await upAsset(ffile);
-    await saveSite(Object.assign({},S,{profile:pimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
+    var bimg=S.banner||'',bfile=g('banner').files[0];if(bfile)bimg=await upImg(bfile);
+    await saveSite(Object.assign({},S,{profile:pimg,banner:bimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
     initBgm();
   });
 }
@@ -1434,9 +1438,18 @@ function renderSched(){
   document.getElementById('scTd').innerHTML=tl.length?tl.map(function(t){
     return '<div class="tdr"><label><input type="checkbox"'+(t.done?' checked':'')+(own?'':' disabled')+' onchange="scTodo('+t.id+')"><span class="'+(t.done?'dn2':'')+'">'+H(t.text)+'</span></label><button class="tdx wbtn" type="button" onclick="scDelTodo('+t.id+')">✕</button></div>';
   }).join(''):'<span class="empty">할 일이 없습니다</span>';
+  renderHomeTodo();
   document.getElementById('scCats').innerHTML=s.cats.length?s.cats.map(function(c){
     return '<div class="cti"><i style="background:'+H(c.color)+'"></i><span>'+H(c.name)+'</span><span class="wbtn"><button class="mini" type="button" onclick="editCat('+c.id+')">수정</button><button class="mini" type="button" onclick="delCat('+c.id+')">삭제</button></span></div>';
   }).join(''):'<span class="empty">카테고리가 없습니다</span>';
+}
+function renderHomeTodo(){
+  var el=document.getElementById('homeTd');if(!el)return;
+  var own=document.body.classList.contains('own'),tl=SC().todos.filter(function(t){return t.date===today()});
+  tl.sort(function(a,b){return (a.done?1:0)-(b.done?1:0)||a.id-b.id});
+  el.innerHTML=tl.length?tl.map(function(t){
+    return '<div class="tdr"><label><input type="checkbox"'+(t.done?' checked':'')+(own?'':' disabled')+' onchange="scTodo('+t.id+')"><span class="'+(t.done?'dn2':'')+'">'+H(t.text)+'</span></label></div>';
+  }).join(''):'<span class="empty">오늘 할 일이 없어요</span>';
 }
 function editEv(id,date){
   var s=SC(),e=s.events.filter(function(x){return x.id===id})[0]||{};
@@ -1519,13 +1532,16 @@ function renderThreads(){
         return '<div class="tlr" onclick="openTh('+t.id+')"><div class="tm">'+im(t.cover)+'</div><span class="pill">'+H(t.cat)+'</span><span class="ti">'+H(t.title)+(t.by?'<small>'+H(t.by)+'</small>':'')+'</span><span class="au" style="color:var(--sub);font-size:12px">'+(t.posts||[]).length+'개</span><span class="da">'+H((t.date||'').slice(2).replace(/-/g,'.'))+'</span></div>';
       }).join('');
 }
+function mdTx(t){
+  return H(t).replace(/\*\*\*(.+?)\*\*\*/g,'<b><i>$1</i></b>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>').replace(/~~(.+?)~~/g,'<s>$1</s>').replace(/__(.+?)__/g,'<u>$1</u>');
+}
 function openTh(id){
   var t=thOf(id);if(!t)return;THI=id;
   var av='<div class="av">'+(S.profile?im(S.profile):H((S.nick||'나').charAt(0)))+'</div>',ps=t.posts||[];
   document.getElementById('thL').innerHTML=(t.cover?im(t.cover):'')+'<span class="pill">'+H(t.cat)+'</span><h2>'+H(t.title)+'</h2><p>'+(t.by?H(t.by)+' · ':'')+H((t.date||'').replace(/-/g,'.'))+'</p>'+
     '<div class="admbtn" style="margin-top:10px"><button class="btn" type="button" onclick="closeTh();editTh('+id+')">수정</button> <button class="btn gray" type="button" onclick="closeTh();delTh('+id+')">삭제</button></div>';
   document.getElementById('thR').innerHTML=ps.length?ps.map(function(p,i){
-    return '<div class="tw">'+av+'<div class="tb"><div class="th2"><b>'+H(S.nick||'나')+'</b></div><div class="tx2">'+H(p)+'</div><div class="tn">'+(i+1)+' / '+ps.length+'</div></div></div>';
+    return '<div class="tw">'+av+'<div class="tb"><div class="th2"><b>'+H(S.nick||'나')+'</b></div><div class="tx2">'+mdTx(p)+'</div></div></div>';
   }).join(''):'<p class="empty">아직 내용이 없어요.</p>';
   document.getElementById('thR').scrollTop=0;
   document.getElementById('thm').classList.add('on');
@@ -1540,7 +1556,7 @@ function editTh(id){
     {id:'by',l:'작가 / 감독 등 (비워도 돼요)',t:'text',v:t.by},
     {id:'date',l:'날짜',t:'date',v:t.date||today()},
     {id:'cover',l:'썸네일 (표지 사진)',t:'file',v:t.cover},
-    {id:'posts',l:'타래 내용 — 한 줄에 --- 만 적으면 다음 글로 나뉘어요',t:'area',v:(t.posts||[]).join('\n---\n'),ph:'첫 번째 글\n---\n두 번째 글\n---\n세 번째 글'}
+    {id:'posts',l:'타래 내용 — 한 줄에 --- 만 적으면 다음 글로 나뉘어요 · *기울임* **굵게** ~~취소선~~ __밑줄__',t:'area',v:(t.posts||[]).join('\n---\n'),ph:'첫 번째 글\n---\n두 번째 글\n---\n세 번째 글'}
   ],async function(g){
     var ti=g('title').value.trim();if(!ti)throw new Error('제목을 적어주세요.');
     var ps=g('posts').value.split(/\n\s*-{3,}\s*\n/).map(function(x){return x.trim()}).filter(Boolean);
