@@ -180,6 +180,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 .chip{border:0;background:#ececf0;border-radius:14px;padding:3px 14px;font:inherit;cursor:pointer;margin:0 6px 10px 0}
 .chip.on{background:var(--btn);color:#fff}
 .rv{display:grid;grid-template-columns:260px minmax(0,1fr) 260px;gap:16px;align-items:start}
+.rv>*{min-width:0}
+.rv .pc{width:100%;box-sizing:border-box}
+.rv .pc .kv b{min-width:0;word-break:break-word;overflow-wrap:anywhere}
 .mid img{width:100%;border-radius:20px;display:block}
 .pc{padding:0}
 .pc .hd{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
@@ -885,7 +888,9 @@ function openAsset(aid){
 var cTab='p';
 function setTab(t){cTab=t;viewChar(cur,1)}
 function panel(c,id){
-  var tabs='<div style="margin-bottom:10px">'+[['p','프로필'],['s','서사'],['a','에셋']].map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+x[1]+'</button>'}).join('')+'</div>';
+  var isPair=pf(c)==='r';
+  if(isPair&&cTab==='p')cTab='s';
+  var tabs='<div style="margin-bottom:10px">'+[['p','프로필'],['s','서사'],['a','에셋']].filter(function(x){return !(isPair&&x[0]==='p')}).map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+x[1]+'</button>'}).join('')+'</div>';
   var bar,inner;
   if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
   else if(cTab==='a'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button>';inner='<div id="cAssets"></div>'}
@@ -930,7 +935,7 @@ function viewChar(id,keep){
   var k=pf(c);
   KIND.forEach(function(x){document.getElementById(x+'Grid').style.display='';var w=document.getElementById(x+'View');w.style.display='none';w.innerHTML=''});
   ['psc','psr','psp'].forEach(function(i){document.getElementById(i).textContent=''});
-  if(cur!==id)cTab='p';
+  if(cur!==id)cTab=(k==='r'?'s':'p');
   cur=id;
   document.getElementById({c:'psc',r:'psr',p:'psp'}[k]).textContent=c.name;
   document.getElementById(k+'Grid').style.display='none';
@@ -939,7 +944,7 @@ function viewChar(id,keep){
   var menu='<div class="sub2"><button type="button" onclick="showGrid()">▦ 전체 보기</button>'+same.map(function(x){return '<button type="button" onclick="viewChar('+x.id+')">'+H(x.name)+'</button>'}).join('')+'</div>';
   if(k==='r'){
     v.innerHTML='<div class="tabw rvtop"><button class="tab" type="button" onclick="tgList(this)" aria-label="목록">☰</button>'+menu+
-      '<span class="admbtn" style="margin-left:10px;vertical-align:top"><button class="btn gray" type="button" style="margin:0;height:46px" onclick="editChar('+id+')">✎ 이 페어 수정</button></span></div>'+
+      '<span class="admbtn" style="margin-left:10px;vertical-align:top"><button class="btn gray" type="button" style="margin:0;height:46px" onclick="editChar('+id+')">✎ 이 페어 수정</button><button class="btn gray" type="button" style="margin:0 0 0 6px;height:46px" onclick="delChar('+id+')">삭제</button></span></div>'+
       '<div class="rv">'+slot(c,'a')+'<div class="mid">'+(c.img?im(c.img):'<p class="empty">페어 사진을 추가해 주세요 (수정 → 페어 사진)</p>')+'</div>'+slot(c,'b')+'</div>'+
       '<div class="card" style="margin-top:16px">'+panel(c,id)+'</div>';
   }else{
