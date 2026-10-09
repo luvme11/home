@@ -1,24 +1,6 @@
 {
  "works": [],
- "prompts": [
-  {
-   "id": 1791549915924,
-   "title": "[Caveduck] 임찬희",
-   "tag": "",
-   "img": "images/1791549913877_4752.jpg",
-   "text": "1boy, young man, handsome, fox-like face, sharp upturned narrow eyes, half-lidded eyes, slim sharp jawline, long slender neck, prominent collarbones, ash brown hair, short messy tousled hair, (short back hair:1.3), (tapered nape:1.2), short sides, choppy bangs falling over eyes, a few loose strands, (dark-skinned male:1.3), (tanned skin:1.3), warm tanned skin, sun-kissed golden tan skin tone, hazel gray-brown eyes, subtle mischievous smirk, lean athletic build, long slender fingers, Japanese manga illustration style, thin ink linework, cel shading, sketchy hatching, high detail, soft natural lighting, masterpiece, best quality.",
-   "negs": [
-    {
-     "label": "네거티브",
-     "text": "bad quality, low quality, worst quality, lowres, jpeg artifacts, cropped, bad anatomy, bad proportions, text, watermark, username, artist name, nsfw,\n\n1girl, girl, woman, female, feminine face,\n\n1.7::pale skin::, 1.7::fair skin::, 1.6::porcelain skin::, 1.5::cool undertone::, washed-out skin, rosy cheeks, heavy blush,\n\nround face, baby face, chubby face, wide jaw, short neck,\nbig round eyes, droopy eyes, puppy eyes, thick eyebrows,\nfull lips, glossy lips, lipstick, button nose,\n\nblonde hair, white hair, silver hair, black hair, bright red hair,\nbuzz cut, undercut, bald, pixie cut, bob cut, pageboy haircut,\nvery long hair, ponytail, braids, blunt bangs, curtain bangs,\nslicked-back hair, helmet hair, long mullet, wolf cut,\n\nbodybuilder, extremely muscular, stocky body, overweight,\nstubby fingers, armpit hair, chest hair, body hair,\n\nmultiple people, two boys, couple, group, background person, clone,\nextra head, extra arms, extra legs, fused arms,\nbad hands, extra fingers, six fingers, fused fingers, missing fingers,\ndistorted face, asymmetrical face,\n\n3d, 3d render, 3dcg, cgi, game cg, unreal engine,\nframe, picture frame, decorative border, polaroid frame, comic panel border, wolf cut, mullet, long back hair, hair over neck, long nape hair, ponytail, shaggy layers, lowres, bad anatomy, bad hands, extra fingers, worst quality, low quality, blurry"
-    },
-    {
-     "label": "커플 네거티브",
-     "text": "bad quality, low quality, worst quality, lowres, jpeg artifacts, cropped, bad anatomy, bad proportions, watermark, username, artist name, nsfw,\n\n(boy with pale skin:1.5), (boy with white skin:1.5), (pale-skinned male:1.5), same skin tone, washed-out skin, girlish boy, feminine boy, (two girls:1.4), (2girls:1.4), (two boys:1.4), (2boys:1.4), (yaoi:1.3), (yuri:1.3), multiple girls, multiple boys, boy and boy, girl and girl,\n\ngirl with dark skin, girl with tanned skin, girl with black hair, girl with brown hair, girl with long hair,\n\nround face, baby face, chubby face, wide jaw, short neck, thick neck,\ndroopy eyes, thick eyebrows, lipstick,\n\nbuzz cut, undercut, bald, slicked-back hair,\n\n(wolf cut:1.3), (boy with wolf cut:1.4), mullet, shaggy hair, layered hair, (boy with long hair:1.3), long hair on boy, hair past nape, hair covering neck, hair on neck, back hair, long back hair, hair behind shoulders, ponytail, man bun, hair touching collar,\n\n\nbodybuilder, extremely muscular, stocky body, overweight, stubby fingers, chest hair, armpit hair,\n\nthree people, group, background person, clone, duplicate, extra person, extra character, different outfits, inconsistent appearance,\nextra head, extra arms, bad hands, extra fingers, fused fingers, missing fingers,\ndistorted face, asymmetrical face, hands on wrong person, arms crossing incorrectly,\n(puffed cheeks:1.4), inflated cheeks, cheek puffing, blowing cheeks, fish lips, duck lips,\n\n3d, 3d render, 3dcg, cgi, game cg, realistic, photorealistic, colored border, decorative border, sweat, sweatdrop, sweat drop, sweating, sweaty, perspiration, wet skin"
-    }
-   ]
-  }
- ],
+ "prompts": [],
  "profile": "images/1791546207426_818.jpg",
  "nick": "U2..♡",
  "tag": "앵챗 좋아",
