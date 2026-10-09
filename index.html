@@ -163,7 +163,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 .ab{display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;align-items:start}
 .big .ph{width:140px;height:140px}.big b{font-size:22px}
 .tg{margin-top:10px}.tg span{display:inline-block;background:#ececf0;border-radius:12px;padding:0 11px;font-size:12px;margin:2px}
-.kv{display:flex;gap:16px;padding:2px 0}.kv span{width:90px;color:var(--sub);flex:none}.kv b{font-weight:500}
+.kv{display:flex;gap:16px;padding:2px 0}.kv span{width:90px;color:var(--sub);flex:none}.kv b{font-weight:500;white-space:pre-line}
 .ab .kv{padding:8px 0;border-bottom:1px dashed var(--line)}.ab .kv:last-child{border:0}
 .kp{margin:8px 0;color:#444;white-space:pre-wrap;word-break:break-word}
 .lk{display:inline-block;background:var(--btn);color:#fff;border-radius:12px;padding:3px 16px;margin:0 6px 6px 0;cursor:pointer}
@@ -901,7 +901,7 @@ function panel(c,id){
   var bar,inner;
   if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
   else if(cTab==='a'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button>';inner='<div id="cAssets"></div>'}
-  else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info):'<p class="empty">아직 설정이 없어요.</p>')}
+  else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info,true):'<p class="empty">아직 설정이 없어요.</p>')}
   var body='<div class="tbar">'+bar+'</div><div class="tbd">'+inner+'</div>';
   return tabs+body;
 }
