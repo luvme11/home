@@ -211,7 +211,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 #lb .nav:hover{background:rgba(255,255,255,.3)}
 #lb .pv{left:14px}#lb .nx{right:14px}
 #lb .x{position:absolute;top:14px;right:16px;border:0;background:none;color:#fff;font-size:28px;cursor:pointer}
-#mb pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-word;font:inherit;color:#555;background:#f1f2f5;border-radius:12px;padding:10px 12px;max-height:240px;overflow:auto}
+#mb pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-word;font:inherit;color:#555;background:#f1f2f5;border-radius:12px;padding:10px 12px;max-height:180px;overflow:auto}
+#mb details.sd{margin-top:12px}
 #mb .nl{margin-top:12px;font-size:12px;color:var(--sub)}
 #mb .btn{margin:8px 6px 0 0}
 </style>
@@ -600,6 +601,7 @@ function openForm(title,fields,save){
     else if(f.t==='area')h+='<textarea id="'+id+'" placeholder="'+H(f.ph||'')+'">'+H(f.v||'')+'</textarea>';
     else if(f.t==='color')h+='<input id="'+id+'" type="color" value="'+H(f.v||'#8f7fd0')+'">';
     else if(f.t==='file')h+='<input id="'+id+'" type="file" accept="image/*"'+(f.m?' multiple':'')+'>'+(f.v?'<small>지금 사진이 있어요. 새로 고르지 않으면 그대로 둬요.</small>':'');
+    else if(f.t==='negs')h+='<div id="'+id+'">'+(f.v||[]).map(negRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addNeg()">+ 네거티브 추가</button>';
     else if(f.t==='sel')h+='<select id="'+id+'">'+f.o.map(function(o){return '<option value="'+o[0]+'"'+(o[0]==f.v?' selected':'')+'>'+H(o[1])+'</option>'}).join('')+'</select>';
   });
   h+='<details id="g_cfg"'+(LS('gh_token')?'':' open')+'><summary>저장 설정 (처음 한 번만)</summary><label>깃허브 저장소 주소 (예: 아이디/아이디.github.io)</label><input id="g_repo" type="text" value="'+H(LS('gh_repo')||defRepo())+'"><label>토큰 (내 브라우저에만 저장돼요)</label><input id="g_tok" type="password" value="'+H(LS('gh_token'))+'"></details>';
@@ -691,11 +693,12 @@ function renderPrompts(){
 function closeModal(){document.getElementById('modal').classList.remove('on')}
 function openPrompt(id){
   var p=(S.prompts||[]).filter(function(x){return x.id===id})[0];if(!p)return;
-  var b=document.getElementById('mb');b.style.maxWidth='720px';
-  b.innerHTML=(p.img?'<img src="'+H(U(p.img))+'" data-p="'+H(p.img)+'" alt="" onerror="imgFail(this)" style="max-height:60vh;object-fit:contain;background:#f1f2f5">':'')+
+  var b=document.getElementById('mb');b.style.maxWidth='640px';
+  var ng=negsOf(p);
+  b.innerHTML=(p.img?'<img src="'+H(U(p.img))+'" data-p="'+H(p.img)+'" alt="" onerror="imgFail(this)" style="max-height:34vh;object-fit:contain;background:#f1f2f5">':'')+
     '<h2>'+H(p.title)+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</h2>'+
     '<pre>'+H(p.text)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',0,this)">프롬프트 복사</button>'+
-    (p.neg?'<div class="nl">제외 프롬프트</div><pre>'+H(p.neg)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',1,this)">복사</button>':'')+
+    ng.map(function(n,i){return '<details class="sd"><summary>'+H(n.label||'네거티브')+'</summary><pre>'+H(n.text)+'</pre><button class="btn" type="button" onclick="copyN('+p.id+','+i+',this)">복사</button></details>'}).join('')+
     '<div class="admbtn" style="margin-top:6px"><button class="btn" type="button" onclick="closeModal();editPrompt('+p.id+')">수정</button><button class="btn gray" type="button" onclick="closeModal();delPrompt('+p.id+')">삭제</button></div>';
   document.getElementById('modal').classList.add('on');
 }
@@ -793,18 +796,26 @@ async function delWork(id){
   if(!confirm('이 로그를 삭제할까요?'))return;
   try{await saveSite(Object.assign({},S,{works:(S.works||[]).filter(function(x){return x.id!==id})}),'로그 삭제')}catch(e){alert(e.message)}
 }
+function negsOf(p){return p.negs||(p.neg?[{label:'네거티브',text:p.neg}]:[])}
+function negRow(n){
+  return '<div class="ng" style="border:1px solid var(--line);border-radius:12px;padding:8px;margin-top:8px"><input class="nl_t" type="text" placeholder="제목 (예: 메인 네거티브, 커플 네거티브)" value="'+H(n.label||'')+'"><textarea class="nl_x" style="min-height:90px;margin-top:6px" placeholder="네거티브 프롬프트">'+H(n.text||'')+'</textarea><button type="button" class="lnk" onclick="this.parentNode.remove()">이 칸 삭제</button></div>';
+}
+function addNeg(){document.getElementById('g_negs').insertAdjacentHTML('beforeend',negRow({}))}
+function copyN(id,i,btn){var p=(S.prompts||[]).filter(function(x){return x.id===id})[0];if(p&&negsOf(p)[i])clip(negsOf(p)[i].text,btn)}
 function editPrompt(id){
-  var p=(S.prompts||[]).filter(function(x){return x.id===id})[0]||{};
+  var p=(S.prompts||[]).filter(function(x){return x.id===id})[0]||{},ng=negsOf(p);
+  if(!ng.length)ng=[{label:'메인 네거티브',text:''}];
   openForm(p.id?'프롬프트 수정':'프롬프트 추가',[
     {id:'title',l:'제목',t:'text',v:p.title},
     {id:'tag',l:'분류 (예: 캐릭터, 배경)',t:'text',v:p.tag},
-    {id:'img',l:'결과 사진 (어떻게 나왔는지 / 구도)',t:'file',v:p.img},
+    {id:'img',l:'결과 사진 (썸네일로 나와요)',t:'file',v:p.img},
     {id:'text',l:'프롬프트',t:'area',v:p.text},
-    {id:'neg',l:'제외 프롬프트 (없으면 비워두세요)',t:'area',v:p.neg}
+    {id:'negs',l:'네거티브 프롬프트 (여러 개 추가할 수 있어요. 예: 메인 / 커플)',t:'negs',v:ng}
   ],async function(g){
     var t=g('title').value.trim(),x=g('text').value.trim();if(!t||!x)throw new Error('제목과 프롬프트를 적어주세요.');
     var img=p.img||'',f=g('img').files[0];if(f)img=await upImg(f);
-    var it={id:p.id||Date.now(),title:t,tag:g('tag').value.trim(),img:img,text:x,neg:g('neg').value.trim()},l=S.prompts||[];
+    var negs=Array.prototype.map.call(document.querySelectorAll('#g_negs .ng'),function(r){return {label:r.querySelector('.nl_t').value.trim(),text:r.querySelector('.nl_x').value.trim()}}).filter(function(n){return n.text});
+    var it={id:p.id||Date.now(),title:t,tag:g('tag').value.trim(),img:img,text:x,negs:negs},l=S.prompts||[];
     await saveSite(Object.assign({},S,{prompts:p.id?l.map(function(y){return y.id===p.id?it:y}):l.concat([it])}),'프롬프트 저장: '+t);
   });
 }
