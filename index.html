@@ -385,6 +385,21 @@ details.row summary .da{min-width:44px;text-align:right}
 #thb .tn{color:var(--sub);font-size:11px;margin-top:6px}
 #thb .rx{position:absolute;top:8px;right:12px;z-index:2;border:0;background:rgba(255,255,255,.85);border-radius:50%;width:32px;height:32px;font-size:20px;line-height:1;cursor:pointer;color:var(--ink)}
 @media(max-width:900px){#thb{grid-template-columns:1fr;height:auto;max-height:94vh;overflow:auto}#thb .thl,#thb .thr{overflow:visible}}
+
+/* ===== 프롬프트: 가로 4칸 · 페이지 · 카테고리 ===== */
+#pList.pl4{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+#pList.pl4 .wt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#pList.pl4 .admbtn .btn{padding:3px 10px;font-size:12px}
+.pbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:26px;flex-wrap:wrap}
+.pg{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pg button{min-width:34px;height:34px;border-radius:12px;border:1px solid var(--line);background:#fff;font:inherit;color:var(--sub);cursor:pointer;padding:0 8px}
+.pg button:hover{color:var(--ink);border-color:#b9bdc9}
+.pg button.on{background:var(--btn);color:#fff;border-color:var(--btn);font-weight:bold}
+.pg button:disabled{opacity:.4;cursor:default}
+.pcat{display:flex;gap:4px;flex-wrap:wrap;background:rgba(255,255,255,.35);border-radius:14px;padding:4px;margin-left:auto;justify-content:flex-end}
+.pcat .chip{margin:0;background:none;color:var(--sub)}
+.pcat .chip.on{background:var(--btn);color:#fff;font-weight:bold}
+@media(max-width:600px){#pList.pl4{gap:8px}#pList.pl4 .admbtn .btn{padding:2px 6px;font-size:11px}.pbar{justify-content:center}.pcat{margin-left:0;justify-content:center}}
 </style>
 </head>
 <body>
@@ -513,7 +528,8 @@ details.row summary .da{min-width:44px;text-align:right}
 <section class="page" id="prompt">
   <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editPrompt()">✎ 프롬프트 추가</button>
   <h1 class="pt">PROMPT</h1><p class="ps"></p>
-  <div id="pList" class="grid"></div>
+  <div id="pList" class="grid pl4"></div>
+  <div class="pbar"><div id="pPager" class="pg"></div><div id="pCats" class="pcat"></div></div>
 </section>
 
 <!-- ================= 스케줄러 ================= -->
@@ -974,15 +990,35 @@ function renderSite(){
   if(S.favicon){var fv=document.getElementById('favicon');fv.removeAttribute('type');fv.href=U(S.favicon);fv.onerror=function(){fv.onerror=null;fv.href=RAW(S.favicon)}}
   if(S.bgm){if(S.bgm.url)document.getElementById('bgmUrl').textContent=S.bgm.url;T('#mp .tx b',S.bgm.title);T('#mp .tx span',S.bgm.artist)}
 }
+var pCat='전체',pPage=1,PPER=8;
+function setPC(c){pCat=c;pPage=1;renderPrompts()}
+function setPP(n){pPage=n;renderPrompts();var e=document.getElementById('prompt');if(e)window.scrollTo(0,0)}
 function renderPrompts(){
-  var l=(S.prompts||[]).slice().reverse();
-  document.getElementById('pList').innerHTML=l.length?l.map(function(p){
+  var all=(S.prompts||[]).slice().reverse();
+  var cats=[];all.forEach(function(p){var t=(p.tag||'').trim();if(t&&cats.indexOf(t)<0)cats.push(t)});
+  if(pCat!=='전체'&&cats.indexOf(pCat)<0)pCat='전체';
+  var l=all.filter(function(p){return pCat==='전체'||(p.tag||'').trim()===pCat});
+  var pages=Math.max(1,Math.ceil(l.length/PPER));
+  if(pPage>pages)pPage=pages;if(pPage<1)pPage=1;
+  var cur=l.slice((pPage-1)*PPER,pPage*PPER);
+  document.getElementById('pList').innerHTML=cur.length?cur.map(function(p){
     return '<div class="wk"><div class="sq" style="cursor:pointer" onclick="openPrompt('+p.id+')">'+
       (p.img?im(p.img):'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(p.title)+'</span>')+'</div>'+
       '<div class="wt">'+H(p.title)+'</div>'+
       '<div class="admbtn" style="text-align:center"><button class="btn" type="button" onclick="editPrompt('+p.id+')">수정</button> <button class="btn gray" type="button" onclick="delPrompt('+p.id+')">삭제</button></div></div>';
-  }).join(''):'<p class="empty">아직 프롬프트가 없어요.</p>';
+  }).join(''):'<p class="empty" style="grid-column:1/-1">아직 프롬프트가 없어요.</p>';
+  var pg='';
+  if(pages>1){
+    pg+='<button type="button" onclick="setPP('+(pPage-1)+')"'+(pPage===1?' disabled':'')+' aria-label="이전">‹</button>';
+    for(var n=1;n<=pages;n++)pg+='<button type="button" class="'+(n===pPage?'on':'')+'" onclick="setPP('+n+')">'+n+'</button>';
+    pg+='<button type="button" onclick="setPP('+(pPage+1)+')"'+(pPage===pages?' disabled':'')+' aria-label="다음">›</button>';
+  }
+  document.getElementById('pPager').innerHTML=pg;
+  document.getElementById('pCats').innerHTML=cats.length?['전체'].concat(cats).map(function(c){
+    return '<button type="button" class="chip'+(pCat===c?' on':'')+'" data-c="'+H(c)+'">'+H(c)+'</button>';
+  }).join(''):'';
 }
+document.addEventListener('click',function(e){var b=e.target.closest('#pCats .chip');if(b)setPC(b.getAttribute('data-c'))});
 function closeModal(){document.getElementById('modal').classList.remove('on')}
 function openPrompt(id){
   var p=(S.prompts||[]).filter(function(x){return x.id===id})[0];if(!p)return;
