@@ -1,4 +1,16 @@
 {
- "chars": [],
+ "chars": [
+  {
+   "id": 1791563214109,
+   "name": "1",
+   "color": "#8f7fd0",
+   "img": "images/1791563211976_2727.jpg",
+   "info": "",
+   "type": "persona",
+   "a": 0,
+   "b": 0,
+   "assets": []
+  }
+ ],
  "rels": []
 }
