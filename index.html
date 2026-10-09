@@ -413,7 +413,19 @@ body.adm .tbar{min-height:34px;margin-bottom:10px}
 .tbd{min-height:60px}
 .tbd p.empty{margin:0;font-size:13px}
 /* ===== 로라 ===== */
-.lolist{display:flex;flex-direction:column;gap:16px;max-width:860px}
+.lolist{display:grid}
+#loList.pl4{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+#loList .wt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#loList .admbtn .btn{padding:3px 10px;font-size:12px}
+#loList .sq{cursor:pointer}
+@media(max-width:900px){#loList.pl4{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){#loList.pl4{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#loList .admbtn .btn{padding:2px 6px;font-size:11px}}
+#mb .rich{line-height:1.8;word-break:break-word}
+#mb .rich img{width:auto;max-width:100%;max-height:none;object-fit:contain;margin:0 0 10px;display:block;cursor:default}
+#mb .rich p{margin:0 0 6px}
+#mb .rich a.mn{color:var(--ink);text-decoration:none;border-bottom:1px solid #c9ccd6}
+#mb .rich a.mn:hover{border-color:var(--ink)}
+#mb .rich a.mn img{width:20px;height:20px;max-width:none;display:inline-block;margin:0 4px 0 0;vertical-align:middle;border-radius:0}
 .lo{background:var(--card);border-radius:20px;padding:20px 22px;box-shadow:0 4px 18px rgba(60,64,80,.06)}
 .lo h3{margin:0 0 12px;font-size:16px;letter-spacing:.02em}
 .lo .rich img{display:block;width:100%;max-width:100%;border-radius:14px;margin:0 0 12px}
@@ -564,7 +576,7 @@ body.adm .tbar{min-height:34px;margin-bottom:10px}
 <section class="page" id="lora">
   <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editLora()">✎ 로라 쓰기</button>
   <h1 class="pt">LORA</h1><p class="ps"></p>
-  <div id="loList" class="lolist"></div>
+  <div id="loList" class="grid pl4"></div>
 </section>
 
 <!-- ================= 스케줄러 ================= -->
@@ -1256,10 +1268,11 @@ function fromEd(h){
   r.querySelectorAll('img[data-p]').forEach(function(i){i.setAttribute('src',i.getAttribute('data-p'))});
   return clean(r.innerHTML);
 }
-function hydrate(el){
+function hydrate(el,nz){
   el.querySelectorAll('.rich img').forEach(function(i){
     var p=i.getAttribute('data-p')||i.getAttribute('src')||'';
     if(p&&!/^(https?:|data:|blob:)/.test(p)){i.setAttribute('data-p',p);i.onerror=function(){imgFail(i)};i.src=U(p)}
+    if(nz||i.closest('a'))return; /* 링크 안 아이콘·모달 안 사진은 확대 안 함 */
     i.style.cursor='zoom-in';i.onclick=function(){zoom(i.src)};
   });
 }
@@ -1462,14 +1475,33 @@ function rLora(){
   var host='';try{host=new URL(u).hostname}catch(e){}
   rc('insertHTML','<p><a class="mn" href="'+H(u)+'" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain='+H(host)+'&amp;sz=64" alt="">'+H(n)+'</a>'+(w.trim()?' 비중 '+H(w.trim()):'')+'</p>');
 }
+function loThumb(html){
+  var r=P(clean(html||'')),im=null;
+  var all=r.querySelectorAll('img');
+  for(var k=0;k<all.length;k++){if(!all[k].closest('a')){im=all[k];break}}
+  if(!im)return '';
+  var p=im.getAttribute('data-p')||im.getAttribute('src')||'';
+  if(!p)return '';
+  if(/^(https?:|data:|blob:)/.test(p))return '<img src="'+H(p)+'" alt="">';
+  return '<img src="'+H(U(p))+'" data-p="'+H(p)+'" alt="" onerror="imgFail(this)">';
+}
 function renderLora(){
   var el=document.getElementById('loList');if(!el)return;
   var l=(S.loras||[]).slice().sort(function(a,b){return b.id-a.id});
   el.innerHTML=l.length?l.map(function(b){
-    return '<div class="lo">'+(b.title?'<h3>'+H(b.title)+'</h3>':'')+'<div class="rich">'+clean(b.html)+'</div>'+
-      '<div class="admbtn"><button class="btn" type="button" onclick="editLora('+b.id+')">수정</button><button class="btn gray" type="button" onclick="delLora('+b.id+')">삭제</button></div></div>';
-  }).join(''):'<p class="empty">아직 기록이 없어요.</p>';
-  hydrate(el);
+    var th=loThumb(b.html),t=b.title||'제목 없음';
+    return '<div class="wk"><div class="sq" onclick="openLora('+b.id+')">'+(th||'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(t)+'</span>')+'</div>'+
+      '<div class="wt">'+H(t)+'</div>'+
+      '<div class="admbtn" style="text-align:center"><button class="btn" type="button" onclick="editLora('+b.id+')">수정</button> <button class="btn gray" type="button" onclick="delLora('+b.id+')">삭제</button></div></div>';
+  }).join(''):'<p class="empty" style="grid-column:1/-1">아직 기록이 없어요.</p>';
+}
+function openLora(id){
+  var b=(S.loras||[]).filter(function(x){return x.id===id})[0];if(!b)return;
+  var m=document.getElementById('mb');m.style.maxWidth='760px';
+  m.innerHTML=(b.title?'<h2>'+H(b.title)+'</h2>':'')+'<div class="rich">'+clean(b.html)+'</div>'+
+    '<div class="admbtn" style="margin-top:10px"><button class="btn" type="button" onclick="closeModal();editLora('+b.id+')">수정</button><button class="btn gray" type="button" onclick="closeModal();delLora('+b.id+')">삭제</button></div>';
+  hydrate(m,true);
+  document.getElementById('modal').classList.add('on');
 }
 function editLora(id){
   var b=(S.loras||[]).filter(function(x){return x.id===id})[0]||{};
