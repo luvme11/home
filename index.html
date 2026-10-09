@@ -686,6 +686,7 @@ document.addEventListener('click',function(e){
   if(!a) return;
   e.preventDefault();
   var id=a.getAttribute('href').slice(1);
+  if(id==='chars'||id==='persona'||id==='rels'){try{showGrid()}catch(x){}}
   show(id);
   try{history.replaceState(null,'','#'+id)}catch(x){}
 });
