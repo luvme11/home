@@ -423,7 +423,7 @@ details.row summary .da{min-width:44px;text-align:right}
     <div class="card"><p class="lb">D-DAY</p>
       <div class="dd"><div><span class="s-ddn">(기념일 이름)</span><small>기준일 <span id="ddDate">2026-01-01</span></small></div><em id="ddNum"></em></div>
     </div>
-    <div class="card"><p class="lb">TO-DO</p><div class="todo" id="homeTd"><span class="empty">오늘 할 일이 없어요</span></div></div>
+    <div class="card"><p class="lb" id="homeDayT">오늘 일정</p><div id="homeTd"><span class="empty">오늘 일정이 없어요</span></div></div>
   </div>
 </div></section>
 
@@ -509,7 +509,7 @@ details.row summary .da{min-width:44px;text-align:right}
 
 <!-- ================= 스케줄러 ================= -->
 <section class="page" id="sched">
-  <h1 class="pt">SCHEDULER</h1><p class="ps">월간 캘린더 + 투두 + D-day</p>
+  <h1 class="pt">SCHEDULER</h1><p class="ps">월간 캘린더 + D-day</p>
   <div class="sc">
     <div class="card">
       <div class="scnav"><button class="scb" type="button" onclick="scMove(-1)" aria-label="이전 달">‹</button><h2 id="scTitle"></h2><button class="scb" type="button" onclick="scMove(1)" aria-label="다음 달">›</button></div>
@@ -517,11 +517,9 @@ details.row summary .da{min-width:44px;text-align:right}
       <div class="scg" id="scGrid"></div>
     </div>
     <div class="col">
-      <div class="card"><p class="lb" id="scDayT">일정</p><div id="scDay"></div><button class="btn wbtn" type="button" onclick="editEv(0,scSel)">+ 일정 추가</button></div>
+      <div class="card"><p class="lb" id="scDayT">일정</p><div id="scDay"></div><button class="btn admbtn" type="button" onclick="editEv(0,scSel)">+ 일정 추가</button></div>
       <div class="card"><p class="lb">D-DAY</p><div class="dd"><div><span id="scDdN"></span></div><em id="scDdV"></em></div></div>
-      <div class="card"><p class="lb" id="scTdT">TO-DO</p><div id="scTd"></div>
-        <div class="wbtn" style="width:100%"><div class="tdf"><input id="scTdIn" type="text" placeholder="할 일 추가" onkeydown="if(event.key==='Enter'&&!event.isComposing)scAddTodo()"><button class="btn" type="button" onclick="scAddTodo()">추가</button></div></div></div>
-      <div class="card"><p class="lb">카테고리</p><div id="scCats"></div><button class="btn wbtn" type="button" onclick="editCat()">+ 카테고리 추가</button></div>
+      <div class="card" id="scCatCard"><p class="lb">카테고리</p><div id="scCats"></div><button class="btn admbtn" type="button" onclick="editCat()">+ 카테고리 추가</button></div>
     </div>
   </div>
 </section>
@@ -1437,27 +1435,25 @@ function renderSched(){
   document.getElementById('scDay').innerHTML=dl.length?dl.map(function(e){
     var c=scCat(s,e.cat);
     return '<div class="sdi"><span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm">'+H(e.memo)+'</div>':'')+
-      '<div class="wbtn"><button class="mini" type="button" onclick="editEv('+e.id+')">수정</button><button class="mini" type="button" onclick="delEv('+e.id+')">삭제</button></div></div></div>';
+      '<div class="admbtn"><button class="mini" type="button" onclick="editEv('+e.id+')">수정</button><button class="mini" type="button" onclick="delEv('+e.id+')">삭제</button></div></div></div>';
   }).join(''):'<span class="empty">이 날짜에 일정이 없습니다</span>';
   document.getElementById('scDdN').textContent=S.ddName||document.querySelector('.s-ddn').textContent;
   document.getElementById('scDdV').textContent=ddText();
-  document.getElementById('scTdT').textContent='TO-DO · '+pad2(sd.getMonth()+1)+'.'+pad2(sd.getDate());
-  var own=document.body.classList.contains('own'),tl=s.todos.filter(function(t){return t.date===scSel});
-  document.getElementById('scTd').innerHTML=tl.length?tl.map(function(t){
-    return '<div class="tdr"><label><input type="checkbox"'+(t.done?' checked':'')+(own?'':' disabled')+' onchange="scTodo('+t.id+')"><span class="'+(t.done?'dn2':'')+'">'+H(t.text)+'</span></label><button class="tdx wbtn" type="button" onclick="scDelTodo('+t.id+')">✕</button></div>';
-  }).join(''):'<span class="empty">할 일이 없습니다</span>';
   renderHomeTodo();
   document.getElementById('scCats').innerHTML=s.cats.length?s.cats.map(function(c){
-    return '<div class="cti"><i style="background:'+H(c.color)+'"></i><span>'+H(c.name)+'</span><span class="wbtn"><button class="mini" type="button" onclick="editCat('+c.id+')">수정</button><button class="mini" type="button" onclick="delCat('+c.id+')">삭제</button></span></div>';
+    return '<div class="cti"><i style="background:'+H(c.color)+'"></i><span>'+H(c.name)+'</span><span class="admbtn"><button class="mini" type="button" onclick="editCat('+c.id+')">수정</button><button class="mini" type="button" onclick="delCat('+c.id+')">삭제</button></span></div>';
   }).join(''):'<span class="empty">카테고리가 없습니다</span>';
+  var cc=document.getElementById('scCatCard');if(cc)cc.style.display=(s.cats.length||document.body.classList.contains('adm'))?'':'none';
 }
 function renderHomeTodo(){
   var el=document.getElementById('homeTd');if(!el)return;
-  var own=document.body.classList.contains('own'),tl=SC().todos.filter(function(t){return t.date===today()});
-  tl.sort(function(a,b){return (a.done?1:0)-(b.done?1:0)||a.id-b.id});
-  el.innerHTML=tl.length?tl.map(function(t){
-    return '<div class="tdr"><label><input type="checkbox"'+(t.done?' checked':'')+(own?'':' disabled')+' onchange="scTodo('+t.id+')"><span class="'+(t.done?'dn2':'')+'">'+H(t.text)+'</span></label></div>';
-  }).join(''):'<span class="empty">오늘 할 일이 없어요</span>';
+  var s=SC(),tk=today(),td=new Date(tk+'T00:00:00');
+  var t=document.getElementById('homeDayT');if(t)t.textContent=pad2(td.getMonth()+1)+'월 '+pad2(td.getDate())+'일 일정';
+  var dl=s.events.filter(function(e){return evOn(e,tk)}).sort(evSort);
+  el.innerHTML=dl.length?dl.map(function(e){
+    var c=scCat(s,e.cat);
+    return '<div class="sdi"><span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm">'+H(e.memo)+'</div>':'')+'</div></div>';
+  }).join(''):'<span class="empty">오늘 일정이 없어요</span>';
 }
 function editEv(id,date){
   var s=SC(),e=s.events.filter(function(x){return x.id===id})[0]||{};
@@ -1499,23 +1495,6 @@ async function delCat(id){
   var s=SC();
   try{await saveSc(Object.assign({},s,{cats:s.cats.filter(function(x){return x.id!==id})}),'카테고리 삭제')}catch(e){alert(e.message)}
 }
-async function scAddTodo(){
-  if(needCfg())return;
-  var inp=document.getElementById('scTdIn'),t=inp.value.trim();if(!t)return;
-  var s=SC();
-  try{await saveSc(Object.assign({},s,{todos:s.todos.concat([{id:Date.now(),date:scSel,text:t,done:false}])}),'할 일 추가');inp.value=''}catch(e){alert(e.message)}
-}
-async function scTodo(id){
-  if(needCfg()){renderSched();return}
-  var s=SC();
-  try{await saveSc(Object.assign({},s,{todos:s.todos.map(function(x){return x.id===id?Object.assign({},x,{done:!x.done}):x})}),'할 일 체크')}catch(e){alert(e.message);renderSched()}
-}
-async function scDelTodo(id){
-  if(needCfg())return;
-  var s=SC();
-  try{await saveSc(Object.assign({},s,{todos:s.todos.filter(function(x){return x.id!==id})}),'할 일 삭제')}catch(e){alert(e.message)}
-}
-
 // ===== 기록: 감상타래 =====
 var THC=['도서','영화','드라마','애니','만화','웹툰','웹소'],thCat='전체',thView='t',thQ='',THI=null;
 function thOf(id){return (S.threads||[]).filter(function(x){return x.id===id})[0]}
