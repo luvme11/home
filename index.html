@@ -347,6 +347,13 @@ details.row summary .da{min-width:44px;text-align:right}
 .sdi .bar2{width:4px;border-radius:2px;flex:none}
 .sdi b{font-weight:600}.sdi small{display:block;color:var(--sub);font-size:11px}
 .sdi .mm{white-space:pre-wrap;word-break:break-word;color:#555;font-size:12px}
+.sdi .ck{appearance:none;-webkit-appearance:none;flex:none;width:16px;height:16px;margin:3px 0 0;border:1.5px solid #c3c6ce;border-radius:5px;background:#fff;cursor:pointer;position:relative;transition:.15s}
+.sdi .ck:hover{border-color:var(--btn)}
+.sdi .ck:checked{background:var(--btn);border-color:var(--btn)}
+.sdi .ck:checked::after{content:'';position:absolute;left:4.5px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.sdi.done b{text-decoration:line-through;text-decoration-thickness:1.5px}
+.sdi.done b,.sdi.done small,.sdi.done .mm{color:var(--sub);opacity:.7}
+.sdi.done .bar2{opacity:.4}
 .mini{border:0;background:#ececf0;border-radius:8px;padding:1px 9px;font:inherit;font-size:11px;cursor:pointer;margin:4px 4px 0 0;color:var(--ink)}
 .cti{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
 .cti:last-of-type{border:0}
@@ -1178,7 +1185,10 @@ function renderDiary(){
 function goBoard(){show('board');try{history.replaceState(null,'','#board')}catch(x){}}
 function renderAll(){renderSite();renderDiary();renderPrompts();renderLora();renderWorks();renderBoard();renderSched();renderThreads()}
 function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;renderAll();dday()})}
-ld('site.json').then(function(d){S=d||{}}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
+ld('site.json').then(function(d){S=d||{};
+  /* 분류 이름 변경: 잡담→HTML, 기타→잡담 (기존 글도 한 번만 옮김) */
+  if(S.board&&!S.catMig){S.board.forEach(function(b){if(b.kind==='road')return;if(b.cat==='잡담')b.cat='HTML';else if(b.cat==='기타')b.cat='잡담'});S.catMig=1}
+}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
 
 function editProfile(){
   openForm('프로필 사진',[{id:'img',l:'사진 (프로필 동그라미에 나와요)',t:'file',v:S.profile}],async function(g){
@@ -1293,7 +1303,7 @@ async function delPrompt(id){
 
 
 // ===== 게시판 (글 / 로드비) =====
-var BCATS=['공지','정보','프리셋','링크','잡담','기타'],bCat='전체',bQ='';
+var BCATS=['공지','정보','프리셋','링크','HTML','잡담'],bCat='전체',bQ='';
 function P(h){return new DOMParser().parseFromString('<div>'+String(h||'')+'</div>','text/html').body.firstChild}
 function clean(h){
   var r=P(h);
@@ -1365,7 +1375,7 @@ function renderBoard(){
     return b.id-a.id});
   var el=document.getElementById('bList');
   el.innerHTML=l.length?l.map(function(b){
-    return '<details class="row"><summary><span class="pill">'+H(b.cat||'기타')+'</span><span class="ti">'+H(b.title)+'</span><span class="au">'+H(S.nick||'')+'</span><span class="da">'+md(b.id)+'</span></summary><div class="body"><div class="rich">'+clean(b.html)+'</div>'+
+    return '<details class="row"><summary><span class="pill">'+H(b.cat||'잡담')+'</span><span class="ti">'+H(b.title)+'</span><span class="au">'+H(S.nick||'')+'</span><span class="da">'+md(b.id)+'</span></summary><div class="body"><div class="rich">'+clean(b.html)+'</div>'+
       '<div class="admbtn"><button class="btn" type="button" onclick="editBoard('+b.id+')">수정</button> <button class="btn gray" type="button" onclick="delBoard('+b.id+')">삭제</button></div></div></details>';
   }).join(''):'<p class="empty">'+(bQ?'검색 결과가 없어요.':'아직 글이 없어요.')+'</p>';
   hydrate(el);
@@ -1668,6 +1678,11 @@ function ddText(){
   return n>=0?'D+'+(n+1):'D'+n;
 }
 function evSort(a,b){return (a.time||'99')<(b.time||'99')?-1:(a.time||'99')>(b.time||'99')?1:a.id-b.id}
+function dnGet(){try{return JSON.parse(localStorage.getItem('sc_done')||'{}')}catch(e){return {}}}
+function dnKey(id,k){return id+'|'+k}
+function dnOn(id,k){return !!dnGet()[dnKey(id,k)]}
+function dnToggle(id,k,on){var m=dnGet(),kk=dnKey(id,k);if(on)m[kk]=1;else delete m[kk];try{localStorage.setItem('sc_done',JSON.stringify(m))}catch(e){}renderSched()}
+function evCk(id,k){return '<input type=\"checkbox\" class=\"ck\"'+(dnOn(id,k)?' checked':'')+' onchange=\"dnToggle('+id+',\''+k+'\',this.checked)\" aria-label=\"완료\">'}
 function renderSched(){
   var g=document.getElementById('scGrid');if(!g)return;
   var s=SC(),first=new Date(scY,scM,1).getDay(),dim=new Date(scY,scM+1,0).getDate(),weeks=Math.ceil((first+dim)/7),tk=today(),h='';
@@ -1685,7 +1700,7 @@ function renderSched(){
   var dl=s.events.filter(function(e){return evOn(e,scSel)}).sort(evSort);
   document.getElementById('scDay').innerHTML=dl.length?dl.map(function(e){
     var c=scCat(s,e.cat);
-    return '<div class="sdi"><span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm">'+H(e.memo)+'</div>':'')+
+    return '<div class="sdi'+(dnOn(e.id,scSel)?' done':'')+'">'+evCk(e.id,scSel)+'<span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm">'+H(e.memo)+'</div>':'')+
       '<div class="admbtn"><button class="mini" type="button" onclick="editEv('+e.id+')">수정</button><button class="mini" type="button" onclick="delEv('+e.id+')">삭제</button></div></div></div>';
   }).join(''):'<span class="empty">이 날짜에 일정이 없습니다</span>';
   document.getElementById('scDdN').textContent=S.ddName||document.querySelector('.s-ddn').textContent;
@@ -1702,7 +1717,7 @@ function renderHomeTodo(){
   var dl=s.events.filter(function(e){return evOn(e,tk)}).sort(evSort);
   el.innerHTML=dl.length?dl.map(function(e){
     var c=scCat(s,e.cat);
-    return '<div class="sdi"><span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm">'+H(e.memo)+'</div>':'')+'</div></div>';
+    return '<div class="sdi'+(dnOn(e.id,tk)?' done':'')+'">'+evCk(e.id,tk)+'<span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm">'+H(e.memo)+'</div>':'')+'</div></div>';
   }).join(''):'<span class="empty">오늘 일정이 없어요</span>';
 }
 function editEv(id,date){
