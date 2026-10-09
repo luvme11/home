@@ -176,6 +176,27 @@
      "text": "bad quality, low quality, worst quality, lowres,\njpeg artifacts, scan artifacts, cropped, error,\nbad composition, bad anatomy, bad proportions,\nbad hands, bad fingers, missing fingers, extra fingers,\nextra hands, extra arms, extra legs,\ntext, watermark, username, artist name, copyright name,\n\ntan skin, tanned skin, medium tan skin,\ndark tan skin, deeply tanned skin,\nbrown skin, warm brown skin,\ngolden brown skin, bronze skin,\nsun-kissed skin, sun-tanned skin,\ndark skin, deep brown complexion,\norange skin, reddish brown skin,\noverly warm skin tone,\n\nwashed-out skin, desaturated skin,\noverexposed skin, whitewashed complexion,\n\nsmile, smiling,\ngrin, grinning,\nsmirk, smirking,\nfaint smile, sly smile,\ngentle smile, soft smile, warm smile,\nplayful smile, teasing smile,\ncheerful expression, happy expression,\nopen-mouth smile, showing teeth, laughing,\nblushing,\n\ngentle expression, kind expression,\nsoft expression, sweet expression,\ninnocent expression, shy expression,\ncute expression, friendly expression,\npuppy eyes, innocent eyes,\ntimid, bashful, boyish innocence,\ncute boy, soft boy, pretty boy,\n\nlarge eyes, round eyes, wide eyes,\nsparkling eyes, cute eyes,\nsharp upturned eyes, fox eyes,\nblue eyes, green eyes, red eyes,\n\nsmall nose, short nose, tiny nose,\nbutton nose, flat nose, upturned nose,\n\nround face, baby face, chubby face,\nextremely pointed chin,\nvery sharp V-shaped jaw,\nfeminine face, bishounen face,\n\nfull lips, thick lips, plump lips,\nglossy lips, lip gloss, lipstick,\nbright pink lips, red lips,\nparted lips,\n\nblonde hair, brown hair, black hair,\nblue hair, bright purple hair,\nlavender hair, pink hair,\n\nlong hair, shoulder-length hair,\nponytail, long mullet, long wolf cut,\nlong nape, center part, curtain bangs,\nslicked back hair, bowl cut,\nneat straight hairstyle,\n\nround glasses, circular glasses,\noval glasses, tiny glasses,\nrimless glasses, sunglasses,\ncat-eye glasses,\n\n3d, 3d render, 3dcg, cgi,\ngame cg, game character render,\n3d anime, 3d model,\nunreal engine, blender render,\n\nthird person, extra person,\nbackground person, crowd,\nduplicate person, cloned character,\nextra face, extra head, extra body"
     }
    ]
+  },
+  {
+   "id": 1791567065923,
+   "title": "차서린",
+   "tag": "DREAM",
+   "img": "images/1791567063705_6943.jpg",
+   "text": "1girl, solo, young woman, anime style,\n\n1.6::pale skin::, 1.5::fair skin::, 1.4::porcelain skin::, ivory skin, cool-toned pale skin, clear smooth skin, soft natural blush,\n\nblack hair, long black hair, high ponytail, neatly tied ponytail, soft flowing ponytail,\n1.6::see-through bangs::, 1.5::thin wispy bangs::, 1.4::airy transparent bangs::, soft face-framing strands, forehead slightly visible through the bangs, light delicate fringe, slight volume at the crown,\n\ndeep black-brown eyes, glossy dark eyes, almond-shaped eyes, slightly upturned eyes, soft cat-like eyes, defined upper eyelashes, long eyelashes,\n\nsmall delicate face, slim face, softly defined jawline, small nose, small mouth, thin soft lips,\ndelicate facial features, youthful feminine features, pure and gentle beauty,\n\nslender build, narrow shoulders, slim neck, visible collarbones,\ngentle expression, calm gaze, soft smile, innocent atmosphere, elegant mood,\n\nclean lineart, soft shading, detailed eyes, detailed hair, delicate illustration, high detail, best quality,",
+   "negs": [
+    {
+     "label": "전용 네거티브",
+     "text": "bad quality, low quality, worst quality, lowres, blurry, jpeg artifacts, cropped, text, watermark, username, artist name,\nbad anatomy, bad proportions, bad hands, bad fingers, extra fingers, missing fingers, extra arms, extra legs, deformed body,\n\ntan skin, dark skin, tanned skin, warm skin tone, yellow skin, orange skin, red skin, heavy blush,\nshort hair, bob cut, twintails, braid, bun, low ponytail, side ponytail,\nthick bangs, blunt bangs, full bangs, heavy bangs, straight-across bangs, curtain bangs, side-swept bangs, solid bangs, dense bangs, opaque bangs, no bangs,\nround eyes, big round eyes, droopy eyes, puppy eyes,\nthick lips, glossy lips, lipstick, heavy makeup,\nmuscular build, curvy build, wide shoulders,\nopen mouth, exaggerated smile, laughing, sweat, sweatdrop, sweat drop, sweating, sweaty, perspiration, wet skin"
+    },
+    {
+     "label": "차서린 전용 상의",
+     "text": "school uniform, white collared shirt, crisp white pointed collar, large red ribbon bow at the neck, bright red bow tie, neatly tied ribbon, white uniform blouse underneath,\n\nlight gray zip-up hoodie, pale gray hoodie, soft heather gray hoodie, oversized hoodie, loose fit, unzipped hoodie, open front hoodie, hood down, visible zipper, white drawstrings, long sleeves, relaxed casual fit,"
+    },
+    {
+     "label": "차서린 전용 하",
+     "text": "black pleated skirt, school uniform skirt, black uniform skirt, high-waisted skirt, dark black skirt, neat pleats, above-knee length"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
