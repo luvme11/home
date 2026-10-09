@@ -1,6 +1,15 @@
 {
  "works": [],
- "prompts": [],
+ "prompts": [
+  {
+   "id": 1791562191057,
+   "title": "전신",
+   "tag": "전신",
+   "img": "images/1791562189459_7860.jpg",
+   "text": "1girl, solo, adult woman,\n\n1.9::full body::,\n1.8::head-to-toe shot::,\n1.8::entire body visible::,\n1.7::feet fully visible::,\n1.7::shoes fully visible::,\n1.6::standing full-body portrait::,\n1.6::camera pulled back::,\n1.5::medium-long distance::,\n1.5::full figure centered in frame::,\n1.4::space around the entire body::,\n1.4::uncropped full-body composition::,\nlooking at viewer,\nstraight posture,\nneutral pose,\nshoulders relaxed,",
+   "negs": []
+  }
+ ],
  "profile": "images/1791557129112_1856.jpg",
  "nick": "U2..♡",
  "tag": "앵챗 좋아",
