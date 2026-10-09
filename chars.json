@@ -1,4 +1,16 @@
 {
- "chars": [],
+ "chars": [
+  {
+   "id": 1791569425192,
+   "name": "선유이",
+   "color": "#8f7fd0",
+   "img": "images/1791569422963_2664.jpg",
+   "info": "",
+   "type": "persona",
+   "a": 0,
+   "b": 0,
+   "assets": []
+  }
+ ],
  "rels": []
 }
