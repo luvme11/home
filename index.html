@@ -1489,9 +1489,9 @@ function renderLora(){
   var el=document.getElementById('loList');if(!el)return;
   var l=(S.loras||[]).slice().sort(function(a,b){return b.id-a.id});
   el.innerHTML=l.length?l.map(function(b){
-    var th=loThumb(b.html),t=b.title||'제목 없음';
-    return '<div class="wk"><div class="sq" onclick="openLora('+b.id+')">'+(th||'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(t)+'</span>')+'</div>'+
-      '<div class="wt">'+H(t)+'</div>'+
+    var th=loThumb(b.html),t=b.title||'';
+    return '<div class="wk"><div class="sq" onclick="openLora('+b.id+')">'+(th||(t?'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(t)+'</span>':''))+'</div>'+
+      (t?'<div class="wt">'+H(t)+'</div>':'')+
       '<div class="admbtn" style="text-align:center"><button class="btn" type="button" onclick="editLora('+b.id+')">수정</button> <button class="btn gray" type="button" onclick="delLora('+b.id+')">삭제</button></div></div>';
   }).join(''):'<p class="empty" style="grid-column:1/-1">아직 기록이 없어요.</p>';
 }
