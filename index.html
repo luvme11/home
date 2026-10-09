@@ -100,12 +100,14 @@ h3{font-size:14px;margin:24px 0 6px;letter-spacing:.06em}
 #disc{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle,#fff 0 3px,#222 4px 6px,#4b5360 7px);flex:none}
 #disc.has{background-color:#4b5360;background-size:cover;background-position:center;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.25)}
 #disc.has::after{content:"";position:absolute;inset:0;margin:auto;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(34,34,34,.85)}
-#disc.spin{animation:sp 4s linear infinite}
+#disc{animation:sp 4s linear infinite;animation-play-state:paused}
+#disc.spin{animation-play-state:running}
 @keyframes sp{to{transform:rotate(360deg)}}
 #mp .tx{width:120px;line-height:1.3}
 #mp .tx b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #mp .tx span{font-size:11px;color:var(--sub)}
 #mp button{border:0;background:none;cursor:pointer;color:#444;font-size:14px;padding:2px 4px}
+#mp #pp{width:28px;height:28px;padding:0;text-align:center;line-height:28px;flex:none;overflow:hidden;white-space:nowrap}
 #mp input{width:70px;accent-color:#444}
 #bgmUrl{display:none}
 #yt{position:fixed;left:-400px;top:0;width:200px;height:200px}
