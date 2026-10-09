@@ -41,7 +41,15 @@
    "kind": "road",
    "cat": "",
    "title": "",
-   "html": "<img src=\"images/1791552103586_3609.png\" data-p=\"images/1791552103586_3609.png\" alt=\"\">"
+   "html": "<img src=\"images/1791552103586_3609.png\" data-p=\"images/1791552103586_3609.png\" alt=\"\">",
+   "cm": [
+    {
+     "id": 1791552120122,
+     "nick": "1",
+     "body": "에",
+     "t": 1791552120122
+    }
+   ]
   }
  ]
 }
