@@ -50,5 +50,17 @@
   }
  ],
  "threads": [],
- "banner": "images/1791557138605_9904.jpg"
+ "banner": "images/1791557138605_9904.jpg",
+ "sched": {
+  "cats": [],
+  "events": [],
+  "todos": [
+   {
+    "id": 1791557564782,
+    "date": "2026-10-10",
+    "text": "노션 백업",
+    "done": false
+   }
+  ]
+ }
 }
