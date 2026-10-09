@@ -301,6 +301,10 @@ details.row summary .da{min-width:44px;text-align:right}
 #rdb .rin{display:flex;gap:8px}
 #rdb .rin .btn{margin:0;border-radius:14px;padding:0 18px;font-weight:bold}
 #rdb .rx{position:absolute;top:8px;left:12px;z-index:2;border:0;background:rgba(255,255,255,.85);border-radius:50%;width:32px;height:32px;font-size:20px;line-height:1;cursor:pointer;color:var(--ink)}
+.cmi.re{margin-left:18px;padding-left:10px;border-left:2px solid var(--line)}
+.cmi .cdel.rb{color:#5d636e}
+.cmi .at{color:#4a63b8;margin:0 4px 0 0;font-size:inherit}
+#rdb .rrp{display:flex;justify-content:space-between;align-items:center;background:#ececf0;border-radius:10px;padding:4px 12px;margin-bottom:8px;font-size:12px;color:var(--sub)}
 .cmmsg{color:var(--sub);padding:10px 0;font-size:12px}
 @media(max-width:900px){#rdb{grid-template-columns:1fr;height:auto;max-height:94vh;overflow:auto}#rdb .rl{overflow:visible;padding-top:44px}#rdb .rr{border-left:0;border-top:1px solid var(--line)}}
 </style>
@@ -464,6 +468,7 @@ details.row summary .da{min-width:44px;text-align:right}
     <div class="rhd" id="rdHd"></div>
     <div class="rcl" id="rdCm"></div>
     <div class="rcf" id="rdForm">
+      <div class="rrp" id="rdRp" style="display:none"></div>
       <div class="rnk"><span class="gb">NAME</span><input id="cmNick" type="text" maxlength="20" placeholder="이름 (매번 바꿔도 돼요)"></div>
       <div class="rin"><input id="cmBody" type="text" maxlength="500" placeholder="댓글 남기기..." onkeydown="if(event.key==='Enter'&&!event.isComposing)sendCm()"><button class="btn" type="button" onclick="sendCm()">POST</button></div>
     </div>
@@ -1093,7 +1098,7 @@ function renderBoard(){
   var r=all.filter(function(b){return b.kind==='road'}).sort(function(a,b){return b.id-a.id});
   var rl=document.getElementById('rdList');
   rl.innerHTML=r.length?r.map(function(b){
-    return '<div class="rtile" data-id="'+b.id+'" onclick="openRoad('+b.id+')"><div style="width:100%;height:100%">'+roadThumb(b)+'</div><span class="rcn"></span></div>';
+    return '<div class="rtile" data-id="'+b.id+'" onclick="openRoad('+b.id+')"><div style="width:100%;height:100%">'+roadThumb(b)+'</div></div>';
   }).join(''):'<p class="empty">아직 로드비가 없어요.</p>';
   cmCounts();
 }
@@ -1106,29 +1111,35 @@ function roadThumb(b){
   return '<span class="rtx">'+H((r.textContent||'').trim().slice(0,70))+'</span>';
 }
 function roadOf(id){return (S.board||[]).filter(function(x){return x.id===id})[0]}
-function cmCounts(){
-  document.querySelectorAll('.rtile').forEach(function(t){
-    var b=roadOf(Number(t.dataset.id)),n=b?(b.cm||[]).length:0,e=t.querySelector('.rcn');
-    e.textContent='💬 '+n;e.style.display=n?'block':'none';
-  });
-}
+function cmCounts(){}
 function openRoad(id){
   var b=roadOf(id);if(!b)return;
-  RDI=id;
+  RDI=id;RP=0;
   var body=document.getElementById('rdBody');body.innerHTML=clean(b.html);hydrate(body.parentNode);
   document.getElementById('rdHd').innerHTML='<div class="av">'+(S.profile?im(S.profile):H((S.nick||'나').charAt(0)))+'</div><div><b>'+H(S.nick||'나')+'</b><span>'+ago(b.id)+'</span></div>';
   document.getElementById('rdAdm').innerHTML='<button class="btn" type="button" onclick="closeRoad();editBoard('+id+')">수정</button> <button class="btn gray" type="button" onclick="closeRoad();delBoard('+id+')">삭제</button>';
   var nk=document.getElementById('cmNick');if(!nk.value)nk.value=LS('cm_nick')||'';
   document.getElementById('rdForm').style.display=document.body.classList.contains('own')?'':'none';
   document.getElementById('rd').classList.add('on');
-  renderCm();
+  renderCm();showRp();
 }
-function closeRoad(){document.getElementById('rd').classList.remove('on');RDI=null}
+function closeRoad(){document.getElementById('rd').classList.remove('on');RDI=null;RP=0}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!document.getElementById('modal').classList.contains('on'))closeRoad()});
+var RP=0;
+function setRp(id){RP=id;showRp();if(id)document.getElementById('cmBody').focus()}
+function showRp(){
+  var e=document.getElementById('rdRp'),b=roadOf(RDI),c=RP&&b?(b.cm||[]).filter(function(x){return x.id===RP})[0]:null;
+  if(!c){RP=0;e.style.display='none';e.innerHTML='';return}
+  e.style.display='flex';e.innerHTML='<span>↳ '+H(c.nick)+'님에게 답글</span><button type="button" class="lnk" onclick="setRp(0)">취소</button>';
+}
+function cmItem(c,isRe){
+  return '<div class="cmi'+(isRe?' re':'')+'"><b>'+H(c.nick)+'</b><span>'+md(c.t||c.id)+'</span><button class="cdel rb wbtn" type="button" onclick="setRp('+c.id+')">답글</button><button class="cdel admbtn" type="button" onclick="delCm('+c.id+')">삭제</button><div>'+(c.to?'<span class="at">@'+H(c.to)+'</span>':'')+H(c.body)+'</div></div>';
+}
 function renderCm(){
   var el=document.getElementById('rdCm'),b=roadOf(RDI),l=(b&&b.cm)||[];
-  el.innerHTML=l.length?l.map(function(c){
-    return '<div class="cmi"><b>'+H(c.nick)+'</b><span>'+md(c.t||c.id)+'</span><button class="cdel admbtn" type="button" onclick="delCm('+c.id+')">삭제</button><div>'+H(c.body)+'</div></div>';
+  var tops=l.filter(function(c){return !c.re});
+  el.innerHTML=tops.length?tops.map(function(c){
+    return cmItem(c,false)+l.filter(function(r){return r.re===c.id}).map(function(r){return cmItem(r,true)}).join('');
   }).join(''):'<div class="cmmsg">아직 댓글이 없어요.</div>';
   el.scrollTop=el.scrollHeight;
 }
@@ -1138,16 +1149,18 @@ async function sendCm(){
   if(!n){alert('이름을 적어주세요.');return}
   if(!t)return;
   LS('cm_nick',n);
-  var now=Date.now(),id=RDI;
-  var next=(S.board||[]).map(function(x){return x.id===id?Object.assign({},x,{cm:(x.cm||[]).concat([{id:now,nick:n,body:t,t:now}])}):x});
-  try{await saveSite(Object.assign({},S,{board:next}),'댓글 저장');bd.value='';renderCm()}
+  var now=Date.now(),id=RDI,cur=roadOf(id),tg=RP&&cur?(cur.cm||[]).filter(function(x){return x.id===RP})[0]:null;
+  var item={id:now,nick:n,body:t,t:now};
+  if(tg){item.re=tg.re||tg.id;if(tg.re)item.to=tg.nick}
+  var next=(S.board||[]).map(function(x){return x.id===id?Object.assign({},x,{cm:(x.cm||[]).concat([item])}):x});
+  try{await saveSite(Object.assign({},S,{board:next}),'댓글 저장');bd.value='';RP=0;showRp();renderCm()}
   catch(e){alert(e.message)}
 }
 async function delCm(cid){
-  if(!confirm('이 댓글을 삭제할까요?'))return;
+  if(!confirm('이 댓글을 삭제할까요? (달린 답글도 같이 지워져요)'))return;
   var id=RDI;
-  var next=(S.board||[]).map(function(x){return x.id===id?Object.assign({},x,{cm:(x.cm||[]).filter(function(c){return c.id!==cid})}):x});
-  try{await saveSite(Object.assign({},S,{board:next}),'댓글 삭제');renderCm()}
+  var next=(S.board||[]).map(function(x){return x.id===id?Object.assign({},x,{cm:(x.cm||[]).filter(function(c){return c.id!==cid&&c.re!==cid})}):x});
+  try{await saveSite(Object.assign({},S,{board:next}),'댓글 삭제');RP=0;showRp();renderCm()}
   catch(e){alert(e.message)}
 }
 
