@@ -894,12 +894,10 @@ function panel(c,id){
   return tabs+body;
 }
 function slot(c,side){
-  var cx=c[side+'x'];
-  var o=cx?cx:CH(c[side]);
-  var cand=D.chars.filter(function(x){return x.type!=='pair'&&x.id!==c.id});
-  var opts='<option value="">선택 안 함</option>'+cand.map(function(x){return '<option value="'+x.id+'"'+(!cx&&x.id===c[side]?' selected':'')+'>'+H(x.name)+'</option>'}).join('')+'<option value="x"'+(cx?' selected':'')+'>✎ 직접 입력 (OC에 없는 캐릭터)</option>';
-  var box=o?pc(o):'<div class="card pc"><div class="hd"><b style="color:var(--sub);font-weight:normal">'+(side==='a'?'(왼쪽 캐릭터 없음)':'(오른쪽 캐릭터 없음)')+'</b></div></div>';
-  return '<div>'+box+'<div class="admbtn slot"><select onchange="setSide('+c.id+',\''+side+'\',this.value)">'+opts+'</select>'+(cx?'<button class="btn gray" type="button" style="margin:6px 0 0" onclick="editSide('+c.id+',\''+side+'\')">✎ 이 캐릭터 수정</button>':'')+'</div></div>';
+  var o=c[side+'x']||CH(c[side]);
+  var nm=side==='a'?'왼쪽':'오른쪽';
+  var box=o?pc(o):'<div class="card pc"><div class="hd"><b style="color:var(--sub);font-weight:normal">('+nm+' 캐릭터 없음)</b></div></div>';
+  return '<div>'+box+'<div class="admbtn slot"><button class="btn gray" type="button" style="margin:6px 0 0" onclick="editSide('+c.id+',\''+side+'\')">'+(o?'✎ '+nm+' 캐릭터 수정':'+ '+nm+' 캐릭터 추가')+'</button></div></div>';
 }
 function needCfg(){
   if(LS('gh_token')&&LS('gh_repo'))return false;
@@ -914,8 +912,8 @@ async function setSide(id,side,v){
 }
 function editSide(id,side){
   var c=CH(id);if(!c)return;
-  var x=c[side+'x']||{};
-  openForm((side==='a'?'왼쪽':'오른쪽')+' 캐릭터 직접 입력',[
+  var x=c[side+'x']||CH(c[side])||{};
+  openForm((side==='a'?'왼쪽':'오른쪽')+' 캐릭터',[
     {id:'n',l:'이름',t:'text',v:x.name},
     {id:'c',l:'대표 색',t:'color',v:x.color},
     {id:'i',l:'사진',t:'file',v:x.img},
@@ -942,7 +940,7 @@ function viewChar(id,keep){
   if(k==='r'){
     v.innerHTML='<div class="tabw rvtop"><button class="tab" type="button" onclick="tgList(this)" aria-label="목록">☰</button>'+menu+
       '<span class="admbtn" style="margin-left:10px;vertical-align:top"><button class="btn gray" type="button" style="margin:0;height:46px" onclick="editChar('+id+')">✎ 이 페어 수정</button></span></div>'+
-      '<div class="rv">'+slot(c,'a')+'<div class="mid">'+im(c.img)+'</div>'+slot(c,'b')+'</div>'+
+      '<div class="rv">'+slot(c,'a')+'<div class="mid">'+(c.img?im(c.img):'<p class="empty">페어 사진을 추가해 주세요 (수정 → 페어 사진)</p>')+'</div>'+slot(c,'b')+'</div>'+
       '<div class="card" style="margin-top:16px">'+panel(c,id)+'</div>';
   }else{
     v.innerHTML='<div class="cv"><div class="tabw"><button class="tab" type="button" onclick="tgList(this)" aria-label="목록">☰</button>'+menu+'</div>'+
@@ -1005,16 +1003,14 @@ function editChar(id,type){
   openForm(({pair:'페어',persona:'페르소나'}[c.type]||'캐릭터')+(c.id?' 수정':' 추가'),[
     {id:'name',l:'이름 (페어는 ○○ × ○○ 처럼 적어도 돼요)',t:'text',v:c.name},
     {id:'type',l:'구분',t:'sel',o:[['main','메인'],['pair','페어'],['persona','페르소나']],v:c.type||'main'},
-    {id:'pa',l:'페어 왼쪽 (OC·페르소나에서 고르거나, 직접 입력)',t:'sel',o:[['','선택 안 함']].concat(D.chars.filter(function(x){return x.type!=='pair'&&x.id!==c.id}).map(function(x){return [x.id,x.name]})).concat([['x','✎ 직접 입력 (OC에 없는 캐릭터)']]),v:c.ax?'x':(c.a||'')},
-    {id:'axn',l:'페어 왼쪽 이름',t:'text',v:(c.ax||{}).name},
-    {id:'axc',l:'페어 왼쪽 대표 색',t:'color',v:(c.ax||{}).color},
-    {id:'axi',l:'페어 왼쪽 사진',t:'file',v:(c.ax||{}).img},
-    {id:'axt',l:'페어 왼쪽 설정 (한 줄에 하나씩)',t:'area',v:(c.ax||{}).info,ph:'성별: Male\n키: 183cm'},
-    {id:'pb',l:'페어 오른쪽 (OC·페르소나에서 고르거나, 직접 입력)',t:'sel',o:[['','선택 안 함']].concat(D.chars.filter(function(x){return x.type!=='pair'&&x.id!==c.id}).map(function(x){return [x.id,x.name]})).concat([['x','✎ 직접 입력 (OC에 없는 캐릭터)']]),v:c.bx?'x':(c.b||'')},
-    {id:'bxn',l:'페어 오른쪽 이름',t:'text',v:(c.bx||{}).name},
-    {id:'bxc',l:'페어 오른쪽 대표 색',t:'color',v:(c.bx||{}).color},
-    {id:'bxi',l:'페어 오른쪽 사진',t:'file',v:(c.bx||{}).img},
-    {id:'bxt',l:'페어 오른쪽 설정 (한 줄에 하나씩)',t:'area',v:(c.bx||{}).info,ph:'성별: Male\n키: 183cm'},
+    {id:'axn',l:'왼쪽 캐릭터 이름',t:'text',v:(c.ax||CH(c.a)||{}).name},
+    {id:'axc',l:'왼쪽 캐릭터 대표 색',t:'color',v:(c.ax||CH(c.a)||{}).color},
+    {id:'axi',l:'왼쪽 캐릭터 사진',t:'file',v:(c.ax||CH(c.a)||{}).img},
+    {id:'axt',l:'왼쪽 캐릭터 설정 (한 줄에 하나씩, 이렇게 적어요 → 성별: Male)',t:'area',v:(c.ax||CH(c.a)||{}).info,ph:'성별: Male\n키: 183cm\n성격: ...'},
+    {id:'bxn',l:'오른쪽 캐릭터 이름',t:'text',v:(c.bx||CH(c.b)||{}).name},
+    {id:'bxc',l:'오른쪽 캐릭터 대표 색',t:'color',v:(c.bx||CH(c.b)||{}).color},
+    {id:'bxi',l:'오른쪽 캐릭터 사진',t:'file',v:(c.bx||CH(c.b)||{}).img},
+    {id:'bxt',l:'오른쪽 캐릭터 설정 (한 줄에 하나씩, 이렇게 적어요 → 성별: Male)',t:'area',v:(c.bx||CH(c.b)||{}).info,ph:'성별: Male\n키: 183cm\n성격: ...'},
     {id:'color',l:'대표 색',t:'color',v:c.color},
     {id:'img',l:'사진',t:'file',v:c.img},
     {id:'info',l:'설정 (한 줄에 하나씩, 이렇게 적어요 → 성별: Male)',t:'area',v:c.info,ph:'성별: Male\n키: 183cm\n성격: ...'}
@@ -1024,27 +1020,26 @@ function editChar(id,type){
     var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[]};
     if(it.type==='pair'){
       for(var sd of ['a','b']){
-        var v=g('p'+sd).value;
-        if(v==='x'){
-          var xn=g(sd+'xn').value.trim();if(!xn)throw new Error((sd==='a'?'왼쪽':'오른쪽')+' 캐릭터 이름을 적어주세요.');
-          var old=c[sd+'x']||{},xi=old.img||'',xf=g(sd+'xi').files[0];if(xf)xi=await upImg(xf);
-          it[sd+'x']={name:xn,color:g(sd+'xc').value,img:xi,info:g(sd+'xt').value};
-        }else{it[sd]=v?Number(v):0}
+        var xn=g(sd+'xn').value.trim();
+        if(!xn)continue;
+        var old=c[sd+'x']||CH(c[sd])||{},xi=old.img||'',xf=g(sd+'xi').files[0];
+        if(xf)xi=await upImg(xf);
+        it[sd+'x']={name:xn,color:g(sd+'xc').value,img:xi,info:g(sd+'xt').value};
       }
     }
     cur=it.id;
     await saveData({chars:c.id?D.chars.map(function(x){return x.id===c.id?it:x}):D.chars.concat([it]),rels:D.rels},'캐릭터 저장: '+name);
   });
   var show=function(id,on){var e=G(id);if(!e)return;e.style.display=on?'':'none';var l=e.previousElementSibling;if(l&&l.tagName==='LABEL')l.style.display=on?'':'none';var n=e.nextElementSibling;if(n&&n.tagName==='SMALL')n.style.display=on?'':'none'};
+  var lab=function(id,t){var e=G(id);if(e&&e.previousElementSibling)e.previousElementSibling.textContent=t};
   var tgPair=function(){
     var pr=G('type').value==='pair';
-    ['a','b'].forEach(function(sd){
-      var cu=pr&&G('p'+sd).value==='x';
-      show('p'+sd,pr);
-      ['xn','xc','xi','xt'].forEach(function(k){show(sd+k,cu)});
-    });
+    ['a','b'].forEach(function(sd){['xn','xc','xi','xt'].forEach(function(k){show(sd+k,pr)})});
+    lab('img',pr?'페어 사진 (가운데에 크게 나와요)':'사진');
+    lab('info',pr?'페어 설정 (한 줄에 하나씩)':'설정 (한 줄에 하나씩, 이렇게 적어요 → 성별: Male)');
+    lab('color',pr?'페어 대표 색':'대표 색');
   };
-  G('type').onchange=tgPair;G('pa').onchange=tgPair;G('pb').onchange=tgPair;tgPair();
+  G('type').onchange=tgPair;tgPair();
 }
 async function delChar(id){
   if(!confirm('이 캐릭터를 삭제할까요? 이 캐릭터가 들어간 관계도 같이 지워져요.'))return;
