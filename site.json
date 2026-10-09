@@ -52,7 +52,13 @@
  "threads": [],
  "banner": "images/1791557138605_9904.jpg",
  "sched": {
-  "cats": [],
+  "cats": [
+   {
+    "id": 1791559076787,
+    "name": "AI",
+    "color": "#f4c3c3"
+   }
+  ],
   "events": [],
   "todos": []
  }
