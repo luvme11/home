@@ -182,7 +182,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 .rv{display:grid;grid-template-columns:260px minmax(0,1fr) 260px;gap:16px;align-items:start}
 .rv>*{min-width:0}
 .rv .pc{width:100%;box-sizing:border-box}
-.rv .pc .kv b{min-width:0;word-break:break-word;overflow-wrap:anywhere}
+.rv .pc .kv b{white-space:pre-line;min-width:0;word-break:break-word;overflow-wrap:anywhere}
 .mid img{width:100%;border-radius:20px;display:block}
 .pc{padding:0}
 .pc .hd{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
@@ -830,14 +830,20 @@ function U(p){return LOCAL[p]||p}
 function RAW(p){var r=LS('gh_repo')||defRepo();return r?'https://raw.githubusercontent.com/'+r+'/main/'+p:p}
 function imgFail(i){var p=i.getAttribute('data-p');if(p&&!i.dataset.t){i.dataset.t='1';i.src=RAW(p)}else i.remove()}
 function im(p){return p?'<img src="'+H(U(p))+'" data-p="'+H(p)+'" alt="" onerror="imgFail(this)">':''}
-function rows(t){return String(t||'').split('\n').map(function(l){
-  var i=l.search(/[:：]/);
-  if(i>0&&i<14)return '<div class="kv"><span>'+H(l.slice(0,i).trim())+'</span><b>'+H(l.slice(i+1).trim())+'</b></div>';
-  return l.trim()?'<p class="kp">'+H(l.trim())+'</p>':'';
-}).join('')}
+function rows(t,cont){
+  var out=[],last=null;
+  String(t||'').split('\n').forEach(function(l){
+    var i=l.search(/[:：]/);
+    if(i>0&&i<14){last={k:l.slice(0,i).trim(),v:l.slice(i+1).trim()};out.push(last);return}
+    if(!l.trim()){last=null;return}
+    if(cont&&last){last.v+='\n'+l.trim();return}
+    out.push({p:l.trim()});
+  });
+  return out.map(function(o){return o.p!==undefined?'<p class="kp">'+H(o.p)+'</p>':'<div class="kv"><span>'+H(o.k)+'</span><b>'+H(o.v)+'</b></div>'}).join('')
+}
 function pc(c){
   if(!c)return '<div class="card pc"><div class="hd">(삭제된 캐릭터)</div></div>';
-  return '<div class="card pc"><div class="hd"><span class="ic" style="background:'+H(c.color||'#5d636e')+'">'+im(c.img)+'</span><b>'+H(c.name)+'</b></div><div class="bd">'+rows(c.info)+'</div></div>';
+  return '<div class="card pc"><div class="hd"><span class="ic" style="background:'+H(c.color||'#5d636e')+'">'+im(c.img)+'</span><b>'+H(c.name)+'</b></div><div class="bd">'+rows(c.info,true)+'</div></div>';
 }
 var KIND=['c','p','r'],EMPTY={c:'아직 캐릭터가 없어요.',p:'아직 페르소나가 없어요.',r:'아직 페어가 없어요.'},PAGE={c:'chars',p:'persona',r:'rels'};
 function pf(c){return c&&c.type==='persona'?'p':c&&c.type==='pair'?'r':'c'}
