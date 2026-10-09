@@ -1243,7 +1243,7 @@ async function delPrompt(id){
 
 
 // ===== 게시판 (글 / 로드비) =====
-var BCATS=['공지','정보','잡담','기타'],bCat='전체',bQ='';
+var BCATS=['공지','정보','링크','잡담','기타'],bCat='전체',bQ='';
 function P(h){return new DOMParser().parseFromString('<div>'+String(h||'')+'</div>','text/html').body.firstChild}
 function clean(h){
   var r=P(h);
@@ -1256,7 +1256,26 @@ function clean(h){
     });
     if(e.tagName==='A'){e.setAttribute('target','_blank');e.setAttribute('rel','noopener noreferrer')}
   });
+  autolink(r);
   return r.innerHTML;
+}
+/* 글 속 http(s) 주소는 링크 버튼 없이도 자동으로 클릭되는 링크로 바꿈 */
+function autolink(root){
+  var doc=root.ownerDocument,w=doc.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),ns=[],n;
+  while((n=w.nextNode())){if(/https?:\/\//.test(n.nodeValue)&&!(n.parentNode.closest&&n.parentNode.closest('a,script,style,textarea')))ns.push(n)}
+  ns.forEach(function(t){
+    var s=t.nodeValue,re=/https?:\/\/[^\s<>"']+/g,m,last=0,f=doc.createDocumentFragment();
+    while((m=re.exec(s))){
+      var u=m[0].replace(/[.,;:!?)\]}\u2026]+$/,'');
+      if(!/^https?:\/\/[^\s\/]+/.test(u))continue;
+      if(m.index>last)f.appendChild(doc.createTextNode(s.slice(last,m.index)));
+      var a=doc.createElement('a');a.setAttribute('href',u);a.setAttribute('target','_blank');a.setAttribute('rel','noopener noreferrer');a.textContent=u;
+      f.appendChild(a);last=m.index+u.length;
+    }
+    if(!last)return;
+    if(last<s.length)f.appendChild(doc.createTextNode(s.slice(last)));
+    t.parentNode.replaceChild(f,t);
+  });
 }
 function toEd(h){
   var r=P(clean(h));
@@ -1386,18 +1405,34 @@ function rc(cmd,val){
 function rLink(){
   var u=prompt('링크 주소를 넣어주세요 (https://...)');if(!u)return;
   if(!/^(https?:|mailto:|#)/.test(u))u='https://'+u;
-  if(RS&&RS.collapsed)rc('insertHTML','<a href="'+H(u)+'">'+H(u)+'</a>');else rc('createLink',u);
+  if(RS&&RS.collapsed)rc('insertHTML','<a href="'+H(u)+'">'+H(u)+'</a>&nbsp;');else rc('createLink',u);
 }
 function rImgUrl(){var u=prompt('이미지 주소를 넣어주세요 (https://...)');if(u)rc('insertHTML','<img src="'+H(u)+'" alt="">')}
 // 구글 드라이브/문서 링크를 붙여넣으면 아이콘 + "Google Drive 파일" 링크로 자동 변환 (기존 글과 같은 모양)
+function linkTag(u){
+  var m=/^https:\/\/(drive|docs)\.google\.com\//.exec(u);
+  if(m)return '<a class="mn" href="'+H(u)+'" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=drive.google.com&amp;sz=64" alt="">'+(m[1]==='drive'?'Google Drive 파일':'Google 문서')+'</a>';
+  return '<a href="'+H(u)+'" target="_blank" rel="noopener noreferrer">'+H(u)+'</a>';
+}
+function linkLine(s){
+  var out='',last=0,m,re=/https?:\/\/[^\s<>"']+/g;
+  while((m=re.exec(s))){
+    var u=m[0].replace(/[.,;:!?)\]}\u2026]+$/,'');
+    out+=H(s.slice(last,m.index))+linkTag(u);last=m.index+u.length;
+  }
+  return out+H(s.slice(last));
+}
 document.addEventListener('paste',function(e){
   var t=e.target;if(!t||!t.closest||!t.closest('#eb2 .re'))return;
-  var txt=((e.clipboardData&&e.clipboardData.getData('text/plain'))||'').trim();
-  var m=/^https:\/\/(drive|docs)\.google\.com\/\S+$/.exec(txt);
-  if(!m)return;
+  var cd=e.clipboardData;if(!cd)return;
+  var txt=(cd.getData('text/plain')||'').trim();
+  if(!/https?:\/\//.test(txt))return;
+  var lines=txt.split(/\r?\n/);
+  var onlyUrls=lines.every(function(l){l=l.trim();return !l||/^https?:\/\/\S+$/.test(l)});
+  var hasHtml=cd.types&&Array.prototype.indexOf.call(cd.types,'text/html')>-1;
+  if(hasHtml&&!onlyUrls)return; /* 웹페이지에서 복사한 서식 있는 글은 그대로 붙여넣기 */
   e.preventDefault();
-  var label=m[1]==='drive'?'Google Drive 파일':'Google 문서';
-  document.execCommand('insertHTML',false,'<a class="mn" href="'+H(txt)+'" target="_blank" rel="noopener noreferrer"><img src="https://www.google.com/s2/favicons?domain=drive.google.com&amp;sz=64" alt="">'+label+'</a>&nbsp;');
+  document.execCommand('insertHTML',false,lines.map(linkLine).join('<br>')+'&nbsp;');
 });
 // 게시판 글: 하나를 펼치면 다른 글은 자동으로 접기
 document.addEventListener('toggle',function(e){
@@ -1444,12 +1479,13 @@ function editBoard(id,kind){
   var b=(S.board||[]).filter(function(x){return x.id===id})[0]||{};
   openForm(b.id?'게시판 글 수정':'게시판 글쓰기',[
     {id:'kind',l:'종류',t:'sel',o:[['post','글'],['road','로드비 (타임라인)']],v:b.kind||kind||'post'},
-    {id:'cat',l:'분류',t:'sel',o:BCATS.map(function(c){return [c,c]}),v:b.cat||'잡담'},
+    {id:'cat',l:'분류',t:'sel',o:BCATS.map(function(c){return [c,c]}),v:b.cat||(BCATS.indexOf(bCat)>-1?bCat:'잡담')},
     {id:'title',l:'제목',t:'text',v:b.title},
     {id:'body',l:'내용 (굵게·기울임·링크·사진·HTML 직접 입력 모두 가능해요)',t:'rich',v:b.html}
   ],async function(g){
     var kd=g('kind').value,html=richVal('body'),t=g('title').value.trim();
     if(!/<img|<iframe|<hr/i.test(html)&&!html.replace(/<[^>]*>|&nbsp;|\s/g,''))throw new Error('내용을 적어주세요.');
+    if(kd==='post'&&!t&&g('cat').value==='링크'){var la=P(html).querySelector('a[href]');if(la){try{t=new URL(la.getAttribute('href')).hostname.replace(/^www\./,'')}catch(x){}}}
     if(kd==='post'&&!t)throw new Error('제목을 적어주세요.');
     var it={id:b.id||Date.now(),kind:kd,cat:kd==='post'?g('cat').value:'',title:kd==='post'?t:'',html:html},l=S.board||[];
     await saveSite(Object.assign({},S,{board:b.id?l.map(function(x){return x.id===b.id?it:x}):l.concat([it])}),'게시판 저장');
