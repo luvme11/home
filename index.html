@@ -211,6 +211,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 #lb .nav:hover{background:rgba(255,255,255,.3)}
 #lb .pv{left:14px}#lb .nx{right:14px}
 #lb .x{position:absolute;top:14px;right:16px;border:0;background:none;color:#fff;font-size:28px;cursor:pointer}
+#mb pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-word;font:inherit;color:#555;background:#f1f2f5;border-radius:12px;padding:10px 12px;max-height:240px;overflow:auto}
+#mb .nl{margin-top:12px;font-size:12px;color:var(--sub)}
+#mb .btn{margin:8px 6px 0 0}
 </style>
 </head>
 <body>
@@ -328,8 +331,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 <!-- ================= 프롬프트 ================= -->
 <section class="page" id="prompt">
   <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editPrompt()">✎ 프롬프트 추가</button>
-  <h1 class="pt">PROMPT</h1><p class="ps">(프롬프트 페이지의 설명을 적는 곳) 사진을 누르면 크게 보여요.</p>
-  <div id="pList" class="pgrid"></div>
+  <h1 class="pt">PROMPT</h1><p class="ps">(프롬프트를 모아두는 곳) 사진을 누르면 이미지와 프롬프트를 볼 수 있어요.</p>
+  <div id="pList" class="grid"></div>
 </section>
 
 <div class="foot"><button class="lnk" type="button" onclick="toggleAdm()">관리</button></div>
@@ -443,6 +446,13 @@ function setVol(v){if(ready)yt.setVolume(v)}
 var posts=[],editId=null;
 function LS(k,v){try{if(v===undefined)return localStorage.getItem(k)||'';localStorage.setItem(k,v)}catch(e){return ''}}
 function H(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function ld(path){
+  var tok=LS('gh_token'),repo=LS('gh_repo');
+  var pages=function(){return fetch(path+'?t='+Date.now()).then(function(r){return r.json()})};
+  if(!(tok&&repo))return pages();
+  return fetch('https://api.github.com/repos/'+repo+'/contents/'+path+'?t='+Date.now(),{headers:{Authorization:'Bearer '+tok,Accept:'application/vnd.github.raw+json'}})
+    .then(function(r){if(!r.ok)throw new Error('x');return r.text()}).then(function(t){return JSON.parse(t)}).catch(pages);
+}
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function defRepo(){var h=location.hostname;if(!/\.github\.io$/.test(h))return '';var o=h.split('.')[0],seg=location.pathname.split('/')[1];return seg&&seg!=='index.html'?o+'/'+seg:o+'/'+h}
 function render(){
@@ -458,7 +468,7 @@ function render(){
   }).join('')||'<span class="empty">아직 글이 없어요</span>';
   renderCharStories();
 }
-fetch('posts.json?t='+Date.now()).then(function(r){return r.json()}).then(function(d){posts=d}).catch(function(){posts=[]}).then(render);
+ld('posts.json').then(function(d){posts=d}).catch(function(){posts=[]}).then(render);
 
 function openEd(id){
   editId=id||null;
@@ -522,7 +532,9 @@ document.querySelectorAll('.lk').forEach(function(a){var u=a.querySelector('.u')
 function CH(id){return D.chars.filter(function(c){return c.id===id})[0]}
 var LOCAL={};
 function U(p){return LOCAL[p]||p}
-function im(p){return p?'<img src="'+H(U(p))+'" alt="" onerror="this.remove()">':''}
+function RAW(p){var r=LS('gh_repo')||defRepo();return r?'https://raw.githubusercontent.com/'+r+'/main/'+p:p}
+function imgFail(i){var p=i.getAttribute('data-p');if(p&&!i.dataset.t){i.dataset.t='1';i.src=RAW(p)}else i.remove()}
+function im(p){return p?'<img src="'+H(U(p))+'" data-p="'+H(p)+'" alt="" onerror="imgFail(this)">':''}
 function rows(t){return String(t||'').split('\n').map(function(l){
   var i=l.search(/[:：]/);
   if(i>0&&i<14)return '<div class="kv"><span>'+H(l.slice(0,i).trim())+'</span><b>'+H(l.slice(i+1).trim())+'</b></div>';
@@ -576,7 +588,7 @@ function viewChar(id){
   window.scrollTo(0,0);
 }
 function renderRels(){}
-fetch('chars.json?t='+Date.now()).then(function(r){return r.json()}).then(function(d){D={chars:d.chars||[],rels:d.rels||[]}}).catch(function(){}).then(function(){renderChars();renderRels();render()});
+ld('chars.json').then(function(d){D={chars:d.chars||[],rels:d.rels||[]}}).catch(function(){}).then(function(){renderChars();renderRels();render()});
 
 // ----- 입력 창 -----
 function openForm(title,fields,save){
@@ -643,7 +655,7 @@ async function delChar(id){
 // ===== 사이트 설정 / 로그 / 프롬프트 =====
 var S={};
 function T(sel,v){if(v)document.querySelectorAll(sel).forEach(function(e){e.textContent=v})}
-function imz(p){return p?'<img src="'+H(U(p))+'" alt="" onclick="zoom(this.src)" onerror="this.remove()">':''}
+function imz(p){return p?'<img src="'+H(U(p))+'" data-p="'+H(p)+'" alt="" onclick="zoom(this.src)" onerror="imgFail(this)">':''}
 function zoom(src){var b=document.getElementById('mb');b.style.maxWidth='900px';b.innerHTML='<img src="'+H(src)+'" alt="" style="max-height:none;object-fit:contain;margin:0">';document.getElementById('modal').classList.add('on')}
 function clip(t,btn){
   var done=function(){var o=btn.textContent;btn.textContent='복사됨';setTimeout(function(){btn.textContent=o},1200)};
@@ -656,7 +668,7 @@ function toggleAdm(){
   document.body.classList.toggle('adm',on);LS('adm',on?'1':'0');render();
 }
 function renderSite(){
-  if(S.profile)document.querySelectorAll('.me .ph').forEach(function(e){e.innerHTML='<img src="'+H(U(S.profile))+'" alt="">'});
+  if(S.profile)document.querySelectorAll('.me .ph').forEach(function(e){e.innerHTML='<img src="'+H(U(S.profile))+'" data-p="'+H(S.profile)+'" alt="" onerror="imgFail(this)">'});
   T('.s-nick',S.nick);T('.s-tag',S.tag);T('.s-memo',S.memo);T('.s-todo',S.todo);T('.s-ddn',S.ddName);T('.s-notice',S.notice);
   if(S.ddDate)document.getElementById('ddDate').textContent=S.ddDate;
   if(S.kw)document.getElementById('iKw').innerHTML=S.kw.split(',').map(function(k){return k.trim()}).filter(Boolean).map(function(k){return '<span>'+H(k)+'</span>'}).join('');
@@ -668,13 +680,24 @@ function renderSite(){
   if(S.bgm){if(S.bgm.url)document.getElementById('bgmUrl').textContent=S.bgm.url;T('#mp .tx b',S.bgm.title);T('#mp .tx span',S.bgm.artist)}
 }
 function renderPrompts(){
-  var l=S.prompts||[];
-  document.getElementById('pList').innerHTML=l.length?l.slice().reverse().map(function(p){
-    return '<div class="pcard">'+imz(p.img)+'<div class="pb"><h4>'+H(p.title)+'</h4>'+(p.tag?'<span class="pill">'+H(p.tag)+'</span>':'')+
-      '<pre>'+H(p.text)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',0,this)">복사</button>'+
-      (p.neg?'<div class="nl">제외 프롬프트</div><pre>'+H(p.neg)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',1,this)">복사</button>':'')+
-      '<div class="admbtn" style="margin-top:10px"><button class="btn" type="button" onclick="editPrompt('+p.id+')">수정</button> <button class="btn gray" type="button" onclick="delPrompt('+p.id+')">삭제</button></div></div></div>';
+  var l=(S.prompts||[]).slice().reverse();
+  document.getElementById('pList').innerHTML=l.length?l.map(function(p){
+    return '<div class="wk"><div class="sq" style="cursor:pointer" onclick="openPrompt('+p.id+')">'+
+      (p.img?im(p.img):'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(p.title)+'</span>')+'</div>'+
+      '<div class="wt">'+H(p.title)+'</div>'+
+      '<div class="admbtn" style="text-align:center"><button class="btn" type="button" onclick="editPrompt('+p.id+')">수정</button> <button class="btn gray" type="button" onclick="delPrompt('+p.id+')">삭제</button></div></div>';
   }).join(''):'<p class="empty">아직 프롬프트가 없어요.</p>';
+}
+function closeModal(){document.getElementById('modal').classList.remove('on')}
+function openPrompt(id){
+  var p=(S.prompts||[]).filter(function(x){return x.id===id})[0];if(!p)return;
+  var b=document.getElementById('mb');b.style.maxWidth='720px';
+  b.innerHTML=(p.img?'<img src="'+H(U(p.img))+'" data-p="'+H(p.img)+'" alt="" onerror="imgFail(this)" style="max-height:60vh;object-fit:contain;background:#f1f2f5">':'')+
+    '<h2>'+H(p.title)+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</h2>'+
+    '<pre>'+H(p.text)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',0,this)">프롬프트 복사</button>'+
+    (p.neg?'<div class="nl">제외 프롬프트</div><pre>'+H(p.neg)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',1,this)">복사</button>':'')+
+    '<div class="admbtn" style="margin-top:6px"><button class="btn" type="button" onclick="closeModal();editPrompt('+p.id+')">수정</button><button class="btn gray" type="button" onclick="closeModal();delPrompt('+p.id+')">삭제</button></div>';
+  document.getElementById('modal').classList.add('on');
 }
 function copyP(id,k,btn){var p=(S.prompts||[]).filter(function(x){return x.id===id})[0];if(p)clip(k?p.neg:p.text,btn)}
 var LB=[],lbI=0,LBT='';
@@ -683,14 +706,14 @@ function renderWorks(){
   var l=(S.works||[]).slice().reverse();
   document.getElementById('cWorks').innerHTML=l.length?l.map(function(w){
     var a=wimgs(w),n=a.length;
-    return '<div class="wk"><div class="sq" style="position:relative;cursor:zoom-in" onclick="openLb('+w.id+')">'+(n?'<img src="'+H(U(a[0]))+'" alt="" onerror="this.remove()">':'')+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+
+    return '<div class="wk"><div class="sq" style="position:relative;cursor:zoom-in" onclick="openLb('+w.id+')">'+(n?'<img src="'+H(U(a[0]))+'" data-p="'+H(a[0])+'" alt="" onerror="imgFail(this)">':'')+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+
       (w.title?'<div class="wt">'+H(w.title)+'</div>':'')+
       '<div class="admbtn" style="text-align:center"><button class="btn" type="button" onclick="editWork('+w.id+')">수정</button> <button class="btn gray" type="button" onclick="delWork('+w.id+')">삭제</button></div></div>';
   }).join(''):'<p class="empty">아직 로그가 없어요.</p>';
 }
 function showLb(){
   if(!LB.length)return;
-  document.getElementById('lbImg').src=U(LB[lbI]);
+  var li=document.getElementById('lbImg'),lp=LB[lbI];li.onerror=function(){li.onerror=null;li.src=RAW(lp)};li.src=U(lp);
   document.getElementById('lbCap').textContent=(LBT?LBT+'  ·  ':'')+(lbI+1)+' / '+LB.length;
   document.querySelectorAll('#lb .nav').forEach(function(e){e.style.display=LB.length>1?'':'none'});
 }
@@ -711,7 +734,7 @@ document.addEventListener('keydown',function(e){
 })();
 function renderAll(){renderSite();renderPrompts();renderWorks()}
 function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;renderAll();dday()})}
-fetch('site.json?t='+Date.now()).then(function(r){return r.json()}).then(function(d){S=d||{}}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
+ld('site.json').then(function(d){S=d||{}}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
 
 function editProfile(){
   openForm('프로필 사진',[{id:'img',l:'사진 (프로필 동그라미에 나와요)',t:'file',v:S.profile}],async function(g){
