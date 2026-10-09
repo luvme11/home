@@ -94,7 +94,9 @@ h3{font-size:14px;margin:24px 0 6px;letter-spacing:.06em}
 
 /* 음악 플레이어 */
 #mp{position:fixed;right:18px;bottom:18px;z-index:10;display:flex;align-items:center;gap:12px;background:#fff;border-radius:30px;padding:9px 16px 9px 10px;box-shadow:0 6px 24px rgba(60,64,80,.16)}
-#disc{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,#fff 0 3px,#222 4px 6px,#4b5360 7px);flex:none}
+#disc{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle,#fff 0 3px,#222 4px 6px,#4b5360 7px);flex:none}
+#disc.has{background-color:#4b5360;background-size:cover;background-position:center;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.25)}
+#disc.has::after{content:"";position:absolute;inset:0;margin:auto;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(34,34,34,.85)}
 #disc.spin{animation:sp 4s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 #mp .tx{width:120px;line-height:1.3}
@@ -147,6 +149,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 #eb2 small{color:var(--sub)}
 .btn.gray{background:#b5b9c3}
 .admbtn{display:none}body.adm .admbtn{display:inline-block}
+.wbtn{display:none}body.own .wbtn,body.adm .wbtn{display:inline-block}
 .nd{position:relative}
 .nd .sub{display:none;position:absolute;top:100%;left:-14px;z-index:8;background:#fff;border-radius:14px;padding:8px;min-width:120px;box-shadow:0 6px 24px rgba(60,64,80,.12)}
 .nd:hover .sub,.nd:focus-within .sub{display:block}
@@ -267,6 +270,39 @@ details.row summary .da{min-width:44px;text-align:right}
 .re img{max-width:100%;height:auto;border-radius:10px}
 .rsrc{border-radius:0 0 10px 10px!important;font-family:monospace!important;min-height:240px}
 @media(max-width:900px){.bbar{flex-wrap:wrap}details.row summary{flex-wrap:wrap;padding:12px 16px}}
+/* 로드비 목록 + 댓글 창 */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.rtile{position:relative;aspect-ratio:1;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#e6e3ea,#d3d7e2);cursor:pointer;box-shadow:0 4px 18px rgba(60,64,80,.06);transition:transform .15s}
+.rtile:hover{transform:translateY(-3px)}
+.rtile img{width:100%;height:100%;object-fit:cover;display:block}
+.rtx{display:flex;align-items:center;justify-content:center;height:100%;padding:14px;text-align:center;color:#6b7080;word-break:break-word;font-size:13px;overflow:hidden}
+.rcn{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;border-radius:10px;padding:1px 9px;font-size:12px;display:none}
+#rd{display:none;position:fixed;inset:0;z-index:18;background:rgba(40,42,50,.45);align-items:center;justify-content:center;padding:16px}
+#rd.on{display:flex}
+#rdb{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 340px;width:min(1100px,100%);height:min(88vh,720px);background:var(--card);border-radius:22px;overflow:hidden}
+#rdb .rl{overflow:auto;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+#rdb .rl .rich{width:100%}
+#rdb .rl .rich img{display:block;margin:0 auto 10px;max-width:100%;max-height:78vh;object-fit:contain}
+#rdb .rr{display:flex;flex-direction:column;min-height:0;border-left:1px solid var(--line);background:#fcfcfd}
+#rdb .rhd{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+#rdb .rhd .av{width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#dcd5e6,#c4cadb);flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+#rdb .rhd .av img{width:100%;height:100%;object-fit:cover}
+#rdb .rhd span{color:var(--sub);font-size:12px;margin-left:8px}
+#rdb .rcl{flex:1;overflow:auto;padding:8px 16px;min-height:120px}
+.cmi{padding:7px 0;word-break:break-word}
+.cmi b{font-weight:700}.cmi span{color:var(--sub);font-size:11px;margin-left:8px}
+.cmi div{white-space:pre-wrap}
+.cmi .cdel{border:0;background:none;color:var(--sub);font:inherit;font-size:11px;cursor:pointer;margin-left:6px}
+#rdb .rcf{padding:12px 16px 16px;border-top:1px solid var(--line)}
+#rdb .rcf input[type=text]{width:100%;border:1px solid var(--line);border-radius:14px;padding:9px 12px;font:inherit;background:#fff}
+#rdb .rnk{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:14px;padding:0 12px;background:#fff;margin-bottom:8px}
+#rdb .rnk input[type=text]{border:0;padding:9px 0;border-radius:0}
+.gb{font-size:9px;font-weight:bold;letter-spacing:.14em;color:#777;border:1px solid var(--line);border-radius:10px;padding:1px 8px;flex:none}
+#rdb .rin{display:flex;gap:8px}
+#rdb .rin .btn{margin:0;border-radius:14px;padding:0 18px;font-weight:bold}
+#rdb .rx{position:absolute;top:8px;left:12px;z-index:2;border:0;background:rgba(255,255,255,.85);border-radius:50%;width:32px;height:32px;font-size:20px;line-height:1;cursor:pointer;color:var(--ink)}
+.cmmsg{color:var(--sub);padding:10px 0;font-size:12px}
+@media(max-width:900px){#rdb{grid-template-columns:1fr;height:auto;max-height:94vh;overflow:auto}#rdb .rl{overflow:visible;padding-top:44px}#rdb .rr{border-left:0;border-top:1px solid var(--line)}}
 </style>
 </head>
 <body>
@@ -345,7 +381,7 @@ details.row summary .da{min-width:44px;text-align:right}
 
 <!-- ================= 게시판 ================= -->
 <section class="page" id="board">
-  <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editBoard(0,'post')">✎ 글쓰기</button>
+  <button class="btn wbtn" style="float:right;margin:0" type="button" onclick="editBoard(0,'post')">✎ 글쓰기</button>
   <h1 class="pt">BOARD</h1><p class="ps"></p>
   <div class="bbar"><div id="bCats" class="bcats"></div><div class="bs" id="bSearch"><input id="bQ" type="text" placeholder="검색" oninput="setBQ(this.value)"><button type="button" class="sbtn" onclick="toggleBQ()" aria-label="검색">⌕</button></div></div>
   <div id="bList"></div>
@@ -353,9 +389,9 @@ details.row summary .da{min-width:44px;text-align:right}
 
 <!-- ================= 로드비 ================= -->
 <section class="page" id="road">
-  <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editBoard(0,'road')">✎ 로드비 쓰기</button>
+  <button class="btn wbtn" style="float:right;margin:0" type="button" onclick="editBoard(0,'road')">✎ 로드비 쓰기</button>
   <h1 class="pt">ROAD</h1><p class="ps"></p>
-  <div id="rdList" class="feed"></div>
+  <div id="rdList" class="rgrid"></div>
 </section>
 
 <!-- ================= 캐릭터 ================= -->
@@ -419,6 +455,20 @@ details.row summary .da{min-width:44px;text-align:right}
 </div></div>
 
 <div id="ed2" onclick="if(event.target===this)closeForm()"><div id="eb2"></div></div>
+
+<!-- 로드비 보기 + 댓글 창 -->
+<div id="rd" onclick="if(event.target===this)closeRoad()"><div id="rdb">
+  <button class="rx" type="button" onclick="closeRoad()" aria-label="닫기">×</button>
+  <div class="rl"><div class="rich" id="rdBody"></div><div class="admbtn" id="rdAdm"></div></div>
+  <div class="rr">
+    <div class="rhd" id="rdHd"></div>
+    <div class="rcl" id="rdCm"></div>
+    <div class="rcf" id="rdForm">
+      <div class="rnk"><span class="gb">GUEST</span><input id="cmNick" type="text" maxlength="20" placeholder="닉네임"></div>
+      <div class="rin"><input id="cmBody" type="text" maxlength="500" placeholder="댓글 남기기..." onkeydown="if(event.key==='Enter'&&!event.isComposing)sendCm()"><button class="btn" type="button" onclick="sendCm()">POST</button></div>
+    </div>
+  </div>
+</div></div>
 
 <!-- 로그 슬라이드 뷰어 -->
 <div id="lb" onclick="if(event.target===this)closeLb()"><button class="x" type="button" onclick="closeLb()" aria-label="닫기">×</button><button class="nav pv" type="button" onclick="lbGo(-1)" aria-label="이전">‹</button><img id="lbImg" alt=""><div class="cap" id="lbCap"></div><button class="nav nx" type="button" onclick="lbGo(1)" aria-label="다음">›</button></div>
@@ -489,9 +539,13 @@ function copyIt(btn){
 // 음악 (유튜브)
 var yt,ready=false,playing=false;
 var vid;
+function bgmThumb(){var d=document.getElementById('disc');d.style.backgroundImage=vid?'url(https://i.ytimg.com/vi/'+vid+'/mqdefault.jpg)':'';d.classList.toggle('has',!!vid)}
 function initBgm(){
   vid=(document.getElementById('bgmUrl').textContent.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/)||[])[1];
-  if(vid){var s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s)}
+  bgmThumb();
+  if(!vid)return;
+  if(yt&&ready){try{yt.cueVideoById(vid)}catch(e){}return}
+  if(!document.getElementById('ytapi')){var s=document.createElement('script');s.id='ytapi';s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s)}
 }
 window.onYouTubeIframeAPIReady=function(){
   yt=new YT.Player('yt',{videoId:vid,playerVars:{loop:1,playlist:vid},events:{onReady:function(){ready=true;yt.setVolume(60)},
@@ -589,6 +643,7 @@ async function delPost(id){
 // ===== 캐릭터 / 자관 =====
 var D={chars:[],rels:[]},cur=null,relCur=null,FG=null;
 if(LS('adm')==='1'||/[?&]admin/.test(location.search)){LS('adm','1');document.body.classList.add('adm')}
+if(LS('gh_token'))document.body.classList.add('own');
 document.querySelectorAll('.lk').forEach(function(a){var u=a.querySelector('.u').textContent.trim();if(/^https?:/.test(u)){a.href=u;a.target='_blank'}});
 function CH(id){return D.chars.filter(function(c){return c.id===id})[0]}
 var LOCAL={};
@@ -733,7 +788,7 @@ async function saveForm(){
   LS('gh_repo',G('repo').value.trim());LS('gh_token',G('tok').value.trim());
   if(!LS('gh_repo')||!LS('gh_token')){G('cfg').open=true;alert('저장 설정에 저장소 주소와 토큰을 넣어주세요.');return}
   var b=document.getElementById('g_sv');b.textContent='저장 중...';
-  try{await FG(G);closeForm();LS('adm','1');document.body.classList.add('adm')}
+  try{await FG(G);closeForm();LS('adm','1');document.body.classList.add('adm');document.body.classList.add('own')}
   catch(e){alert(e.message)}
   b.textContent='저장';
 }
@@ -889,13 +944,15 @@ function editSite(){
     {id:'ddDate',l:'D-DAY 기준일 (예: 2026-01-01)',t:'text',v:S.ddDate},
     {id:'bgmUrl',l:'BGM 유튜브 주소',t:'text',v:b.url},
     {id:'bgmTitle',l:'BGM 곡 제목',t:'text',v:b.title},
-    {id:'bgmArtist',l:'BGM 가수 이름',t:'text',v:b.artist}
+    {id:'bgmArtist',l:'BGM 가수 이름',t:'text',v:b.artist},
+    {id:'cmUrl',l:'댓글 서버 주소 (로드비 댓글용 · Project URL)',t:'text',v:(S.cm||{}).url},
+    {id:'cmKey',l:'댓글 서버 키 (로드비 댓글용 · anon public 키)',t:'text',v:(S.cm||{}).key}
   ],async function(g){
     var v=function(k){return g(k).value.trim()};
     var pimg=S.profile||'',pfile=g('img').files[0];if(pfile)pimg=await upImg(pfile);
     var fimg=S.favicon||'',ffile=g('fav').files[0];if(ffile)fimg=await upAsset(ffile);
-    await saveSite(Object.assign({},S,{profile:pimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
-    if(v('bgmUrl')&&!vid)initBgm();
+    await saveSite(Object.assign({},S,{profile:pimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),cm:{url:v('cmUrl').replace(/\/+$/,''),key:v('cmKey')},bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
+    initBgm();
   });
 }
 function parseKV(t){return String(t||'').split('\n').map(function(l){return l.trim()}).filter(Boolean).map(function(l){var i=l.search(/[:：]/);return i>0?{k:l.slice(0,i).trim(),v:l.slice(i+1).trim()}:{k:'',v:l}})}
@@ -1038,10 +1095,75 @@ function renderBoard(){
   var r=all.filter(function(b){return b.kind==='road'}).sort(function(a,b){return b.id-a.id});
   var rl=document.getElementById('rdList');
   rl.innerHTML=r.length?r.map(function(b){
-    return '<article class="tw"><div class="av">'+(S.profile?im(S.profile):H((S.nick||'나').charAt(0)))+'</div><div class="tb"><div class="th2"><b>'+H(S.nick||'나')+'</b><span>'+ago(b.id)+'</span></div>'+
-      '<div class="rich">'+clean(b.html)+'</div><div class="admbtn" style="margin-top:8px"><button class="btn" type="button" onclick="editBoard('+b.id+')">수정</button> <button class="btn gray" type="button" onclick="delBoard('+b.id+')">삭제</button></div></div></article>';
+    return '<div class="rtile" data-id="'+b.id+'" onclick="openRoad('+b.id+')"><div style="width:100%;height:100%">'+roadThumb(b)+'</div><span class="rcn"></span></div>';
   }).join(''):'<p class="empty">아직 로드비가 없어요.</p>';
-  hydrate(rl);
+  cmCounts();
+}
+
+// ----- 로드비 보기 + 댓글 -----
+var RDI=null,CMC={};
+function roadThumb(b){
+  var r=P(clean(b.html)),i=r.querySelector('img');
+  if(i){var p=i.getAttribute('data-p')||i.getAttribute('src')||'';return im(p)}
+  return '<span class="rtx">'+H((r.textContent||'').trim().slice(0,70))+'</span>';
+}
+function cmOn(){return !!(S.cm&&S.cm.url&&S.cm.key)}
+function cmH(x){return Object.assign({apikey:S.cm.key,Authorization:'Bearer '+S.cm.key,'Content-Type':'application/json'},x||{})}
+function cmBase(){return S.cm.url.replace(/\/+$/,'')+'/rest/v1/'}
+function cmCounts(){
+  if(!cmOn())return;
+  fetch(cmBase()+'road_comments?select=post_id',{headers:cmH()}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
+    CMC={};l.forEach(function(c){CMC[c.post_id]=(CMC[c.post_id]||0)+1});
+    document.querySelectorAll('.rtile').forEach(function(t){var n=CMC[t.dataset.id]||0,e=t.querySelector('.rcn');e.textContent='💬 '+n;e.style.display=n?'block':'none'});
+  }).catch(function(){});
+}
+function openRoad(id){
+  var b=(S.board||[]).filter(function(x){return x.id===id})[0];if(!b)return;
+  RDI=id;
+  var body=document.getElementById('rdBody');body.innerHTML=clean(b.html);hydrate(body.parentNode);
+  document.getElementById('rdHd').innerHTML='<div class="av">'+(S.profile?im(S.profile):H((S.nick||'나').charAt(0)))+'</div><div><b>'+H(S.nick||'나')+'</b><span>'+ago(b.id)+'</span></div>';
+  document.getElementById('rdAdm').innerHTML='<button class="btn" type="button" onclick="closeRoad();editBoard('+id+')">수정</button> <button class="btn gray" type="button" onclick="closeRoad();delBoard('+id+')">삭제</button>';
+  var nk=document.getElementById('cmNick');if(!nk.value)nk.value=LS('cm_nick')||(document.body.classList.contains('own')?(S.nick||''):'');
+  document.getElementById('rdForm').style.display=cmOn()?'':'none';
+  document.getElementById('rd').classList.add('on');
+  renderCm();
+}
+function closeRoad(){document.getElementById('rd').classList.remove('on');RDI=null}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!document.getElementById('modal').classList.contains('on'))closeRoad()});
+function renderCm(){
+  var el=document.getElementById('rdCm');
+  if(!cmOn()){el.innerHTML='<div class="cmmsg">댓글 기능이 아직 준비되지 않았어요.'+(document.body.classList.contains('own')?'<br>(홈 화면 맨 위 MEMO 아래 「사이트 설정」에 댓글 서버 주소와 키를 넣으면 켜져요)':'')+'</div>';return}
+  el.innerHTML='<div class="cmmsg">불러오는 중...</div>';
+  var id=RDI;
+  fetch(cmBase()+'road_comments?select=*&post_id=eq.'+id+'&order=created_at.asc',{headers:cmH()}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
+    if(id!==RDI)return;
+    el.innerHTML=l.length?l.map(function(c){
+      return '<div class="cmi"><b>'+H(c.nick)+'</b><span>'+md(c.created_at)+'</span><button class="cdel admbtn" type="button" onclick="delCm('+c.id+')">삭제</button><div>'+H(c.body)+'</div></div>';
+    }).join(''):'<div class="cmmsg">첫 댓글을 남겨보세요.</div>';
+    el.scrollTop=el.scrollHeight;
+  }).catch(function(){el.innerHTML='<div class="cmmsg">댓글을 불러오지 못했어요.</div>'});
+}
+async function sendCm(){
+  if(!cmOn()||!RDI)return;
+  var n=document.getElementById('cmNick').value.trim(),bd=document.getElementById('cmBody');
+  var t=bd.value.trim();
+  if(!n){alert('닉네임을 적어주세요.');return}
+  if(!t)return;
+  LS('cm_nick',n);
+  try{
+    var r=await fetch(cmBase()+'road_comments',{method:'POST',headers:cmH({Prefer:'return=minimal'}),body:JSON.stringify({post_id:RDI,nick:n.slice(0,20),body:t.slice(0,500)})});
+    if(!r.ok)throw new Error('댓글을 저장하지 못했어요.');
+    bd.value='';renderCm();cmCounts();
+  }catch(e){alert(e.message)}
+}
+async function delCm(cid){
+  var pw=prompt('댓글 관리 비밀번호를 넣어주세요');if(!pw)return;
+  try{
+    var r=await fetch(cmBase()+'rpc/delete_road_comment',{method:'POST',headers:cmH(),body:JSON.stringify({cid:cid,pw:pw})});
+    var ok=r.ok&&(await r.json())===true;
+    if(!ok){alert('비밀번호가 맞지 않아요.');return}
+    renderCm();cmCounts();
+  }catch(e){alert('삭제하지 못했어요.')}
 }
 
 // ----- 글쓰기 도구 -----
