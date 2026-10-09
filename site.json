@@ -270,13 +270,6 @@
    "cat": "정보",
    "title": "우클릭 업스케일러",
    "html": "<b>다운로드 파일&nbsp;</b><a class=\"mn\" href=\"https://drive.google.com/file/d/1QF6TJ2gyRVzFGT655-KC4fKEd23q_JiM/view\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=drive.google.com&amp;sz=64\" alt=\"\">Google Drive 파일</a><div><div><br></div><div><div class=\"cols2\"><div><img src=\"images/1791561134147_6202.webp\" data-p=\"images/1791561134147_6202.webp\" alt=\"\"></div><div><div><font size=\"3\">파일 압축 풀기 → release 폴더 → install.exe를 관리자 권한으로 실행 (다른 파일 위치 등 절대 건들지 말고 그대로 냅둘 것)</font></div><div><font size=\"3\"><br></font></div><div><font size=\"3\">1 입력 → 업스케일링 하고 싶은 이미지 파일 우클릭 혹은 여러 전체 파일 선택하고 우클릭 → 추가 옵션 표시 → AI 업스케일 x4(U) 클릭</font></div></div></div><p><br></p></div></div>"
-  },
-  {
-   "id": 1791567616130,
-   "kind": "post",
-   "cat": "정보",
-   "title": "발췌기",
-   "html": "윳! 채팅 발췌기&nbsp;<a href=\"https://zznaptime.github.io/Chat2Img/\" target=\"_blank\" rel=\"noopener noreferrer\">https://zznaptime.github.io/Chat2Img/</a><div>52 발췌기</div><div>발췌기&nbsp;<img src=\"https://excerpt.syzzy.xyz/\" alt=\"\"><img src=\"https://excerpt.syzzy.xyz/\" alt=\"\"><img src=\"https://mudoc087-rgb.github.io/quote-studio/\" alt=\"\"></div>"
   }
  ],
  "favicon": "images/1791554062217_7328.png",
