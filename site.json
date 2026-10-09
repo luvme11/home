@@ -53,17 +53,7 @@
  "banner": "images/1791557138605_9904.jpg",
  "sched": {
   "cats": [],
-  "events": [
-   {
-    "id": 1791557634875,
-    "title": "노션 백업",
-    "date": "2026-10-10",
-    "end": "",
-    "time": "",
-    "cat": 0,
-    "memo": ""
-   }
-  ],
+  "events": [],
   "todos": []
  }
 }
