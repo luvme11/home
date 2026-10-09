@@ -39,7 +39,9 @@ body.adm .banner{cursor:pointer}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .dia{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
 .dia:last-child{border:0}
-.dia i{width:30px;height:30px;border-radius:50%;background:#e3dcdf;flex:none}
+.dia i{width:30px;height:30px;border-radius:50%;background:#e3dcdf;flex:none;overflow:hidden;display:block}
+.dia i img{width:100%;height:100%;object-fit:cover;display:block}
+.dia{cursor:pointer}
 .dia b{display:block;font-weight:500}.dia span{font-size:11px;color:var(--sub)}
 .th{display:flex;gap:8px}
 .th div{flex:1;aspect-ratio:1;border-radius:14px;background:linear-gradient(135deg,#9a9384,#5f5a52);overflow:hidden}
@@ -401,7 +403,7 @@ details.row summary .da{min-width:44px;text-align:right}
     <!-- 배너 사진: banner.jpg 라는 이름으로 올리면 나와요 -->
     <div class="banner" id="bannerBox"><img src="banner.jpg" alt="" onerror="this.remove()"></div>
     <div class="two">
-      <div class="card"><p class="lb">DIARY</p>
+      <div class="card"><p class="lb">BOARD <a class="more" href="#board">더보기 ›</a></p>
         <div id="diaList"></div>
       </div>
       <div class="card"><p class="lb">LATEST <a class="more" href="#chars">더보기 ›</a></p>
@@ -683,10 +685,6 @@ function stPost(p){
 }
 function render(){
   var list=posts.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:b.id-a.id});
-  document.getElementById('diaList').innerHTML=list.slice(0,2).map(function(p){
-    var c=(p.chars||[]).map(function(i){return CH(i)}).filter(Boolean)[0];
-    return '<div class="dia"'+(c?' style="cursor:pointer" onclick="goChar('+c.id+')"':'')+'><i></i><div><b>'+H(p.title)+'</b><span>'+H(p.date.slice(5).replace('-','.'))+'</span></div></div>';
-  }).join('')||'<span class="empty">아직 글이 없어요</span>';
   renderCharStories();
 }
 ld('posts.json').then(function(d){posts=d}).catch(function(){posts=[]}).then(render);
@@ -1027,7 +1025,15 @@ document.addEventListener('keydown',function(e){
   lb.addEventListener('touchstart',function(e){x=e.touches[0].clientX},{passive:true});
   lb.addEventListener('touchend',function(e){var d=e.changedTouches[0].clientX-x;if(Math.abs(d)>40)lbGo(d<0?1:-1)});
 })();
-function renderAll(){renderSite();renderPrompts();renderWorks();renderBoard();renderSched();renderThreads()}
+function renderDiary(){
+  var el=document.getElementById('diaList');if(!el)return;
+  var l=(S.board||[]).filter(function(b){return b.kind!=='road'}).sort(function(a,b){return b.id-a.id}).slice(0,2);
+  el.innerHTML=l.length?l.map(function(b){
+    return '<div class="dia" onclick="goBoard()"><i>'+(S.profile?im(S.profile):'')+'</i><div><b>'+H(b.title)+'</b><span>'+md(b.id)+'</span></div></div>';
+  }).join(''):'<span class="empty">아직 글이 없어요</span>';
+}
+function goBoard(){show('board');try{history.replaceState(null,'','#board')}catch(x){}}
+function renderAll(){renderSite();renderDiary();renderPrompts();renderWorks();renderBoard();renderSched();renderThreads()}
 function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;renderAll();dday()})}
 ld('site.json').then(function(d){S=d||{}}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
 
