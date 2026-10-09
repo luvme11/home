@@ -1443,7 +1443,6 @@ function renderSched(){
   document.getElementById('scCats').innerHTML=s.cats.length?s.cats.map(function(c){
     return '<div class="cti"><i style="background:'+H(c.color)+'"></i><span>'+H(c.name)+'</span><span class="admbtn"><button class="mini" type="button" onclick="editCat('+c.id+')">수정</button><button class="mini" type="button" onclick="delCat('+c.id+')">삭제</button></span></div>';
   }).join(''):'<span class="empty">카테고리가 없습니다</span>';
-  var cc=document.getElementById('scCatCard');if(cc)cc.style.display=(s.cats.length||document.body.classList.contains('adm'))?'':'none';
 }
 function renderHomeTodo(){
   var el=document.getElementById('homeTd');if(!el)return;
