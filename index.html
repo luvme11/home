@@ -197,6 +197,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 .wk .sq{cursor:zoom-in}.wk .sq img{cursor:zoom-in}.wk .wt{margin-top:6px;text-align:center}
 .foot{text-align:center;margin-top:34px}
 .lnk{border:0;background:none;color:var(--sub);font:inherit;font-size:12px;cursor:pointer}.lnk:hover{color:var(--ink)}
+.admlnk{margin-left:auto;padding:10px 0;white-space:nowrap;flex:none}
 .sg{margin-bottom:16px}
 .sg .gh{display:flex;align-items:center;gap:12px;padding-bottom:10px;margin-bottom:4px;border-bottom:1px solid var(--line);cursor:pointer}
 .sg .gh .ic{width:44px;height:44px;border-radius:14px;overflow:hidden;flex:none;background:#cfd5e3}
@@ -450,6 +451,7 @@ body.adm .tbar{min-height:34px;margin-bottom:10px}
     <a href="#lora">로라</a>
     <div class="nd"><a href="#sched" class="top">기록</a><div class="sub"><a href="#sched">스케줄러</a><a href="#threads">감상타래</a></div></div>
   </nav>
+  <button class="lnk admlnk" type="button" onclick="toggleAdm()">관리</button>
 </div></header>
 
 <div class="wrap">
@@ -605,8 +607,6 @@ body.adm .tbar{min-height:34px;margin-bottom:10px}
     <div class="bs" id="thSearch"><input id="thQ" type="text" placeholder="검색" oninput="setTQ(this.value)"><button type="button" class="sbtn" onclick="toggleTQ()" aria-label="검색">⌕</button></div></div></div>
   <div id="thBody"></div>
 </section>
-
-<div class="foot"><button class="lnk" type="button" onclick="toggleAdm()">관리</button></div>
 
 </div>
 
@@ -1243,7 +1243,7 @@ async function delPrompt(id){
 
 
 // ===== 게시판 (글 / 로드비) =====
-var BCATS=['공지','정보','링크','잡담','기타'],bCat='전체',bQ='';
+var BCATS=['공지','정보','프리셋','링크','잡담','기타'],bCat='전체',bQ='';
 function P(h){return new DOMParser().parseFromString('<div>'+String(h||'')+'</div>','text/html').body.firstChild}
 function clean(h){
   var r=P(h);
