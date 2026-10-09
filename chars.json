@@ -1,16 +1,4 @@
 {
- "chars": [
-  {
-   "id": 1791563286902,
-   "name": "ㅊ",
-   "color": "#8f7fd0",
-   "img": "images/1791563283925_3693.jpg",
-   "info": "(링크)",
-   "type": "persona",
-   "a": 0,
-   "b": 0,
-   "assets": []
-  }
- ],
+ "chars": [],
  "rels": []
 }
