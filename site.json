@@ -54,13 +54,6 @@
  "sched": {
   "cats": [],
   "events": [],
-  "todos": [
-   {
-    "id": 1791557564782,
-    "date": "2026-10-10",
-    "text": "노션 백업",
-    "done": false
-   }
-  ]
+  "todos": []
  }
 }
