@@ -464,7 +464,7 @@ details.row summary .da{min-width:44px;text-align:right}
     <div class="rhd" id="rdHd"></div>
     <div class="rcl" id="rdCm"></div>
     <div class="rcf" id="rdForm">
-      <div class="rnk"><span class="gb">GUEST</span><input id="cmNick" type="text" maxlength="20" placeholder="닉네임"></div>
+      <div class="rnk"><span class="gb">NAME</span><input id="cmNick" type="text" maxlength="20" placeholder="이름 (매번 바꿔도 돼요)"></div>
       <div class="rin"><input id="cmBody" type="text" maxlength="500" placeholder="댓글 남기기..." onkeydown="if(event.key==='Enter'&&!event.isComposing)sendCm()"><button class="btn" type="button" onclick="sendCm()">POST</button></div>
     </div>
   </div>
@@ -944,14 +944,12 @@ function editSite(){
     {id:'ddDate',l:'D-DAY 기준일 (예: 2026-01-01)',t:'text',v:S.ddDate},
     {id:'bgmUrl',l:'BGM 유튜브 주소',t:'text',v:b.url},
     {id:'bgmTitle',l:'BGM 곡 제목',t:'text',v:b.title},
-    {id:'bgmArtist',l:'BGM 가수 이름',t:'text',v:b.artist},
-    {id:'cmUrl',l:'댓글 서버 주소 (로드비 댓글용 · Project URL)',t:'text',v:(S.cm||{}).url},
-    {id:'cmKey',l:'댓글 서버 키 (로드비 댓글용 · anon public 키)',t:'text',v:(S.cm||{}).key}
+    {id:'bgmArtist',l:'BGM 가수 이름',t:'text',v:b.artist}
   ],async function(g){
     var v=function(k){return g(k).value.trim()};
     var pimg=S.profile||'',pfile=g('img').files[0];if(pfile)pimg=await upImg(pfile);
     var fimg=S.favicon||'',ffile=g('fav').files[0];if(ffile)fimg=await upAsset(ffile);
-    await saveSite(Object.assign({},S,{profile:pimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),cm:{url:v('cmUrl').replace(/\/+$/,''),key:v('cmKey')},bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
+    await saveSite(Object.assign({},S,{profile:pimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
     initBgm();
   });
 }
@@ -1100,70 +1098,57 @@ function renderBoard(){
   cmCounts();
 }
 
-// ----- 로드비 보기 + 댓글 -----
-var RDI=null,CMC={};
+// ----- 로드비 보기 + 댓글 (혼자 이름 바꿔가며 쓰는 용) -----
+var RDI=null;
 function roadThumb(b){
   var r=P(clean(b.html)),i=r.querySelector('img');
   if(i){var p=i.getAttribute('data-p')||i.getAttribute('src')||'';return im(p)}
   return '<span class="rtx">'+H((r.textContent||'').trim().slice(0,70))+'</span>';
 }
-function cmOn(){return !!(S.cm&&S.cm.url&&S.cm.key)}
-function cmH(x){return Object.assign({apikey:S.cm.key,Authorization:'Bearer '+S.cm.key,'Content-Type':'application/json'},x||{})}
-function cmBase(){return S.cm.url.replace(/\/+$/,'')+'/rest/v1/'}
+function roadOf(id){return (S.board||[]).filter(function(x){return x.id===id})[0]}
 function cmCounts(){
-  if(!cmOn())return;
-  fetch(cmBase()+'road_comments?select=post_id',{headers:cmH()}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
-    CMC={};l.forEach(function(c){CMC[c.post_id]=(CMC[c.post_id]||0)+1});
-    document.querySelectorAll('.rtile').forEach(function(t){var n=CMC[t.dataset.id]||0,e=t.querySelector('.rcn');e.textContent='💬 '+n;e.style.display=n?'block':'none'});
-  }).catch(function(){});
+  document.querySelectorAll('.rtile').forEach(function(t){
+    var b=roadOf(Number(t.dataset.id)),n=b?(b.cm||[]).length:0,e=t.querySelector('.rcn');
+    e.textContent='💬 '+n;e.style.display=n?'block':'none';
+  });
 }
 function openRoad(id){
-  var b=(S.board||[]).filter(function(x){return x.id===id})[0];if(!b)return;
+  var b=roadOf(id);if(!b)return;
   RDI=id;
   var body=document.getElementById('rdBody');body.innerHTML=clean(b.html);hydrate(body.parentNode);
   document.getElementById('rdHd').innerHTML='<div class="av">'+(S.profile?im(S.profile):H((S.nick||'나').charAt(0)))+'</div><div><b>'+H(S.nick||'나')+'</b><span>'+ago(b.id)+'</span></div>';
   document.getElementById('rdAdm').innerHTML='<button class="btn" type="button" onclick="closeRoad();editBoard('+id+')">수정</button> <button class="btn gray" type="button" onclick="closeRoad();delBoard('+id+')">삭제</button>';
-  var nk=document.getElementById('cmNick');if(!nk.value)nk.value=LS('cm_nick')||(document.body.classList.contains('own')?(S.nick||''):'');
-  document.getElementById('rdForm').style.display=cmOn()?'':'none';
+  var nk=document.getElementById('cmNick');if(!nk.value)nk.value=LS('cm_nick')||'';
+  document.getElementById('rdForm').style.display=document.body.classList.contains('own')?'':'none';
   document.getElementById('rd').classList.add('on');
   renderCm();
 }
 function closeRoad(){document.getElementById('rd').classList.remove('on');RDI=null}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!document.getElementById('modal').classList.contains('on'))closeRoad()});
 function renderCm(){
-  var el=document.getElementById('rdCm');
-  if(!cmOn()){el.innerHTML='<div class="cmmsg">댓글 기능이 아직 준비되지 않았어요.'+(document.body.classList.contains('own')?'<br>(홈 화면 맨 위 MEMO 아래 「사이트 설정」에 댓글 서버 주소와 키를 넣으면 켜져요)':'')+'</div>';return}
-  el.innerHTML='<div class="cmmsg">불러오는 중...</div>';
-  var id=RDI;
-  fetch(cmBase()+'road_comments?select=*&post_id=eq.'+id+'&order=created_at.asc',{headers:cmH()}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(l){
-    if(id!==RDI)return;
-    el.innerHTML=l.length?l.map(function(c){
-      return '<div class="cmi"><b>'+H(c.nick)+'</b><span>'+md(c.created_at)+'</span><button class="cdel admbtn" type="button" onclick="delCm('+c.id+')">삭제</button><div>'+H(c.body)+'</div></div>';
-    }).join(''):'<div class="cmmsg">첫 댓글을 남겨보세요.</div>';
-    el.scrollTop=el.scrollHeight;
-  }).catch(function(){el.innerHTML='<div class="cmmsg">댓글을 불러오지 못했어요.</div>'});
+  var el=document.getElementById('rdCm'),b=roadOf(RDI),l=(b&&b.cm)||[];
+  el.innerHTML=l.length?l.map(function(c){
+    return '<div class="cmi"><b>'+H(c.nick)+'</b><span>'+md(c.t||c.id)+'</span><button class="cdel admbtn" type="button" onclick="delCm('+c.id+')">삭제</button><div>'+H(c.body)+'</div></div>';
+  }).join(''):'<div class="cmmsg">아직 댓글이 없어요.</div>';
+  el.scrollTop=el.scrollHeight;
 }
 async function sendCm(){
-  if(!cmOn()||!RDI)return;
-  var n=document.getElementById('cmNick').value.trim(),bd=document.getElementById('cmBody');
-  var t=bd.value.trim();
-  if(!n){alert('닉네임을 적어주세요.');return}
+  if(!RDI||needCfg())return;
+  var n=document.getElementById('cmNick').value.trim(),bd=document.getElementById('cmBody'),t=bd.value.trim();
+  if(!n){alert('이름을 적어주세요.');return}
   if(!t)return;
   LS('cm_nick',n);
-  try{
-    var r=await fetch(cmBase()+'road_comments',{method:'POST',headers:cmH({Prefer:'return=minimal'}),body:JSON.stringify({post_id:RDI,nick:n.slice(0,20),body:t.slice(0,500)})});
-    if(!r.ok)throw new Error('댓글을 저장하지 못했어요.');
-    bd.value='';renderCm();cmCounts();
-  }catch(e){alert(e.message)}
+  var now=Date.now(),id=RDI;
+  var next=(S.board||[]).map(function(x){return x.id===id?Object.assign({},x,{cm:(x.cm||[]).concat([{id:now,nick:n,body:t,t:now}])}):x});
+  try{await saveSite(Object.assign({},S,{board:next}),'댓글 저장');bd.value='';renderCm()}
+  catch(e){alert(e.message)}
 }
 async function delCm(cid){
-  var pw=prompt('댓글 관리 비밀번호를 넣어주세요');if(!pw)return;
-  try{
-    var r=await fetch(cmBase()+'rpc/delete_road_comment',{method:'POST',headers:cmH(),body:JSON.stringify({cid:cid,pw:pw})});
-    var ok=r.ok&&(await r.json())===true;
-    if(!ok){alert('비밀번호가 맞지 않아요.');return}
-    renderCm();cmCounts();
-  }catch(e){alert('삭제하지 못했어요.')}
+  if(!confirm('이 댓글을 삭제할까요?'))return;
+  var id=RDI;
+  var next=(S.board||[]).map(function(x){return x.id===id?Object.assign({},x,{cm:(x.cm||[]).filter(function(c){return c.id!==cid})}):x});
+  try{await saveSite(Object.assign({},S,{board:next}),'댓글 삭제');renderCm()}
+  catch(e){alert(e.message)}
 }
 
 // ----- 글쓰기 도구 -----
