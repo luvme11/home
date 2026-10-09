@@ -467,7 +467,7 @@ async function savePost(){
   var item={id:editId||Date.now(),date:document.getElementById('fDate').value||today(),tag:document.getElementById('fTag').value.trim(),title:t,body:b};
   var next=editId?posts.map(function(x){return x.id===editId?item:x}):posts.concat([item]);
   var btn=document.getElementById('svBtn');btn.textContent='저장 중...';
-  try{await commit(next,'글 저장: '+t);posts=next;render();closeEd();alert('저장됐어요! 사이트에는 1~2분 뒤에 반영돼요.')}
+  try{await commit(next,'글 저장: '+t);posts=next;render();closeEd()}
   catch(e){alert(e.message)}
   btn.textContent='저장';
 }
@@ -548,7 +548,7 @@ async function saveForm(){
   LS('gh_repo',G('repo').value.trim());LS('gh_token',G('tok').value.trim());
   if(!LS('gh_repo')||!LS('gh_token')){G('cfg').open=true;alert('저장 설정에 저장소 주소와 토큰을 넣어주세요.');return}
   var b=document.getElementById('g_sv');b.textContent='저장 중...';
-  try{await FG(G);closeForm();LS('adm','1');document.body.classList.add('adm');alert('저장됐어요! 사이트에는 1~2분 뒤에 반영돼요.')}
+  try{await FG(G);closeForm();LS('adm','1');document.body.classList.add('adm')}
   catch(e){alert(e.message)}
   b.textContent='저장';
 }
