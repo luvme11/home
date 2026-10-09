@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>(홈 이름)</title>
+<title>love</title>
+<link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A4%8D%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -239,15 +240,43 @@ body.adm .slot{display:block}
 #eb2 .chk{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:4px}
 #eb2 .chk label.ck{display:flex;align-items:center;gap:5px;margin:0;font-size:13px;color:var(--ink);cursor:pointer}
 #eb2 .chk input{width:auto}
+
+/* 게시판 */
+.bbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.bcats{display:flex;gap:4px;flex-wrap:wrap;background:rgba(255,255,255,.35);border-radius:14px;padding:4px}
+.bcats .chip{margin:0;background:none;color:var(--sub)}.bcats .chip.on{background:var(--btn);color:#fff;font-weight:bold}
+.bs{display:flex;align-items:center;gap:6px}.bs input{display:none;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font:inherit;background:#fff;width:200px}
+.bs.on input{display:block}
+.sbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:20px;cursor:pointer;color:var(--ink)}
+details.row summary .au{color:var(--sub);font-size:12px;min-width:60px;text-align:right}
+details.row summary .da{min-width:44px;text-align:right}
+.rich{word-break:break-word;line-height:1.8}.rich img{max-width:100%;height:auto;border-radius:12px;display:inline-block}
+.rich blockquote{margin:8px 0;padding:6px 14px;border-left:3px solid #d5d8e0;color:var(--sub)}
+.rich a{color:#4a63b8;text-decoration:underline}.rich hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.rich iframe{max-width:100%;border:0;border-radius:12px}
+.feed{max-width:640px;margin:0 auto}
+.tw{display:flex;gap:12px;background:var(--card);border-radius:20px;padding:16px 18px;margin-bottom:12px;box-shadow:0 4px 18px rgba(60,64,80,.06)}
+.tw .av{width:44px;height:44px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#dcd5e6,#c4cadb);flex:none;display:flex;align-items:center;justify-content:center;color:#fff}
+.tw .av img{width:100%;height:100%;object-fit:cover}
+.tw .tb{flex:1;min-width:0}.tw .th2{margin-bottom:4px}.tw .th2 span{color:var(--sub);font-size:12px;margin-left:8px}
+/* 글쓰기 도구 */
+.rt{display:flex;flex-wrap:wrap;gap:4px;padding:6px;border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;background:#f1f2f5;align-items:center}
+.rt button{border:0;background:#fff;border-radius:8px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer}.rt button:hover{background:#e3e5ea}
+.rt select{width:auto!important;padding:3px 6px!important;font-size:12px}.rt input[type=color]{width:30px!important;height:26px;padding:0!important;border:0!important;background:none!important}
+.re{min-height:240px;max-height:50vh;overflow:auto;border:1px solid var(--line);border-radius:0 0 10px 10px;padding:10px 12px;background:#fff;outline:0}
+.re img{max-width:100%;height:auto;border-radius:10px}
+.rsrc{border-radius:0 0 10px 10px!important;font-family:monospace!important;min-height:240px}
+@media(max-width:900px){.bbar{flex-wrap:wrap}details.row summary{flex-wrap:wrap;padding:12px 16px}}
 </style>
 </head>
 <body>
 
 <header><div class="bar">
-  <a class="logo" href="#home">(HOME)<small>PERSONAL ARCHIVE</small></a>
+  <a class="logo" href="#home" id="logo">love<small>PERSONAL ARCHIVE</small></a>
   <nav>
     <a href="#home" class="on">홈</a>
     <a href="#intro">소개</a>
+    <div class="nd"><a href="#board" class="top">게시판</a><div class="sub"><a href="#board">글</a><a href="#road">로드비</a></div></div>
     <div class="nd"><a href="#chars" class="top">OC</a><div class="sub"><a href="#chars">메인</a><a href="#rels">페어</a><a href="#persona">페르소나</a></div></div>
     <a href="#log">로그</a>
     <a href="#prompt">프롬프트</a>
@@ -312,6 +341,21 @@ body.adm .slot{display:block}
       </div>
     </div>
   </div>
+</section>
+
+<!-- ================= 게시판 ================= -->
+<section class="page" id="board">
+  <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editBoard(0,'post')">✎ 글쓰기</button>
+  <h1 class="pt">BOARD</h1><p class="ps"></p>
+  <div class="bbar"><div id="bCats" class="bcats"></div><div class="bs" id="bSearch"><input id="bQ" type="text" placeholder="검색" oninput="setBQ(this.value)"><button type="button" class="sbtn" onclick="toggleBQ()" aria-label="검색">⌕</button></div></div>
+  <div id="bList"></div>
+</section>
+
+<!-- ================= 로드비 ================= -->
+<section class="page" id="road">
+  <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editBoard(0,'road')">✎ 로드비 쓰기</button>
+  <h1 class="pt">ROAD</h1><p class="ps"></p>
+  <div id="rdList" class="feed"></div>
 </section>
 
 <!-- ================= 캐릭터 ================= -->
@@ -675,6 +719,7 @@ function openForm(title,fields,save){
     else if(f.t==='negs')h+='<div id="'+id+'">'+(f.v||[]).map(negRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addNeg()">+ 네거티브 추가</button>';
     else if(f.t==='kvs')h+='<div id="'+id+'" data-area="'+(f.area?1:0)+'" data-kp="'+H(f.kp||'')+'" data-vp="'+H(f.vp||'')+'">'+(f.v||[]).map(function(r){return kvRow(r,f)}).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addKv(\''+id+'\')">+ 항목 추가</button>';
     else if(f.t==='chk')h+='<div class="chk" id="'+id+'">'+(D.chars.length?D.chars.map(function(c){return '<label class="ck"><input type="checkbox" value="'+c.id+'"'+((f.v||[]).indexOf(c.id)>-1?' checked':'')+'>'+H(c.name)+'</label>'}).join(''):'<small>캐릭터를 먼저 추가하면 고를 수 있어요.</small>')+'</div>';
+    else if(f.t==='rich')h+=richUI(f.id,f.v);
     else if(f.t==='sel')h+='<select id="'+id+'">'+f.o.map(function(o){return '<option value="'+o[0]+'"'+(o[0]==f.v?' selected':'')+'>'+H(o[1])+'</option>'}).join('')+'</select>';
   });
   h+='<details id="g_cfg"'+(LS('gh_token')?'':' open')+'><summary>저장 설정 (처음 한 번만)</summary><label>깃허브 저장소 주소 (예: 아이디/아이디.github.io)</label><input id="g_repo" type="text" value="'+H(LS('gh_repo')||defRepo())+'"><label>토큰 (내 브라우저에만 저장돼요)</label><input id="g_tok" type="password" value="'+H(LS('gh_token'))+'"></details>';
@@ -756,6 +801,7 @@ function renderSite(){
   if(Array.isArray(S.linkRows)||S.links){document.getElementById('iLinks').innerHTML=linkList().map(function(r){
     var u=(r.v||'').trim();if(!r.k||!u)return '';if(!/^https?:/.test(u))u='https://'+u;
     return '<a class="lk" href="'+H(u)+'" target="_blank" rel="noopener">'+H(r.k)+'</a>';}).join('')}
+  if(S.favicon){var fv=document.getElementById('favicon');fv.removeAttribute('type');fv.href=U(S.favicon);fv.onerror=function(){fv.onerror=null;fv.href=RAW(S.favicon)}}
   if(S.bgm){if(S.bgm.url)document.getElementById('bgmUrl').textContent=S.bgm.url;T('#mp .tx b',S.bgm.title);T('#mp .tx span',S.bgm.artist)}
 }
 function renderPrompts(){
@@ -818,7 +864,7 @@ document.addEventListener('keydown',function(e){
   lb.addEventListener('touchstart',function(e){x=e.touches[0].clientX},{passive:true});
   lb.addEventListener('touchend',function(e){var d=e.changedTouches[0].clientX-x;if(Math.abs(d)>40)lbGo(d<0?1:-1)});
 })();
-function renderAll(){renderSite();renderPrompts();renderWorks()}
+function renderAll(){renderSite();renderPrompts();renderWorks();renderBoard()}
 function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;renderAll();dday()})}
 ld('site.json').then(function(d){S=d||{}}).catch(function(){}).then(function(){renderAll();dday();initBgm()});
 
@@ -834,6 +880,7 @@ function editSite(){
   var b=S.bgm||{};
   openForm('사이트 설정',[
     {id:'img',l:'프로필 사진',t:'file',v:S.profile},
+    {id:'fav',l:'사이트 아이콘 (브라우저 탭에 나오는 작은 그림)',t:'file',v:S.favicon},
     {id:'nick',l:'닉네임',t:'text',v:S.nick},
     {id:'tag',l:'한 줄 소개',t:'text',v:S.tag},
     {id:'memo',l:'홈 메모',t:'area',v:S.memo},
@@ -846,7 +893,8 @@ function editSite(){
   ],async function(g){
     var v=function(k){return g(k).value.trim()};
     var pimg=S.profile||'',pfile=g('img').files[0];if(pfile)pimg=await upImg(pfile);
-    await saveSite(Object.assign({},S,{profile:pimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
+    var fimg=S.favicon||'',ffile=g('fav').files[0];if(ffile)fimg=await upAsset(ffile);
+    await saveSite(Object.assign({},S,{profile:pimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,todo:g('todo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:{url:v('bgmUrl'),title:v('bgmTitle'),artist:v('bgmArtist')}}),'사이트 설정 저장');
     if(v('bgmUrl')&&!vid)initBgm();
   });
 }
@@ -927,6 +975,153 @@ function editPrompt(id){
 async function delPrompt(id){
   if(!confirm('이 프롬프트를 삭제할까요?'))return;
   try{await saveSite(Object.assign({},S,{prompts:(S.prompts||[]).filter(function(x){return x.id!==id})}),'프롬프트 삭제')}catch(e){alert(e.message)}
+}
+
+
+// ===== 게시판 (글 / 로드비) =====
+var BCATS=['공지','정보','잡담','기타'],bCat='전체',bQ='';
+function P(h){return new DOMParser().parseFromString('<div>'+String(h||'')+'</div>','text/html').body.firstChild}
+function clean(h){
+  var r=P(h);
+  r.querySelectorAll('script,style,object,embed,link,meta,base,form,input,textarea,button,select').forEach(function(e){e.remove()});
+  r.querySelectorAll('iframe').forEach(function(e){if(!/^https:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\//.test(e.getAttribute('src')||''))e.remove()});
+  r.querySelectorAll('*').forEach(function(e){
+    Array.prototype.slice.call(e.attributes).forEach(function(a){
+      var n=a.name.toLowerCase();
+      if(n.indexOf('on')===0||(/^(href|src|xlink:href|formaction|action|srcset)$/.test(n)&&/^[\s\u0000-\u001f]*(javascript|vbscript|data:text)/i.test(a.value)))e.removeAttribute(a.name);
+    });
+    if(e.tagName==='A'){e.setAttribute('target','_blank');e.setAttribute('rel','noopener noreferrer')}
+  });
+  return r.innerHTML;
+}
+function toEd(h){
+  var r=P(clean(h));
+  r.querySelectorAll('img').forEach(function(i){var p=i.getAttribute('data-p')||i.getAttribute('src')||'';if(p&&!/^(https?:|data:|blob:)/.test(p)){i.setAttribute('data-p',p);i.setAttribute('src',U(p))}});
+  return r.innerHTML;
+}
+function fromEd(h){
+  var r=P(h);
+  r.querySelectorAll('img[data-p]').forEach(function(i){i.setAttribute('src',i.getAttribute('data-p'))});
+  return clean(r.innerHTML);
+}
+function hydrate(el){
+  el.querySelectorAll('.rich img').forEach(function(i){
+    var p=i.getAttribute('data-p')||i.getAttribute('src')||'';
+    if(p&&!/^(https?:|data:|blob:)/.test(p)){i.setAttribute('data-p',p);i.onerror=function(){imgFail(i)};i.src=U(p)}
+    i.style.cursor='zoom-in';i.onclick=function(){zoom(i.src)};
+  });
+}
+function ymd(t){var d=new Date(t);return d.getFullYear()+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+('0'+d.getDate()).slice(-2)}
+function md(t){return ymd(t).slice(5)}
+function ago(t){
+  var s=(Date.now()-t)/1000;
+  if(s<60)return '방금 전';if(s<3600)return Math.floor(s/60)+'분 전';if(s<86400)return Math.floor(s/3600)+'시간 전';
+  var d=new Date(t);return ymd(t)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+}
+function setBC(c){bCat=c;renderBoard()}
+function toggleBQ(){var w=document.getElementById('bSearch');w.classList.toggle('on');if(w.classList.contains('on'))document.getElementById('bQ').focus();else{bQ='';document.getElementById('bQ').value='';renderBoard()}}
+function setBQ(v){bQ=v.trim().toLowerCase();renderBoard()}
+function plain(h){return P(h).textContent}
+function renderBoard(){
+  var cats=document.getElementById('bCats');if(!cats)return;
+  var all=S.board||[];
+  cats.innerHTML=['전체'].concat(BCATS).map(function(c){return '<button type="button" class="chip'+(bCat===c?' on':'')+'" onclick="setBC(\''+c+'\')">'+c+'</button>'}).join('');
+  var l=all.filter(function(b){return b.kind!=='road'&&(bCat==='전체'||b.cat===bCat)&&(!bQ||(b.title+' '+plain(b.html)).toLowerCase().indexOf(bQ)>-1)}).sort(function(a,b){
+    if(bCat==='전체'){var pa=a.cat==='공지'?1:0,pb=b.cat==='공지'?1:0;if(pa!==pb)return pb-pa}
+    return b.id-a.id});
+  var el=document.getElementById('bList');
+  el.innerHTML=l.length?l.map(function(b){
+    return '<details class="row"><summary><span class="pill">'+H(b.cat||'기타')+'</span><span class="ti">'+H(b.title)+'</span><span class="au">'+H(S.nick||'')+'</span><span class="da">'+md(b.id)+'</span></summary><div class="body"><div class="rich">'+clean(b.html)+'</div>'+
+      '<div class="admbtn"><button class="btn" type="button" onclick="editBoard('+b.id+')">수정</button> <button class="btn gray" type="button" onclick="delBoard('+b.id+')">삭제</button></div></div></details>';
+  }).join(''):'<p class="empty">'+(bQ?'검색 결과가 없어요.':'아직 글이 없어요.')+'</p>';
+  hydrate(el);
+  var r=all.filter(function(b){return b.kind==='road'}).sort(function(a,b){return b.id-a.id});
+  var rl=document.getElementById('rdList');
+  rl.innerHTML=r.length?r.map(function(b){
+    return '<article class="tw"><div class="av">'+(S.profile?im(S.profile):H((S.nick||'나').charAt(0)))+'</div><div class="tb"><div class="th2"><b>'+H(S.nick||'나')+'</b><span>'+ago(b.id)+'</span></div>'+
+      '<div class="rich">'+clean(b.html)+'</div><div class="admbtn" style="margin-top:8px"><button class="btn" type="button" onclick="editBoard('+b.id+')">수정</button> <button class="btn gray" type="button" onclick="delBoard('+b.id+')">삭제</button></div></div></article>';
+  }).join(''):'<p class="empty">아직 로드비가 없어요.</p>';
+  hydrate(rl);
+}
+
+// ----- 글쓰기 도구 -----
+document.addEventListener('selectionchange',function(){
+  var s=window.getSelection();if(!s||!s.rangeCount)return;
+  var n=s.anchorNode;n=n&&(n.nodeType===1?n:n.parentNode);
+  if(n&&n.closest&&n.closest('#eb2 .re'))RS=s.getRangeAt(0).cloneRange();
+});
+function rc(cmd,val){
+  var ed=document.querySelector('#eb2 .re');if(!ed||ed.style.display==='none')return;
+  ed.focus();
+  if(RS){var s=window.getSelection();s.removeAllRanges();s.addRange(RS)}
+  document.execCommand('styleWithCSS',false,false);
+  document.execCommand(cmd,false,val||null);
+}
+function rLink(){
+  var u=prompt('링크 주소를 넣어주세요 (https://...)');if(!u)return;
+  if(!/^(https?:|mailto:|#)/.test(u))u='https://'+u;
+  if(RS&&RS.collapsed)rc('insertHTML','<a href="'+H(u)+'">'+H(u)+'</a>');else rc('createLink',u);
+}
+function rImgUrl(){var u=prompt('이미지 주소를 넣어주세요 (https://...)');if(u)rc('insertHTML','<img src="'+H(u)+'" alt="">')}
+function rImg(){document.getElementById('rfile').click()}
+async function rImgPick(inp){
+  LS('gh_repo',G('repo').value.trim());LS('gh_token',G('tok').value.trim());
+  var fs=Array.prototype.slice.call(inp.files);inp.value='';
+  if(!LS('gh_repo')||!LS('gh_token')){G('cfg').open=true;alert('사진을 올리려면 아래 저장 설정에 저장소 주소와 토큰을 먼저 넣어주세요.');return}
+  var b=document.getElementById('g_sv');
+  for(var i=0;i<fs.length;i++){
+    try{
+      if(b)b.textContent='사진 올리는 중 ('+(i+1)+'/'+fs.length+')';
+      var p=await upAsset(fs[i]);
+      rc('insertHTML','<img src="'+LOCAL[p]+'" data-p="'+p+'" alt="">');
+    }catch(e){alert(e.message)}
+  }
+  if(b)b.textContent='저장';
+}
+function rSrc(id){
+  var e=G(id),t=G(id+'_src');
+  if(t.style.display==='none'){t.value=fromEd(e.innerHTML);t.style.display='block';e.style.display='none'}
+  else{e.innerHTML=toEd(t.value);t.style.display='none';e.style.display=''}
+}
+function richVal(id){var t=G(id+'_src');return fromEd(t.style.display!=='none'?t.value:G(id).innerHTML)}
+function richUI(id,h){
+  var B=function(l,c,t){return '<button type="button" title="'+t+'" onmousedown="event.preventDefault()" onclick="'+c+'">'+l+'</button>'};
+  return '<div class="rt">'+
+    B('<b>B</b>',"rc('bold')",'굵게')+B('<i>I</i>',"rc('italic')",'기울임')+B('<u>U</u>',"rc('underline')",'밑줄')+B('<s>S</s>',"rc('strikeThrough')",'취소선')+
+    '<select onchange="rc(\'fontSize\',this.value);this.selectedIndex=0"><option value="">크기</option><option value="2">작게</option><option value="3">보통</option><option value="5">크게</option><option value="6">아주 크게</option></select>'+
+    '<input type="color" title="글자색" value="#2f323a" oninput="rc(\'foreColor\',this.value)">'+
+    B('왼쪽',"rc('justifyLeft')",'왼쪽 정렬')+B('가운데',"rc('justifyCenter')",'가운데 정렬')+B('오른쪽',"rc('justifyRight')",'오른쪽 정렬')+
+    B('• 목록',"rc('insertUnorderedList')",'목록')+B('❝ 인용',"rc('formatBlock','blockquote')",'인용')+B('― 구분선',"rc('insertHorizontalRule')",'구분선')+
+    B('🔗 링크',"rLink()",'링크')+B('🖼 사진',"rImg()",'사진 올리기')+B('🖼 주소',"rImgUrl()",'이미지 주소로 넣기')+
+    B('서식 지우기',"rc('removeFormat')",'서식 지우기')+B('&lt;/&gt; HTML',"rSrc('"+id+"')",'HTML 직접 편집')+'</div>'+
+    '<div class="re" id="g_'+id+'" contenteditable="true">'+toEd(h||'')+'</div>'+
+    '<textarea class="rsrc" id="g_'+id+'_src" style="display:none" placeholder="HTML을 직접 입력하세요"></textarea>'+
+    '<input type="file" id="rfile" accept="image/*" multiple style="display:none" onchange="rImgPick(this)">';
+}
+function editBoard(id,kind){
+  var b=(S.board||[]).filter(function(x){return x.id===id})[0]||{};
+  openForm(b.id?'게시판 글 수정':'게시판 글쓰기',[
+    {id:'kind',l:'종류',t:'sel',o:[['post','글'],['road','로드비 (타임라인)']],v:b.kind||kind||'post'},
+    {id:'cat',l:'분류',t:'sel',o:BCATS.map(function(c){return [c,c]}),v:b.cat||'잡담'},
+    {id:'title',l:'제목',t:'text',v:b.title},
+    {id:'body',l:'내용 (굵게·기울임·링크·사진·HTML 직접 입력 모두 가능해요)',t:'rich',v:b.html}
+  ],async function(g){
+    var kd=g('kind').value,html=richVal('body'),t=g('title').value.trim();
+    if(!/<img|<iframe|<hr/i.test(html)&&!html.replace(/<[^>]*>|&nbsp;|\s/g,''))throw new Error('내용을 적어주세요.');
+    if(kd==='post'&&!t)throw new Error('제목을 적어주세요.');
+    var it={id:b.id||Date.now(),kind:kd,cat:kd==='post'?g('cat').value:'',title:kd==='post'?t:'',html:html},l=S.board||[];
+    await saveSite(Object.assign({},S,{board:b.id?l.map(function(x){return x.id===b.id?it:x}):l.concat([it])}),'게시판 저장');
+    var pg=kd==='road'?'road':'board';show(pg);try{history.replaceState(null,'','#'+pg)}catch(x){}
+  });
+  var tg=function(){
+    var r=G('kind').value==='road';
+    ['cat','title'].forEach(function(x){var e=G(x);e.style.display=r?'none':'';e.previousElementSibling.style.display=r?'none':''});
+  };
+  G('kind').onchange=tg;tg();
+}
+async function delBoard(id){
+  if(!confirm('이 글을 삭제할까요?'))return;
+  try{await saveSite(Object.assign({},S,{board:(S.board||[]).filter(function(x){return x.id!==id})}),'게시판 글 삭제')}catch(e){alert(e.message)}
 }
 
 // ===== 에셋 =====
