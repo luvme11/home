@@ -188,6 +188,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 .wk .sq{cursor:zoom-in}.wk .sq img{cursor:zoom-in}.wk .wt{margin-top:6px;text-align:center}
 .foot{text-align:center;margin-top:34px}
 .lnk{border:0;background:none;color:var(--sub);font:inherit;font-size:12px;cursor:pointer}.lnk:hover{color:var(--ink)}
+.sg{margin-bottom:16px}
+.sg .gh{display:flex;align-items:center;gap:12px;padding-bottom:10px;margin-bottom:4px;border-bottom:1px solid var(--line);cursor:pointer}
+.sg .gh .ic{width:44px;height:44px;border-radius:14px;overflow:hidden;flex:none;background:#cfd5e3}
+.sg .gh .ic img{width:100%;height:100%;object-fit:cover;display:block}
+.sg .gh b{font-size:16px}.sg .gh .n{margin-left:auto;color:var(--sub);font-size:12px}
+.sg .sd:first-of-type{border-top:0}
+.sg .sd .adm{margin-top:8px}
+.sg .sd .adm button{border:0;background:#ececf0;border-radius:8px;padding:2px 10px;font:inherit;font-size:12px;cursor:pointer;margin-right:4px}
+.rvtop{margin-bottom:12px}
 @media(max-width:900px){.ab,.cv,.rv{grid-template-columns:1fr}}
 @media(max-width:900px){.home{grid-template-columns:1fr}.pt{font-size:30px}.bar{gap:16px;padding:6px 14px}.wrap{padding:18px 14px 120px}}
 #eb .chk{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:4px}
@@ -319,7 +328,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #5d
 <section class="page" id="story">
   <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="openEd()">✎ 글쓰기</button>
   <h1 class="pt">STORY</h1><p class="ps">(드림캐 서사나 세계관 글을 시간 순서대로 모아두는 곳)</p>
-  <div class="tl" id="tl"></div>
+  <div id="stTabs"></div><div id="tl"></div>
 </section>
 
 <!-- ================= 로그 ================= -->
@@ -456,14 +465,36 @@ function ld(path){
 }
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function defRepo(){var h=location.hostname;if(!/\.github\.io$/.test(h))return '';var o=h.split('.')[0],seg=location.pathname.split('/')[1];return seg&&seg!=='index.html'?o+'/'+seg:o+'/'+h}
+var stSel=0;
+function stPost(p,adm){
+  return '<details class="sd"><summary><span class="sdd">'+H(p.date.replace(/-/g,'.'))+'</span>'+H(p.title)+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</summary><div class="tx">'+H(p.body)+'</div>'+
+    (adm?'<div class="adm"><button type="button" onclick="openEd('+p.id+')">수정</button><button type="button" onclick="delPost('+p.id+')">삭제</button></div>':'')+'</details>';
+}
+function setSt(id){stSel=id;render()}
+function renderStory(list,adm){
+  var groups=D.chars.map(function(c){return {c:c,l:list.filter(function(p){return (p.chars||[]).indexOf(c.id)>-1})}}).filter(function(g){return g.l.length});
+  var none=list.filter(function(p){return !(p.chars||[]).some(function(id){return CH(id)})});
+  if(stSel&&!groups.some(function(g){return g.c.id===stSel}))stSel=0;
+  var tabs='';
+  if(groups.length||none.length){
+    tabs='<div style="margin-bottom:6px"><button type="button" class="chip'+(stSel===0?' on':'')+'" onclick="setSt(0)">전체</button>'+
+      groups.map(function(g){return '<button type="button" class="chip'+(stSel===g.c.id?' on':'')+'" onclick="setSt('+g.c.id+')">'+H(g.c.name)+'</button>'}).join('')+'</div>';
+  }
+  document.getElementById('stTabs').innerHTML=tabs;
+  var out='';
+  groups.forEach(function(g){
+    if(stSel&&stSel!==g.c.id)return;
+    out+='<div class="card sg"><div class="gh" onclick="goChar('+g.c.id+')"><span class="ic">'+im(g.c.img)+'</span><b>'+H(g.c.name)+'</b>'+
+      (g.c.type==='pair'?'<span class="pill">페어</span>':g.c.type==='persona'?'<span class="pill">페르소나</span>':'')+'<span class="n">'+g.l.length+'편</span></div>'+
+      g.l.map(function(p){return stPost(p,adm)}).join('')+'</div>';
+  });
+  if(!stSel&&none.length)out+='<div class="card sg"><div class="gh" style="cursor:default"><b>미분류</b><span class="n">'+none.length+'편</span></div>'+none.map(function(p){return stPost(p,adm)}).join('')+'</div>';
+  document.getElementById('tl').innerHTML=out||'<p class="empty">아직 글이 없어요. 오른쪽 위 ✎ 글쓰기로 첫 글을 써보세요.</p>';
+}
 function render(){
   var list=posts.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:b.id-a.id});
   var adm=document.body.classList.contains('adm');
-  document.getElementById('tl').innerHTML=list.length?list.map(function(p){
-    return '<div class="ev"><div class="d">'+H(p.date.replace(/-/g,'.'))+'</div><div class="c">'+
-      (p.tag?'<span class="pill">'+H(p.tag)+'</span> ':'')+'<h4>'+H(p.title)+'</h4><div class="tx">'+H(p.body)+'</div>'+chips(p)+
-      (adm?'<div class="adm"><button type="button" onclick="openEd('+p.id+')">수정</button><button type="button" onclick="delPost('+p.id+')">삭제</button></div>':'')+'</div></div>';
-  }).join(''):'<p class="empty">아직 글이 없어요. 오른쪽 위 ✎ 글쓰기로 첫 글을 써보세요.</p>';
+  renderStory(list,adm);
   document.getElementById('diaList').innerHTML=list.slice(0,2).map(function(p){
     return '<div class="dia"><i></i><div><b>'+H(p.title)+'</b><span>'+H(p.date.slice(5).replace('-','.'))+'</span></div></div>';
   }).join('')||'<span class="empty">아직 글이 없어요</span>';
@@ -579,6 +610,16 @@ function viewChar(id){
   document.getElementById(k+'Grid').style.display='none';
   var v=document.getElementById(k+'View');v.style.display='';
   var same=D.chars.filter(function(x){return pf(x)===k});
+  var tab='<div class="tabw rvtop"><button class="tab" type="button" onclick="tgList(this)" aria-label="목록">☰</button><div class="sub2"><button type="button" onclick="showGrid()">▦ 전체 보기</button>'+
+    same.map(function(x){return '<button type="button" onclick="viewChar('+x.id+')">'+H(x.name)+'</button>'}).join('')+'</div></div>';
+  if(k==='r'){
+    var emp=function(t){return '<div class="card pc"><div class="hd"><b style="color:var(--sub);font-weight:normal">'+t+'</b></div></div>'};
+    v.innerHTML=tab+'<div class="rv">'+(CH(c.a)?pc(CH(c.a)):emp('(왼쪽 캐릭터 없음)'))+'<div class="mid">'+im(c.img)+'</div>'+(CH(c.b)?pc(CH(c.b)):emp('(오른쪽 캐릭터 없음)'))+'</div>'+
+      '<div class="card" style="margin-top:16px"><h2 class="cn" style="font-size:28px">'+H(c.name)+'</h2>'+rows(c.info)+
+      '<h3 style="margin:16px 0 4px;font-size:14px">서사</h3><div id="cStories"></div>'+
+      '<div class="admbtn" style="margin-top:14px"><button class="btn" type="button" onclick="editChar('+id+')">수정</button> <button class="btn gray" type="button" onclick="delChar('+id+')">삭제</button></div></div>';
+    renderCharStories();window.scrollTo(0,0);return;
+  }
   v.innerHTML='<div class="cv"><div class="tabw"><button class="tab" type="button" onclick="tgList(this)" aria-label="목록">☰</button><div class="sub2"><button type="button" onclick="showGrid()">▦ 전체 보기</button>'+
     same.map(function(x){return '<button type="button" onclick="viewChar('+x.id+')">'+H(x.name)+'</button>'}).join('')+'</div></div>'+
     '<div class="cimg">'+im(c.img)+'</div>'+
@@ -637,13 +678,15 @@ function editChar(id,type){
   openForm(({pair:'페어',persona:'페르소나'}[c.type]||'캐릭터')+(c.id?' 수정':' 추가'),[
     {id:'name',l:'이름 (페어는 ○○ × ○○ 처럼 적어도 돼요)',t:'text',v:c.name},
     {id:'type',l:'구분',t:'sel',o:[['main','메인'],['pair','페어'],['persona','페르소나']],v:c.type||'main'},
+    {id:'pa',l:'페어 왼쪽 캐릭터 (구분이 페어일 때)',t:'sel',o:[['','선택 안 함']].concat(D.chars.filter(function(x){return x.type!=='pair'&&x.id!==c.id}).map(function(x){return [x.id,x.name]})),v:c.a||''},
+    {id:'pb',l:'페어 오른쪽 캐릭터 (구분이 페어일 때)',t:'sel',o:[['','선택 안 함']].concat(D.chars.filter(function(x){return x.type!=='pair'&&x.id!==c.id}).map(function(x){return [x.id,x.name]})),v:c.b||''},
     {id:'color',l:'대표 색',t:'color',v:c.color},
     {id:'img',l:'사진',t:'file',v:c.img},
     {id:'info',l:'설정 (한 줄에 하나씩, 이렇게 적어요 → 성별: Male)',t:'area',v:c.info,ph:'성별: Male\n키: 183cm\n성격: ...'}
   ],async function(g){
     var name=g('name').value.trim();if(!name)throw new Error('이름을 적어주세요.');
     var img=c.img||'',f=g('img').files[0];if(f)img=await upImg(f);
-    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value};
+    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:g('pa').value?Number(g('pa').value):0,b:g('pb').value?Number(g('pb').value):0};
     cur=it.id;
     await saveData({chars:c.id?D.chars.map(function(x){return x.id===c.id?it:x}):D.chars.concat([it]),rels:D.rels},'캐릭터 저장: '+name);
   });
