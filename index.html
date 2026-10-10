@@ -1086,7 +1086,7 @@ function panel(c,id){
   else if(ct){
     if(ct.type==='image'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+',0,\''+ct.id+'\')">+ 그림 추가</button>';inner='<div id="cAssets"></div>'}
     else{bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+',\''+ct.id+'\')">+ 글 쓰기</button>';inner='<div id="cStories"></div>'}
-    bar+='<button class="btn gray admbtn" type="button" onclick="editTab('+id+',\''+ct.id+'\')">탭 이름 수정</button><button class="btn gray admbtn" type="button" onclick="delTab('+id+',\''+ct.id+'\')">탭 삭제</button>';
+    bar+='<button class="btn gray admbtn" type="button" onclick="moveTab('+id+',\''+ct.id+'\',-1)" title="앞으로">◀</button><button class="btn gray admbtn" type="button" onclick="moveTab('+id+',\''+ct.id+'\',1)" title="뒤로">▶</button><button class="btn gray admbtn" type="button" onclick="editTab('+id+',\''+ct.id+'\')">탭 이름 수정</button><button class="btn gray admbtn" type="button" onclick="delTab('+id+',\''+ct.id+'\')">탭 삭제</button>';
   }
   else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info,true):'<p class="empty">아직 설정이 없어요.</p>')}
   return '<div class="ctabs"><div class="ctl">'+chips+'</div><div class="tbar">'+bar+'</div></div><div class="tbd">'+inner+'</div>';
@@ -1152,6 +1152,14 @@ function editTab(cid,tid){
     else{var nt={id:'t'+Date.now(),name:nm,type:g('type').value};tabs.push(nt);cTab=nt.id}
     await saveChar(Object.assign({},CH(cid),{tabs:tabs}),'탭 저장');
   });
+}
+async function moveTab(cid,tid,d){
+  if(needCfg())return;
+  var c=CH(cid);if(!c)return;
+  var tabs=(c.tabs||[]).slice(),i=tabs.map(function(t){return t.id}).indexOf(tid),j=i+d;
+  if(i<0||j<0||j>=tabs.length)return;
+  var t=tabs[i];tabs[i]=tabs[j];tabs[j]=t;
+  try{await saveChar(Object.assign({},c,{tabs:tabs}),'탭 순서 변경')}catch(e){alert(e.message)}
 }
 async function delTab(cid,tid){
   var c=CH(cid);if(!c)return;
