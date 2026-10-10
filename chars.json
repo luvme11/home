@@ -1861,6 +1861,31 @@
      "text": "ㅌㅅㅌ"
     }
    ]
+  },
+  {
+   "id": 1791615175419,
+   "name": "BENJAMIN BRADLEY X YUI",
+   "color": "#b3b3b3",
+   "img": "images/1791615173444_4926.jpg",
+   "info": "",
+   "type": "pair",
+   "a": 0,
+   "b": 0,
+   "assets": [],
+   "tabs": [],
+   "timeline": [],
+   "ax": {
+    "name": "BENJAMIN \"BB\" BRADLEY",
+    "color": "#dbdf26",
+    "img": "images/1791615175419_322.jpg",
+    "info": "NAME: BENJAMIN BRADLEY / 벤자민 브래들리\nALIAS: BB / 비비\nSEX: 남성\nVOICE: 30대 중반 남성의 목소리\nSCENT: 철 · 오존\nSTATUS: DECEASED / ENTITY\nORIGIN: 13―14F INTERSPACE\nTHREAT: UNKNOWN"
+   },
+   "bx": {
+    "name": "선유이",
+    "color": "#ffd6d6",
+    "img": "images/1791615177456_5568.jpg",
+    "info": "NAME: Seon Yui / 선유이\nALIAS: Yui / 유이\nSEX: 여성\nVOICE: 하이톤 · 나긋나긋한 맑은 목소리\nSCENT: (꽃) 샴푸, (꽃) 바디워시\nSTATUS: SURVIVOR\nORIGIN: 13―14F INTERSPACE\nTHREAT: NO THREAT"
+   }
   }
  ],
  "rels": []
