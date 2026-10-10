@@ -1052,7 +1052,7 @@ async function mergeAssets(cid,ti){
   try{await saveChar(Object.assign({},c,{assets:out}),'에셋 묶기')}catch(e){alert(e.message)}
 }
 var cTab='p';
-function setTab(t){cTab=t;viewChar(cur,1)}
+function setTab(t){cTab=t;keepY(function(){viewChar(cur,1)})}
 function curTabId(){return ['p','s','a'].indexOf(cTab)<0?cTab:''}
 function inTab(c,x,tid){var has=(c.tabs||[]).some(function(t){return t.id===x.tab});return (has?x.tab:'')===tid}
 function panel(c,id){
