@@ -467,20 +467,23 @@ body.adm .ctabs .tbar{min-height:0;margin-bottom:0}
 @media(min-width:901px){.ag2.ag6{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
 .ctabs{scroll-margin-top:70px}
 /* ===== 타임라인 ===== */
-.tlv{padding:2px 0}
-.tlh{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-size:13px;letter-spacing:.24em;color:var(--sub);margin-bottom:18px}
+.tlv{padding:4px 2px}
+.tlh{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-size:13px;letter-spacing:.24em;color:var(--sub);margin-bottom:22px}
 .tlh i{width:12px;height:12px;border-radius:50%;display:block;flex:none;box-sizing:border-box}
-.tlh i.a{background:var(--btn)}.tlh i.b{background:#c3c7d1}.tlh i.c{border:1.5px solid #c3c7d1;margin-right:6px}
-.tli{display:grid;grid-template-columns:96px 22px minmax(0,1fr);column-gap:12px;padding-bottom:20px}
+.tlh i.a{background:#4a63b8}.tlh i.b{background:#b9c3e6}.tlh i.c{border:1.5px solid #b9c3e6;margin-right:6px}
+.tli{display:grid;grid-template-columns:130px 24px minmax(0,1fr);column-gap:14px;padding-bottom:26px;--g:26px}
 .tli:last-child{padding-bottom:0}
-.tll{font-weight:bold;color:#4a63b8;line-height:1.6;white-space:pre-line;word-break:keep-all}
+.tll{font-weight:700;color:#4a63b8;line-height:1.5;font-size:14px;white-space:pre-line;word-break:normal;overflow-wrap:break-word}
 .tlc{position:relative}
-.tlc i{position:absolute;left:50%;top:5px;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;border:2px solid var(--btn);background:var(--card);box-sizing:border-box;z-index:1}
-.tli:not(:last-child) .tlc::before{content:"";position:absolute;left:50%;top:17px;bottom:-5px;width:1.5px;margin-left:-.75px;background:#d5d8e0}
-.tli.now .tlc i{background:var(--btn);box-shadow:0 0 0 4px #e6e7ec}
-.tlt{white-space:pre-wrap;word-break:break-word;color:#444;line-height:1.7}
-.tlt .admbtn{white-space:normal;margin-top:6px}
-@media(max-width:600px){.tli{grid-template-columns:76px 18px minmax(0,1fr);column-gap:8px}}
+.tlc i{position:absolute;left:50%;top:4px;width:12px;height:12px;margin-left:-6px;border-radius:50%;border:2px solid #4a63b8;background:var(--card);box-sizing:border-box;z-index:1}
+.tli:not(:last-child) .tlc::before{content:"";position:absolute;left:50%;top:18px;bottom:calc(-1 * var(--g) - 4px);width:1.5px;margin-left:-.75px;background:#d5d8e0}
+.tli.now .tlc i{background:#4a63b8;box-shadow:0 0 0 4px #dfe4f5}
+.tlt{min-width:0}
+.tlx{white-space:pre-wrap;word-break:break-word;color:#3d4049;line-height:1.75;font-size:14px}
+.tlt .admbtn{display:none}
+body.adm .tlt .admbtn{display:flex;gap:4px;margin-top:8px}
+.tlt .mini{margin:0}
+@media(max-width:600px){.tli{grid-template-columns:84px 20px minmax(0,1fr);column-gap:8px}}
 </style>
 </head>
 <body>
@@ -1045,19 +1048,17 @@ async function mergeAssets(cid,ti){
 }
 var cTab='p';
 function setTab(t){cTab=t;viewChar(cur,1)}
-function curTabId(){return ['p','s','a','tl'].indexOf(cTab)<0?cTab:''}
+function curTabId(){return ['p','s','a'].indexOf(cTab)<0?cTab:''}
 function inTab(c,x,tid){var has=(c.tabs||[]).some(function(t){return t.id===x.tab});return (has?x.tab:'')===tid}
 function panel(c,id){
   var isPair=pf(c)==='r',tabs=c.tabs||[];
   if(isPair&&cTab==='p')cTab='s';
-  if(isPair&&cTab==='tl')cTab='s';
-  if(['p','s','a','tl'].indexOf(cTab)<0&&!tabs.some(function(t){return t.id===cTab}))cTab=isPair?'s':'p';
-  var base=[['p','프로필'],['s','서사'],['tl','타임라인'],['a','에셋']].filter(function(x){return !(isPair&&(x[0]==='p'||x[0]==='tl'))}).concat(tabs.map(function(t){return [t.id,t.name]}));
+  if(['p','s','a'].indexOf(cTab)<0&&!tabs.some(function(t){return t.id===cTab}))cTab=isPair?'s':'p';
+  var base=[['p','프로필'],['s','서사'],['a','에셋']].filter(function(x){return !(isPair&&x[0]==='p')}).concat(tabs.map(function(t){return [t.id,t.name]}));
   var chips=base.map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+H(x[1])+'</button>'}).join('')+'<button type="button" class="chip admbtn" onclick="editTab('+id+')">+ 탭</button>';
   var ct=tabs.filter(function(t){return t.id===cTab})[0],bar,inner;
   if(cTab==='s'&&isPair){bar='<button class="btn admbtn" type="button" onclick="editTl('+id+')">+ 타임라인 추가</button>';inner='<div id="cTl"></div><div id="cStories"></div>'}
   else if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
-  else if(cTab==='tl'){bar='<button class="btn admbtn" type="button" onclick="editTl('+id+')">+ 타임라인 추가</button>';inner='<div id="cTl"></div>'}
   else if(cTab==='a'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button>';inner='<div id="cAssets"></div>'}
   else if(ct){
     if(ct.type==='image'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+',0,\''+ct.id+'\')">+ 그림 추가</button>';inner='<div id="cAssets"></div>'}
@@ -1071,18 +1072,18 @@ function tlOf(c){return (c&&c.timeline)||[]}
 function renderTimeline(){
   var el=document.getElementById('cTl');if(!el)return;
   var c=CH(cur),l=tlOf(c);
-  if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">아직 타임라인이 없어요.</p>';return}
-  el.innerHTML='<div class="tlv"><div class="tlh"><i class="a"></i><i class="b"></i><i class="c"></i>TIMELINE</div>'+l.map(function(t,i){
-    return '<div class="tli'+(i===l.length-1?' now':'')+'"><div class="tll">'+H(t.label||'')+'</div><div class="tlc"><i></i></div><div class="tlt">'+H(t.text||'')+
+  if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">아직 타임라인이 없어요. 위의 "+ 타임라인 추가"로 첫 항목을 적어보세요.</p>';return}
+  el.innerHTML='<div class="tlv"><div class="tlh"><i class="a"></i><i class="b"></i><i class="c"></i>TIMELINE</div><div class="tlist">'+l.map(function(t,i){
+    return '<div class="tli'+(i===l.length-1?' now':'')+'"><div class="tll">'+H(t.label||'')+'</div><div class="tlc"><i></i></div><div class="tlt"><div class="tlx">'+H(t.text||'')+'</div>'+
       '<div class="admbtn"><button class="mini" type="button" onclick="editTl('+c.id+','+t.id+')">수정</button><button class="mini" type="button" onclick="moveTl('+c.id+','+t.id+',-1)">▲</button><button class="mini" type="button" onclick="moveTl('+c.id+','+t.id+',1)">▼</button><button class="mini" type="button" onclick="delTl('+c.id+','+t.id+')">삭제</button></div></div></div>';
-  }).join('')+'</div>';
+  }).join('')+'</div><div class="admbtn" style="margin-top:20px"><button class="btn" type="button" onclick="editTl('+c.id+')">+ 항목 추가</button></div></div>';
 }
 function editTl(cid,tid){
   var c=CH(cid);if(!c)return;
   var t=tlOf(c).filter(function(x){return x.id===tid})[0]||{};
   openForm(t.id?'타임라인 수정':'타임라인 추가',[
-    {id:'label',l:'제목 (예: 에덴 23세, 첫 만남, 현재 · 줄바꿈도 돼요)',t:'area',v:t.label,ph:'첫 만남'},
-    {id:'text',l:'내용 (맨 아래 항목은 점이 채워져서 "현재"처럼 보여요)',t:'area',v:t.text}
+    {id:'label',l:'제목 — 항목 하나당 한 줄 (예: 첫 만남)',t:'text',v:t.label},
+    {id:'text',l:'내용 — 길게 적어도 되고, 엔터로 줄바꿈해도 그대로 보여요',t:'area',v:t.text}
   ],async function(g){
     var lb=g('label').value.trim(),tx=g('text').value.trim();
     if(!lb)throw new Error('제목을 적어주세요.');
