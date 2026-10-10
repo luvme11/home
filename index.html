@@ -363,7 +363,7 @@ details.row summary .da{min-width:44px;text-align:right}
 .sdi.done b{text-decoration:line-through;text-decoration-thickness:1.5px}
 .sdi.done b,.sdi.done small,.sdi.done .mm{color:var(--sub);opacity:.7}
 .sdi.done .bar2{opacity:.4}
-.sq.adl img{filter:blur(16px);transform:scale(1.12)}.sq .a19{position:absolute;left:8px;top:8px;z-index:1;background:#d33;color:#fff;border-radius:10px;padding:1px 8px;font-size:12px;font-weight:700}
+.sq.adl img{filter:blur(16px);transform:scale(1.12)}
 .admonly{display:none}body.adm .admonly{display:block}
 .scc .ev.fin{text-decoration:line-through;color:var(--sub);opacity:.65}
 .mini{border:0;background:#ececf0;border-radius:8px;padding:1px 9px;font:inherit;font-size:11px;cursor:pointer;margin:4px 4px 0 0;color:var(--ink)}
@@ -979,7 +979,7 @@ function renderAssets(){
   el.innerHTML=order.map(function(t,ti){
     return (order.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+'<div class="grid ag2">'+g[t].map(function(a){
       ASSET_ORDER.push(a);var n=aimgs(a).length;
-      return '<div class="wk"><div class="sq'+(a.adult?' adl':'')+'" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(a.adult?'<span class="a19">19</span>':'')+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
+      return '<div class="wk"><div class="sq'+(a.adult?' adl':'')+'" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
         '<div class="admbtn" style="text-align:center"><button class="sm" type="button" onclick="editAsset('+c.id+','+a.id+')">수정</button><button class="sm" type="button" onclick="delAsset('+c.id+','+a.id+')">삭제</button></div></div>';
     }).join('')+'</div>';
   }).join('');
@@ -1797,7 +1797,7 @@ function editAsset(cid,aid,tab){
     {id:'tag',l:'분류 (예: 전신, 표정, 의상, 소품, 레퍼런스, 아이콘)',t:'text',v:a.tag},
     {id:'title',l:'제목 (비워도 돼요)',t:'text',v:a.title},
     {id:'img',l:a.id?'사진 (고르면 아래 설정대로 처리돼요 · 안 고르면 그대로)':'사진 (여러 장을 한 번에 골라도 돼요. PNG/GIF는 원본 그대로 올라가요)',t:'file',v:a.img,m:true},
-    {id:'adult',l:'연령 제한',t:'chk1',v:a.adult,tx:'19금 (목록 썸네일을 흐리게 가려요 · 눌러서 열면 원본이 보여요)'}
+    {id:'adult',l:'연령 제한',t:'chk1',v:a.adult,tx:'19금 (목록 썸네일을 블러 처리해요 · 눌러서 열면 원본이 보여요)'}
   ];
   f.push(a.id?{id:'mode',l:'고른 사진 처리',t:'sel',o:[['add','이 묶음 뒤에 추가'],['replace','기존 사진 전부 바꾸기']],v:'add'}
              :{id:'mode',l:'여러 장 올릴 때',t:'sel',o:[['group','한 묶음으로 (슬라이드로 넘겨봐요)'],['sep','장마다 따로따로']],v:'group'});
