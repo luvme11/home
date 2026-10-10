@@ -1871,7 +1871,17 @@
    "type": "pair",
    "a": 0,
    "b": 0,
-   "assets": [],
+   "assets": [
+    {
+     "id": 1791615384432,
+     "tag": "",
+     "title": "",
+     "img": "images/1791615382566_2110.jpg",
+     "imgs": [
+      "images/1791615382566_2110.jpg"
+     ]
+    }
+   ],
    "tabs": [],
    "timeline": [],
    "ax": {
