@@ -573,7 +573,13 @@
      "type": "image"
     }
    ],
-   "timeline": []
+   "timeline": [
+    {
+     "id": 1791609285933,
+     "label": "23세",
+     "text": "고등ㅎ"
+    }
+   ]
   }
  ],
  "rels": []
