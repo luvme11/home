@@ -50,6 +50,12 @@ body.adm .banner{cursor:pointer}
 .me .ph{width:96px;height:96px;margin:4px auto 10px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,#dcd5e6,#c4cadb);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
 .me .ph img{width:100%;height:100%;object-fit:cover}
 .me b{font-size:16px}.me p{color:var(--sub);margin:2px 0 0}
+.ddc{position:relative;height:104px;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#d9dbe6,#c3c8da);margin-top:8px;color:#fff}
+.ddc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ddc::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.62),rgba(0,0,0,0) 65%)}
+.ddc .n,.ddc .v{position:absolute;bottom:9px;z-index:1;text-shadow:0 1px 4px rgba(0,0,0,.55)}
+.ddc .n{left:13px;right:88px;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ddc .v{right:13px;font-size:17px;font-weight:700;letter-spacing:.02em}
 .dd{display:flex;justify-content:space-between;align-items:baseline}
 .dd em{font-family:var(--serif);font-style:normal;font-size:20px}
 .dd small{display:block;color:var(--sub);font-size:11px}
@@ -497,7 +503,7 @@ body.adm .tbar{min-height:34px;margin-bottom:10px}
       <b class="s-nick">(닉네임)</b><p class="s-tag">(한 줄 소개를 적는 곳)</p>
     </div>
     <div class="card"><p class="lb">D-DAY</p>
-      <div class="dd"><div><span class="s-ddn">(기념일 이름)</span><small>기준일 <span id="ddDate">2026-01-01</span></small></div><em id="ddNum"></em></div>
+      <div id="ddList"></div><button class="btn admbtn" type="button" onclick="editDday()">D-DAY 관리</button>
     </div>
     <div class="card"><p class="lb" id="homeDayT">오늘 일정</p><div id="homeTd"><span class="empty">오늘 일정이 없어요</span></div></div>
   </div>
@@ -607,7 +613,7 @@ body.adm .tbar{min-height:34px;margin-bottom:10px}
     </div>
     <div class="col">
       <div class="card"><p class="lb" id="scDayT">일정</p><div id="scDay"></div><button class="btn admbtn" type="button" onclick="editEv(0,scSel)">+ 일정 추가</button></div>
-      <div class="card"><p class="lb">D-DAY</p><div class="dd"><div><span id="scDdN"></span></div><em id="scDdV"></em></div></div>
+      <div class="card"><p class="lb">D-DAY</p><div id="scDdList"></div><button class="btn admbtn" type="button" onclick="editDday()">D-DAY 관리</button></div>
       <div class="card" id="scCatCard"><p class="lb">카테고리</p><div id="scCats"></div><button class="btn admbtn" type="button" onclick="editCat()">+ 카테고리 추가</button></div>
     </div>
   </div>
@@ -707,11 +713,44 @@ window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
 show(location.hash.slice(1));
 
 // D-DAY
-function dday(){
-  var d=new Date(document.getElementById('ddDate').textContent.trim()+'T00:00:00');
-  if(isNaN(d)) return;
+function dday(){renderDday()}
+function ddList(){
+  var S2=(typeof S!=='undefined'&&S)||{};
+  if(Array.isArray(S2.ddays))return S2.ddays;
+  if(S2.ddName||S2.ddDate)return [{id:1,name:S2.ddName||'',date:S2.ddDate||'',img:''}];
+  return [];
+}
+function ddNum(date){
+  var d=new Date(String(date||'')+'T00:00:00');if(isNaN(d))return '';
   var n=Math.floor((new Date().setHours(0,0,0,0)-d)/864e5);
-  document.getElementById('ddNum').textContent=n>=0?'D+'+(n+1):'D'+n;
+  return n>=0?'D+'+(n+1):'D'+n;
+}
+function renderDday(){
+  var l=ddList(),h=l.length?l.map(function(x){
+    return '<div class="ddc">'+(x.img?im(x.img):'')+'<span class="n">'+H(x.name||'')+'</span><span class="v">'+H(ddNum(x.date))+'</span></div>';
+  }).join(''):'<span class="empty">D-DAY를 추가해 보세요</span>';
+  ['ddList','scDdList'].forEach(function(id){var e=document.getElementById(id);if(e)e.innerHTML=h});
+}
+function ddRow(r){
+  return '<div class="kvr bgr ddr" data-img="'+H(r.img||'')+'"><input class="dd_n" type="text" placeholder="이름 (예: 페어명, 상대 이름)" value="'+H(r.name||'')+'"><input class="dd_d" type="date" value="'+H(r.date||'')+'" style="margin-top:6px"><input class="dd_f" type="file" accept="image/*" style="margin-top:6px">'+(r.img?'<small>지금 이미지가 있어요. 새로 고르지 않으면 그대로 둬요.</small>':'')+'<div style="margin-top:6px"><button type="button" class="lnk" onclick="bgMove(this,-1)">▲ 위로</button> <button type="button" class="lnk" onclick="bgMove(this,1)">▼ 아래로</button> <button type="button" class="lnk" onclick="this.closest(\'.bgr\').remove()">이 D-DAY 삭제</button></div></div>';
+}
+function addDd(){document.getElementById('g_dds').insertAdjacentHTML('beforeend',ddRow({}))}
+function editDday(){
+  var l=ddList();
+  openForm('D-DAY 관리',[
+    {id:'dds',l:'D-DAY 목록 — 이미지, 이름(페어명·상대 이름), 시작일을 넣어요. ▲▼로 순서를 바꿔요',t:'ddays',v:l.length?l:[{}]}
+  ],async function(g){
+    var rows=document.querySelectorAll('#g_dds .ddr'),out=[],i,r,nm,dt,img,f;
+    for(i=0;i<rows.length;i++){
+      r=rows[i];nm=r.querySelector('.dd_n').value.trim();dt=r.querySelector('.dd_d').value;
+      if(!nm&&!dt)continue;
+      if(!dt)throw new Error('"'+nm+'"의 날짜(시작일)를 골라주세요.');
+      img=r.getAttribute('data-img')||'';f=r.querySelector('.dd_f').files[0];
+      if(f)img=await upImg(f);
+      out.push({id:Date.now()+i,name:nm,date:dt,img:img});
+    }
+    await saveSite(Object.assign({},S,{ddays:out}),'D-DAY 저장');
+  });
 }
 dday();
 
@@ -1026,6 +1065,7 @@ function openForm(title,fields,save){
     else if(f.t==='file')h+='<input id="'+id+'" type="file" accept="image/*"'+(f.m?' multiple':'')+'>'+(f.v?'<small>지금 사진이 있어요. 새로 고르지 않으면 그대로 둬요.</small>':'');
     else if(f.t==='negs')h+='<div id="'+id+'">'+(f.v||[]).map(negRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addNeg()">+ 네거티브 추가</button>';
     else if(f.t==='kvs')h+='<div id="'+id+'" data-area="'+(f.area?1:0)+'" data-kp="'+H(f.kp||'')+'" data-vp="'+H(f.vp||'')+'">'+(f.v||[]).map(function(r){return kvRow(r,f)}).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addKv(\''+id+'\')">+ 항목 추가</button>';
+    else if(f.t==='ddays')h+='<div id="'+id+'">'+(f.v||[]).map(ddRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addDd()">+ D-DAY 추가</button>';
     else if(f.t==='bgms')h+='<div id="'+id+'">'+(f.v||[]).map(bgmRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addBgm()">+ 곡 추가</button>';
     else if(f.t==='chk')h+='<div class="chk" id="'+id+'">'+(D.chars.length?D.chars.map(function(c){return '<label class="ck"><input type="checkbox" value="'+c.id+'"'+((f.v||[]).indexOf(c.id)>-1?' checked':'')+'>'+H(c.name)+'</label>'}).join(''):'<small>캐릭터를 먼저 추가하면 고를 수 있어요.</small>')+'</div>';
     else if(f.t==='rich')h+=richUI(f.id,f.v,f.x,f.raw);
@@ -1127,7 +1167,6 @@ function renderSite(){
   if(S.profile)document.querySelectorAll('.me .ph').forEach(function(e){e.innerHTML='<img src="'+H(U(S.profile))+'" data-p="'+H(S.profile)+'" alt="" onerror="imgFail(this)">'});
   if(S.banner){var bb=document.getElementById('bannerBox');bb.innerHTML='<img src="'+H(U(S.banner))+'" data-p="'+H(S.banner)+'" alt="" onerror="imgFail(this)">'}
   T('.s-nick',S.nick);T('.s-tag',S.tag);T('.s-memo',S.memo);T('.s-ddn',S.ddName);T('.s-notice',S.notice);
-  if(S.ddDate)document.getElementById('ddDate').textContent=S.ddDate;
   if(S.kw)document.getElementById('iKw').innerHTML=S.kw.split(',').map(function(k){return k.trim()}).filter(Boolean).map(function(k){return '<span>'+H(k)+'</span>'}).join('');
   if(Array.isArray(S.infoRows)||S.info){document.getElementById('iInfo').innerHTML=infoList().filter(function(r){return r.k||r.v}).map(function(r){return r.k?'<div class="kv"><span>'+H(r.k)+'</span><b>'+H(r.v)+'</b></div>':'<p class="kp">'+H(r.v)+'</p>'}).join('')||'<span class="empty">-</span>'}
   if(Array.isArray(S.noticeRows)||(S.notice&&S.notice.trim())){document.getElementById('iNotice').innerHTML=noticeList().filter(function(r){return r.k||r.v}).map(function(r){return '<div class="nt nr">'+(r.k?'<div class="nkw"><span class="nk">'+H(r.k)+'</span></div>':'')+'<div class="kp">'+H(r.v)+'</div></div>'}).join('')||'<span class="empty">-</span>'}
@@ -1249,15 +1288,13 @@ function editSite(){
     {id:'nick',l:'닉네임',t:'text',v:S.nick},
     {id:'tag',l:'한 줄 소개',t:'text',v:S.tag},
     {id:'memo',l:'홈 메모',t:'area',v:S.memo},
-    {id:'ddName',l:'D-DAY 이름',t:'text',v:S.ddName},
-    {id:'ddDate',l:'D-DAY 기준일 (예: 2026-01-01)',t:'text',v:S.ddDate},
     {id:'bgms',l:'BGM 목록 — 곡을 여러 개 넣고 ▲▼로 순서를 바꿔요. 위에서부터 차례로 이어서 재생돼요',t:'bgms',v:bgmList().length?bgmList():[{}]}
   ],async function(g){
     var v=function(k){return g(k).value.trim()};
     var pimg=S.profile||'',pfile=g('img').files[0];if(pfile)pimg=await upImg(pfile);
     var fimg=S.favicon||'',ffile=g('fav').files[0];if(ffile)fimg=await upAsset(ffile);
     var bimg=S.banner||'',bfile=g('banner').files[0];if(bfile)bimg=await upImg(bfile);
-    await saveSite(Object.assign({},S,{profile:pimg,banner:bimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,ddName:v('ddName'),ddDate:v('ddDate'),bgm:(function(){var l=bgmGet(),f=l[0]||{};return {list:l,url:f.url||'',title:f.title||'',artist:f.artist||''}})()}),'사이트 설정 저장');
+    await saveSite(Object.assign({},S,{profile:pimg,banner:bimg,favicon:fimg,nick:v('nick'),tag:v('tag'),memo:g('memo').value,bgm:(function(){var l=bgmGet(),f=l[0]||{};return {list:l,url:f.url||'',title:f.title||'',artist:f.artist||''}})()}),'사이트 설정 저장');
     initBgm();
   });
 }
@@ -1770,8 +1807,7 @@ function renderSched(){
     return '<div class="sdi'+(dnOn(e.id,scSel)?' done':'')+'">'+evCk(e.id,scSel)+'<span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm admonly">'+H(e.memo)+'</div>':'')+
       '<div class="admbtn"><button class="mini" type="button" onclick="editEv('+e.id+')">수정</button><button class="mini" type="button" onclick="delEv('+e.id+')">삭제</button></div></div></div>';
   }).join(''):'<span class="empty">이 날짜에 일정이 없습니다</span>';
-  document.getElementById('scDdN').textContent=S.ddName||document.querySelector('.s-ddn').textContent;
-  document.getElementById('scDdV').textContent=ddText();
+  renderDday();
   renderHomeTodo();
   document.getElementById('scCats').innerHTML=s.cats.length?s.cats.map(function(c){
     return '<div class="cti"><i style="background:'+H(c.color)+'"></i><span>'+H(c.name)+'</span><span class="admbtn"><button class="mini" type="button" onclick="editCat('+c.id+')">수정</button><button class="mini" type="button" onclick="delCat('+c.id+')">삭제</button></span></div>';
