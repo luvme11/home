@@ -433,6 +433,11 @@ details.row summary .da{min-width:44px;text-align:right}
 .tbar .btn{margin:0}
 body.adm .tbar{min-height:34px;margin-bottom:10px}
 .tbd{min-height:60px}
+.ctabs{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.ctabs .ctl{display:flex;flex-wrap:wrap;gap:0;min-width:0}
+.ctabs .chip{margin:0 6px 6px 0}
+.ctabs .tbar{margin:0;min-height:0;flex-wrap:wrap;justify-content:flex-end}
+body.adm .ctabs .tbar{min-height:0;margin-bottom:0}
 .tbd p.empty{margin:0;font-size:13px}
 /* ===== 로라 ===== */
 .lolist{display:grid}
@@ -830,7 +835,7 @@ function nextBgm(d,auto){
 function setVol(v){if(ready)yt.setVolume(v)}
 
 // ===== 서사 타임라인 + 글쓰기 =====
-var posts=[],editId=null;
+var posts=[],editId=null,edTab='';
 function LS(k,v){try{if(v===undefined)return localStorage.getItem(k)||'';localStorage.setItem(k,v)}catch(e){return ''}}
 function H(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function ld(path){
@@ -852,9 +857,10 @@ function render(){
 }
 ld('posts.json').then(function(d){posts=d}).catch(function(){posts=[]}).then(render);
 
-function openEd(id,pre){
+function openEd(id,pre,tab){
   editId=id||null;
   var p=posts.filter(function(x){return x.id===id})[0]||{};
+  edTab=p.tab||tab||'';
   document.getElementById('edTitle').textContent=p.id?'글 수정':'글쓰기';
   document.getElementById('fDate').value=p.date||today();
   document.getElementById('fTag').value=p.tag||'';
@@ -895,6 +901,7 @@ async function savePost(){
   if(!t||!b){alert('제목과 내용을 적어주세요.');return}
   if(!readCfg()){document.getElementById('cfg').open=true;alert('저장 설정에 저장소 주소와 토큰을 넣어주세요.');return}
   var item={id:editId||Date.now(),date:document.getElementById('fDate').value||today(),tag:document.getElementById('fTag').value.trim(),title:t,body:b,chars:selChars()};
+  if(edTab)item.tab=edTab;
   var next=editId?posts.map(function(x){return x.id===editId?item:x}):posts.concat([item]);
   var btn=document.getElementById('svBtn');btn.textContent='저장 중...';
   try{await commit(next,'글 저장: '+t);posts=next;render();closeEd()}
@@ -955,22 +962,21 @@ function tgList(b){b.parentNode.querySelector('.sub2').classList.toggle('on')}
 function goChar(id){var c=CH(id);if(!c)return;var pg=PAGE[pf(c)];show(pg);try{history.replaceState(null,'','#'+pg)}catch(x){}viewChar(id)}
 function renderCharStories(){
   var el=document.getElementById('cStories');if(!el)return;
-  var l=posts.filter(function(p){return (p.chars||[]).indexOf(cur)>-1}).sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:b.id-a.id});
-  el.innerHTML=l.length?l.map(stPost).join(''):'<p class="empty" style="font-size:13px">아직 서사가 없어요.</p>';
+  var cc=CH(cur)||{},tid=curTabId();
+  var l=posts.filter(function(p){return (p.chars||[]).indexOf(cur)>-1&&inTab(cc,p,tid)}).sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:b.id-a.id});
+  el.innerHTML=l.length?l.map(stPost).join(''):'<p class="empty" style="font-size:13px">'+(tid?'아직 글이 없어요.':'아직 서사가 없어요.')+'</p>';
 }
 var ASSET_ORDER=[],ASSET_TAGS=[];
 function aimgs(a){return (a.imgs&&a.imgs.length)?a.imgs:(a.img?[a.img]:[])}
 function renderAssets(){
   var el=document.getElementById('cAssets');if(!el)return;
-  var c=CH(cur),l=(c&&c.assets)||[];
-  if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">아직 에셋이 없어요.</p>';ASSET_ORDER=[];return}
+  var c=CH(cur),tid=curTabId(),l=((c&&c.assets)||[]).filter(function(x){return inTab(c,x,tid)});
+  if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">'+(tid?'아직 그림이 없어요.':'아직 에셋이 없어요.')+'</p>';ASSET_ORDER=[];return}
   var g={},order=[];
   l.forEach(function(a){var t=a.tag||'기타';if(!g[t]){g[t]=[];order.push(t)}g[t].push(a)});
   ASSET_ORDER=[];ASSET_TAGS=order;
   el.innerHTML=order.map(function(t,ti){
-    return (order.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+
-      (g[t].length>1?'<div class="admbtn" style="margin-bottom:6px"><button class="sm" type="button" onclick="mergeAssets('+c.id+','+ti+')" style="border:0;background:#ececf0;border-radius:8px;padding:2px 10px;font:inherit;font-size:12px;cursor:pointer">이 분류 사진 전부 한 묶음(슬라이드)으로 합치기</button></div>':'')+
-      '<div class="grid ag2">'+g[t].map(function(a){
+    return (order.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+'<div class="grid ag2">'+g[t].map(function(a){
       ASSET_ORDER.push(a);var n=aimgs(a).length;
       return '<div class="wk"><div class="sq" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
         '<div class="admbtn" style="text-align:center"><button class="sm" type="button" onclick="editAsset('+c.id+','+a.id+')">수정</button><button class="sm" type="button" onclick="delAsset('+c.id+','+a.id+')">삭제</button></div></div>';
@@ -1001,16 +1007,44 @@ async function mergeAssets(cid,ti){
 }
 var cTab='p';
 function setTab(t){cTab=t;viewChar(cur,1)}
+function curTabId(){return ['p','s','a'].indexOf(cTab)<0?cTab:''}
+function inTab(c,x,tid){var has=(c.tabs||[]).some(function(t){return t.id===x.tab});return (has?x.tab:'')===tid}
 function panel(c,id){
-  var isPair=pf(c)==='r';
+  var isPair=pf(c)==='r',tabs=c.tabs||[];
   if(isPair&&cTab==='p')cTab='s';
-  var tabs='<div style="margin-bottom:10px">'+[['p','프로필'],['s','서사'],['a','에셋']].filter(function(x){return !(isPair&&x[0]==='p')}).map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+x[1]+'</button>'}).join('')+'</div>';
-  var bar,inner;
+  if(['p','s','a'].indexOf(cTab)<0&&!tabs.some(function(t){return t.id===cTab}))cTab=isPair?'s':'p';
+  var base=[['p','프로필'],['s','서사'],['a','에셋']].filter(function(x){return !(isPair&&x[0]==='p')}).concat(tabs.map(function(t){return [t.id,t.name]}));
+  var chips=base.map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+H(x[1])+'</button>'}).join('')+'<button type="button" class="chip admbtn" onclick="editTab('+id+')">+ 탭</button>';
+  var ct=tabs.filter(function(t){return t.id===cTab})[0],bar,inner;
   if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
   else if(cTab==='a'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button>';inner='<div id="cAssets"></div>'}
+  else if(ct){
+    if(ct.type==='image'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+',0,\''+ct.id+'\')">+ 그림 추가</button>';inner='<div id="cAssets"></div>'}
+    else{bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+',\''+ct.id+'\')">+ 글 쓰기</button>';inner='<div id="cStories"></div>'}
+    bar+='<button class="btn gray admbtn" type="button" onclick="editTab('+id+',\''+ct.id+'\')">탭 이름 수정</button><button class="btn gray admbtn" type="button" onclick="delTab('+id+',\''+ct.id+'\')">탭 삭제</button>';
+  }
   else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info,true):'<p class="empty">아직 설정이 없어요.</p>')}
-  var body='<div class="tbar">'+bar+'</div><div class="tbd">'+inner+'</div>';
-  return tabs+body;
+  return '<div class="ctabs"><div class="ctl">'+chips+'</div><div class="tbar">'+bar+'</div></div><div class="tbd">'+inner+'</div>';
+}
+function editTab(cid,tid){
+  var c=CH(cid);if(!c)return;
+  var t=(c.tabs||[]).filter(function(x){return x.id===tid})[0]||{};
+  var f=[{id:'name',l:'탭 이름 (예: 일러, 소설, 설정집)',t:'text',v:t.name}];
+  if(!t.id)f.push({id:'type',l:'이 탭에 올릴 것',t:'sel',o:[['text','글 (제목 + 내용을 적어요)'],['image','그림 (사진 여러 장 · 슬라이드로 넘겨봐요)']],v:'text'});
+  openForm(t.id?'탭 이름 수정':'탭 추가',f,async function(g){
+    var nm=g('name').value.trim();if(!nm)throw new Error('탭 이름을 적어주세요.');
+    var tabs=(CH(cid).tabs||[]).slice();
+    if(t.id)tabs=tabs.map(function(x){return x.id===t.id?Object.assign({},x,{name:nm}):x});
+    else{var nt={id:'t'+Date.now(),name:nm,type:g('type').value};tabs.push(nt);cTab=nt.id}
+    await saveChar(Object.assign({},CH(cid),{tabs:tabs}),'탭 저장');
+  });
+}
+async function delTab(cid,tid){
+  var c=CH(cid);if(!c)return;
+  if(!confirm('이 탭을 삭제할까요?\n(탭 안의 글·그림은 지워지지 않고 서사/에셋 탭으로 옮겨져요)'))return;
+  if(needCfg())return;
+  cTab=pf(c)==='r'?'s':'p';
+  try{await saveChar(Object.assign({},c,{tabs:(c.tabs||[]).filter(function(t){return t.id!==tid})}),'탭 삭제')}catch(e){alert(e.message)}
 }
 function slot(c,side){
   var o=c[side+'x']||CH(c[side]);
@@ -1138,7 +1172,7 @@ function editChar(id,type){
   ],async function(g){
     var name=g('name').value.trim();if(!name)throw new Error('이름을 적어주세요.');
     var img=c.img||'',f=g('img').files[0];if(f)img=await upImg(f);
-    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[]};
+    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[],tabs:c.tabs||[]};
     if(it.type==='pair'){
       for(var sd of ['a','b']){
         var xn=g(sd+'xn').value.trim();
@@ -1754,7 +1788,7 @@ async function upAsset(f){
   }
   return upImg(f);
 }
-function editAsset(cid,aid){
+function editAsset(cid,aid,tab){
   var c=CH(cid);if(!c)return;
   var a=(c.assets||[]).filter(function(x){return x.id===aid})[0]||{};
   var f=[
@@ -1770,11 +1804,11 @@ function editAsset(cid,aid){
     for(i=0;i<fs.length;i++){if(bt)bt.textContent='업로드 중 ('+(i+1)+'/'+fs.length+')';up.push(await upAsset(fs[i]))}
     if(a.id){
       var cur=aimgs(a),imgs=!up.length?cur:(mode==='replace'?up:cur.concat(up));
-      list=list.map(function(x){return x.id===a.id?{id:a.id,tag:tag,title:title,img:imgs[0],imgs:imgs}:x});
+      list=list.map(function(x){return x.id===a.id?{id:a.id,tag:tag,title:title,img:imgs[0],imgs:imgs,tab:a.tab}:x});
     }else{
       if(!up.length)throw new Error('사진을 골라주세요.');
-      if(mode==='group')list.push({id:Date.now(),tag:tag,title:title,img:up[0],imgs:up});
-      else up.forEach(function(p,k){list.push({id:Date.now()+k,tag:tag,title:title,img:p,imgs:[p]})});
+      if(mode==='group')list.push({id:Date.now(),tag:tag,title:title,img:up[0],imgs:up,tab:tab||undefined});
+      else up.forEach(function(p,k){list.push({id:Date.now()+k,tag:tag,title:title,img:p,imgs:[p],tab:tab||undefined})});
     }
     await saveChar(Object.assign({},CH(cid),{assets:list}),'에셋 저장');
   });
