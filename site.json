@@ -579,5 +579,13 @@
    "html": "<img src=\"images/1791566492190_4635.jpg\" data-p=\"images/1791566492190_4635.jpg\" alt=\"\"><div><br></div><div><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2064119475058685255/2064136414038570359\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">아크</a> 비중 1.1~1.2</p></div>"
   }
  ],
- "catMig": 1
+ "catMig": 1,
+ "ddays": [
+  {
+   "id": 1791616755868,
+   "name": "임찬희",
+   "date": "2026-10-01",
+   "img": "images/1791616753628_7588.jpg"
+  }
+ ]
 }
