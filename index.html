@@ -466,6 +466,18 @@ body.adm .ctabs .tbar{min-height:0;margin-bottom:0}
 /* ===== 에셋 페이지 나누기 ===== */
 @media(min-width:901px){.ag2.ag6{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
 .ctabs{scroll-margin-top:70px}
+/* ===== 소개 NOTICE: 왼쪽 제목이 줄바꿈 없이 한 줄로 쭉 나오게 ===== */
+.nkw{width:auto;min-width:90px}
+.nk{white-space:nowrap}
+@supports (grid-template-columns:subgrid){
+  #iNotice{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:18px}
+  #iNotice>.empty{grid-column:1/-1}
+  #iNotice .nt{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:start}
+}
+@media(max-width:600px){
+  #iNotice{display:block}
+  #iNotice .nt,.nr{display:flex;flex-direction:column;gap:6px}
+}
 /* ===== 영상 에셋 ===== */
 .sq video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 .ag2 .sq video{object-fit:contain}
@@ -1336,7 +1348,7 @@ function renderSite(){
   T('.s-nick',S.nick);T('.s-tag',S.tag);T('.s-memo',S.memo);T('.s-ddn',S.ddName);T('.s-notice',S.notice);
   if(S.kw)document.getElementById('iKw').innerHTML=S.kw.split(',').map(function(k){return k.trim()}).filter(Boolean).map(function(k){return '<span>'+H(k)+'</span>'}).join('');
   if(Array.isArray(S.infoRows)||S.info){document.getElementById('iInfo').innerHTML=infoList().filter(function(r){return r.k||r.v}).map(function(r){return r.k?'<div class="kv"><span>'+H(r.k)+'</span><b>'+H(r.v)+'</b></div>':'<p class="kp">'+H(r.v)+'</p>'}).join('')||'<span class="empty">-</span>'}
-  if(Array.isArray(S.noticeRows)||(S.notice&&S.notice.trim())){document.getElementById('iNotice').innerHTML=noticeList().filter(function(r){return r.k||r.v}).map(function(r){return '<div class="nt nr">'+(r.k?'<div class="nkw"><span class="nk">'+H(r.k)+'</span></div>':'')+'<div class="kp">'+H(r.v)+'</div></div>'}).join('')||'<span class="empty">-</span>'}
+  if(Array.isArray(S.noticeRows)||(S.notice&&S.notice.trim())){document.getElementById('iNotice').innerHTML=noticeList().filter(function(r){return r.k||r.v}).map(function(r){return '<div class="nt nr">'+'<div class="nkw">'+(r.k?'<span class="nk">'+H(r.k)+'</span>':'')+'</div>'+'<div class="kp">'+H(r.v)+'</div></div>'}).join('')||'<span class="empty">-</span>'}
   if(Array.isArray(S.linkRows)||S.links){document.getElementById('iLinks').innerHTML=linkList().map(function(r){
     var u=(r.v||'').trim();if(!r.k||!u)return '';if(!/^https?:/.test(u))u='https://'+u;
     return '<a class="lk" href="'+H(u)+'" target="_blank" rel="noopener">'+H(r.k)+'</a>';}).join('')}
