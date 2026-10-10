@@ -466,6 +466,12 @@ body.adm .ctabs .tbar{min-height:0;margin-bottom:0}
 /* ===== 에셋 페이지 나누기 ===== */
 @media(min-width:901px){.ag2.ag6{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
 .ctabs{scroll-margin-top:70px}
+/* ===== 영상 에셋 ===== */
+.sq video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.ag2 .sq video{object-fit:contain}
+.sq.adl video{filter:blur(16px);transform:scale(1.12)}
+.vb{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;border-radius:10px;padding:1px 9px;font-size:12px;pointer-events:none}
+#lb video{max-width:92vw;max-height:78vh;border-radius:12px;background:#000;outline:0}
 /* ===== 타임라인 ===== */
 .tlv{padding:4px 2px}
 .tlh{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-size:13px;letter-spacing:.24em;color:var(--sub);margin-bottom:22px}
@@ -701,7 +707,7 @@ body.adm .tlt .admbtn{display:flex;gap:4px;margin-top:8px}
 </div></div>
 
 <!-- 로그 슬라이드 뷰어 -->
-<div id="lb" onclick="if(event.target===this)closeLb()"><button class="x" type="button" onclick="closeLb()" aria-label="닫기">×</button><button class="nav pv" type="button" onclick="lbGo(-1)" aria-label="이전">‹</button><img id="lbImg" alt=""><div class="cap" id="lbCap"></div><button class="nav nx" type="button" onclick="lbGo(1)" aria-label="다음">›</button></div>
+<div id="lb" onclick="if(event.target===this)closeLb()"><button class="x" type="button" onclick="closeLb()" aria-label="닫기">×</button><button class="nav pv" type="button" onclick="lbGo(-1)" aria-label="이전">‹</button><img id="lbImg" alt=""><video id="lbVid" controls playsinline loop style="display:none"></video><div class="cap" id="lbCap"></div><button class="nav nx" type="button" onclick="lbGo(1)" aria-label="다음">›</button></div>
 
 <!-- 캐릭터 상세 창 -->
 <div id="modal" onclick="if(event.target===this)this.classList.remove('on')"><div id="mb"></div></div>
@@ -1022,7 +1028,7 @@ function renderAssets(keepH){
   var html=order.map(function(t){
     return (order0.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+'<div class="grid ag2'+cls+'">'+g[t].map(function(a){
       ASSET_ORDER.push(a);var n=aimgs(a).length;
-      return '<div class="wk"><div class="sq'+(a.adult?' adl':'')+'" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
+      return '<div class="wk"><div class="sq'+(a.adult?' adl':'')+'" style="position:relative" onclick="openAsset('+a.id+')">'+mm(a.img||aimgs(a)[0])+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
         '<div class="admbtn" style="text-align:center"><button class="sm" type="button" onclick="editAsset('+c.id+','+a.id+')">수정</button><button class="sm" type="button" onclick="delAsset('+c.id+','+a.id+')">삭제</button></div></div>';
     }).join('')+'</div>';
   }).join('');
@@ -1212,7 +1218,7 @@ function openForm(title,fields,save){
     else if(f.t==='area')h+='<textarea id="'+id+'" placeholder="'+H(f.ph||'')+'">'+H(f.v||'')+'</textarea>';
     else if(f.t==='date')h+='<input id="'+id+'" type="date" value="'+H(f.v||'')+'">';
     else if(f.t==='color')h+='<input id="'+id+'" type="color" value="'+H(f.v||'#8f7fd0')+'">';
-    else if(f.t==='file')h+='<input id="'+id+'" type="file" accept="image/*"'+(f.m?' multiple':'')+'>'+(f.v?'<small>지금 사진이 있어요. 새로 고르지 않으면 그대로 둬요.</small>':'');
+    else if(f.t==='file')h+='<input id="'+id+'" type="file" accept="'+(f.a||'image/*')+'"'+(f.m?' multiple':'')+'>'+(f.v?'<small>지금 사진이 있어요. 새로 고르지 않으면 그대로 둬요.</small>':'');
     else if(f.t==='negs')h+='<div id="'+id+'">'+(f.v||[]).map(negRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addNeg()">+ 네거티브 추가</button>';
     else if(f.t==='kvs')h+='<div id="'+id+'" data-area="'+(f.area?1:0)+'" data-kp="'+H(f.kp||'')+'" data-vp="'+H(f.vp||'')+'">'+(f.v||[]).map(function(r){return kvRow(r,f)}).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addKv(\''+id+'\')">+ 항목 추가</button>';
     else if(f.t==='chk1')h+='<label class="ck" style="display:flex;gap:8px;align-items:center;margin-top:4px"><input id="'+id+'" type="checkbox"'+(f.v?' checked':'')+' style="width:auto;margin:0"> '+H(f.tx||'')+'</label>';
@@ -1393,7 +1399,15 @@ function renderWorks(){
 }
 function showLb(){
   if(!LB.length)return;
-  var li=document.getElementById('lbImg'),lp=LB[lbI];li.onerror=function(){li.onerror=null;li.src=RAW(lp)};li.src=U(lp);
+  var li=document.getElementById('lbImg'),lv=document.getElementById('lbVid'),lp=LB[lbI];
+  if(isVid(lp)){
+    li.style.display='none';li.removeAttribute('src');
+    lv.style.display='block';lv.onerror=function(){lv.onerror=null;lv.src=RAW(lp)};lv.src=U(lp);
+    var pr=lv.play();if(pr&&pr.catch)pr.catch(function(){});
+  }else{
+    try{lv.pause()}catch(x){}lv.removeAttribute('src');lv.style.display='none';li.style.display='';
+    li.onerror=function(){li.onerror=null;li.src=RAW(lp)};li.src=U(lp);
+  }
   var cp=(LBC&&LBC[lbI])||LBT;document.getElementById('lbCap').textContent=(cp?cp+'  ·  ':'')+(lbI+1)+' / '+LB.length;
   document.querySelectorAll('#lb .nav').forEach(function(e){e.style.display=LB.length>1?'':'none'});
 }
@@ -1403,7 +1417,7 @@ function openLb(id){
   showLb();document.getElementById('lb').classList.add('on');
 }
 function lbGo(d){if(LB.length<2)return;lbI=(lbI+d+LB.length)%LB.length;showLb()}
-function closeLb(){document.getElementById('lb').classList.remove('on')}
+function closeLb(){var v=document.getElementById('lbVid');try{v.pause()}catch(x){}document.getElementById('lb').classList.remove('on')}
 document.addEventListener('keydown',function(e){
   if(!document.getElementById('lb').classList.contains('on'))return;
   if(e.key==='ArrowLeft')lbGo(-1);else if(e.key==='ArrowRight')lbGo(1);else if(e.key==='Escape')closeLb();
@@ -1880,8 +1894,24 @@ async function delLora(id){
 
 // ===== 에셋 =====
 function readB64(f){return new Promise(function(ok,no){var r=new FileReader();r.onload=function(){ok(r.result.split(',')[1])};r.onerror=function(){no(new Error('파일을 읽을 수 없어요.'))};r.readAsDataURL(f)})}
+var VEXT=/\.(mp4|webm|mov|m4v)(\?|#|$)/i;
+function isVid(p){return VEXT.test(String(p||''))}
+function vidFail(v){var p=v.getAttribute('data-p');if(p&&!v.dataset.t){v.dataset.t='1';v.src=RAW(p)+'#t=0.1'}}
+/* 사진은 그림으로, 영상은 첫 장면 + ▶ 표시로 보여줘요 */
+function mm(p){
+  if(!isVid(p))return im(p);
+  return '<video src="'+H(U(p))+'#t=0.1" data-p="'+H(p)+'" muted playsinline preload="metadata" onerror="vidFail(this)"></video><span class="vb">▶</span>';
+}
 async function upAsset(f){
   var t=f.type;
+  if(/^video\//.test(t)||/\.(mp4|webm|mov|m4v)$/i.test(f.name)){
+    if(f.size>50*1024*1024)throw new Error('영상이 너무 커요 ('+Math.round(f.size/1048576)+'MB). 50MB 이하로 줄여서 올려주세요.');
+    var m=f.name.match(/\.(mp4|webm|mov|m4v)$/i),ve=m?m[1].toLowerCase():(t==='video/webm'?'webm':t==='video/quicktime'?'mov':'mp4');
+    var vp='images/'+Date.now()+'_'+Math.floor(Math.random()*10000)+'.'+ve,vb=await readB64(f);
+    await put(vp,vb,'영상 추가',true);
+    LOCAL[vp]=URL.createObjectURL(f);
+    return vp;
+  }
   if((t==='image/png'||t==='image/gif'||t==='image/webp')&&f.size<5*1024*1024){
     var ext=t==='image/png'?'png':t==='image/gif'?'gif':'webp';
     var p='images/'+Date.now()+'_'+Math.floor(Math.random()*10000)+'.'+ext,b=await readB64(f);
@@ -1897,7 +1927,7 @@ function editAsset(cid,aid,tab){
   var f=[
     {id:'tag',l:'분류 (예: 전신, 표정, 의상, 소품, 레퍼런스, 아이콘)',t:'text',v:a.tag},
     {id:'title',l:'제목 (비워도 돼요)',t:'text',v:a.title},
-    {id:'img',l:a.id?'사진 (고르면 아래 설정대로 처리돼요 · 안 고르면 그대로)':'사진 (여러 장을 한 번에 골라도 돼요. PNG/GIF는 원본 그대로 올라가요)',t:'file',v:a.img,m:true},
+    {id:'img',l:a.id?'사진·영상 (고르면 아래 설정대로 처리돼요 · 안 고르면 그대로)':'사진·영상 (여러 개를 한 번에 골라도 돼요. PNG/GIF/영상은 원본 그대로 올라가요 · 영상은 mp4 권장, 50MB 이하)',t:'file',v:a.img,m:true,a:'image/*,video/*'},
     {id:'adult',l:'연령 제한',t:'chk1',v:a.adult,tx:'19금 (목록 썸네일을 블러 처리해요 · 눌러서 열면 원본이 보여요)'}
   ];
   f.push(a.id?{id:'mode',l:'고른 사진 처리',t:'sel',o:[['add','이 묶음 뒤에 추가'],['replace','기존 사진 전부 바꾸기']],v:'add'}
