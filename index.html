@@ -890,7 +890,7 @@ function ld(path){
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function defRepo(){var h=location.hostname;if(!/\.github\.io$/.test(h))return '';var o=h.split('.')[0],seg=location.pathname.split('/')[1];return seg&&seg!=='index.html'?o+'/'+seg:o+'/'+h}
 function stPost(p){
-  return '<details class="sd"><summary><span class="sdd">'+H(p.date.replace(/-/g,'.'))+'</span>'+H(p.title)+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</summary><div class="tx">'+H(p.body)+'</div>'+
+  return '<details class="sd"><summary><span class="sdd">'+H(p.date.replace(/-/g,'.'))+'</span>'+H(p.title)+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</summary><div class="tx">'+linkLine(p.body)+'</div>'+
     '<div class="admbtn"><button type="button" onclick="openEd('+p.id+')">수정</button><button type="button" onclick="delPost('+p.id+')">삭제</button></div></details>';
 }
 function render(){
@@ -976,7 +976,7 @@ function rows(t,cont){
     if(cont&&last){last.v+='\n'+l.trim();return}
     out.push({p:l.trim()});
   });
-  return out.map(function(o){return o.p!==undefined?'<p class="kp">'+H(o.p)+'</p>':'<div class="kv"><span>'+H(o.k)+'</span><b>'+H(o.v)+'</b></div>'}).join('')
+  return out.map(function(o){return o.p!==undefined?'<p class="kp">'+linkLine(o.p)+'</p>':'<div class="kv"><span>'+H(o.k)+'</span><b>'+linkLine(o.v)+'</b></div>'}).join('')
 }
 function pc(c){
   if(!c)return '<div class="card pc"><div class="hd">(삭제된 캐릭터)</div></div>';
@@ -1073,11 +1073,18 @@ var cTab='p';
 function setTab(t){cTab=t;keepY(function(){viewChar(cur,1)})}
 function curTabId(){return ['p','s','a'].indexOf(cTab)<0?cTab:''}
 function inTab(c,x,tid){var has=(c.tabs||[]).some(function(t){return t.id===x.tab});return (has?x.tab:'')===tid}
+function tabOrd(c){
+  var isPair=pf(c)==='r',def=(isPair?['s','a']:['p','s','a']).concat((c.tabs||[]).map(function(t){return t.id}));
+  var ord=(c.tabOrder||[]).filter(function(i){return def.indexOf(i)>-1});
+  def.forEach(function(i){if(ord.indexOf(i)<0)ord.push(i)});
+  return ord;
+}
 function panel(c,id){
   var isPair=pf(c)==='r',tabs=c.tabs||[];
   if(isPair&&cTab==='p')cTab='s';
   if(['p','s','a'].indexOf(cTab)<0&&!tabs.some(function(t){return t.id===cTab}))cTab=isPair?'s':'p';
-  var base=[['p','프로필'],['s','서사'],['a','에셋']].filter(function(x){return !(isPair&&x[0]==='p')}).concat(tabs.map(function(t){return [t.id,t.name]}));
+  var nm={p:'프로필',s:'서사',a:'에셋'};tabs.forEach(function(t){nm[t.id]=t.name});
+  var base=tabOrd(c).map(function(i){return [i,nm[i]]});
   var chips=base.map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+H(x[1])+'</button>'}).join('')+'<button type="button" class="chip admbtn" onclick="editTab('+id+')">+ 탭</button>';
   var ct=tabs.filter(function(t){return t.id===cTab})[0],bar,inner;
   if(cTab==='s'&&isPair){bar='<button class="btn admbtn" type="button" onclick="editTl('+id+')">+ 타임라인 추가</button><button class="btn gray admbtn" type="button" onclick="editTlColor('+id+')">색 변경</button>';inner='<div id="cTl"></div><div id="cStories"></div>'}
@@ -1086,9 +1093,10 @@ function panel(c,id){
   else if(ct){
     if(ct.type==='image'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+',0,\''+ct.id+'\')">+ 그림 추가</button>';inner='<div id="cAssets"></div>'}
     else{bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+',\''+ct.id+'\')">+ 글 쓰기</button>';inner='<div id="cStories"></div>'}
-    bar+='<button class="btn gray admbtn" type="button" onclick="moveTab('+id+',\''+ct.id+'\',-1)" title="앞으로">◀</button><button class="btn gray admbtn" type="button" onclick="moveTab('+id+',\''+ct.id+'\',1)" title="뒤로">▶</button><button class="btn gray admbtn" type="button" onclick="editTab('+id+',\''+ct.id+'\')">탭 이름 수정</button><button class="btn gray admbtn" type="button" onclick="delTab('+id+',\''+ct.id+'\')">탭 삭제</button>';
+    bar+='<button class="btn gray admbtn" type="button" onclick="editTab('+id+',\''+ct.id+'\')">탭 이름 수정</button><button class="btn gray admbtn" type="button" onclick="delTab('+id+',\''+ct.id+'\')">탭 삭제</button>';
   }
   else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info,true):'<p class="empty">아직 설정이 없어요.</p>')}
+  bar+='<button class="btn gray admbtn" type="button" onclick="moveTab('+id+',\''+cTab+'\',-1)" title="탭 앞으로">◀</button><button class="btn gray admbtn" type="button" onclick="moveTab('+id+',\''+cTab+'\',1)" title="탭 뒤로">▶</button>';
   return '<div class="ctabs"><div class="ctl">'+chips+'</div><div class="tbar">'+bar+'</div></div><div class="tbd">'+inner+'</div>';
 }
 function tlOf(c){return (c&&c.timeline)||[]}
@@ -1097,7 +1105,7 @@ function renderTimeline(){
   var c=CH(cur),l=tlOf(c);
   if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">아직 타임라인이 없어요. 위의 "+ 타임라인 추가"로 첫 항목을 적어보세요.</p>';return}
   el.innerHTML='<div class="tlv"'+(c.tlColor?' style="--tlc:'+H(c.tlColor)+'"':'')+'><div class="tlh"><i class="a"></i><i class="b"></i><i class="c"></i>TIMELINE</div><div class="tlist">'+l.map(function(t,i){
-    return '<div class="tli'+(i===l.length-1?' now':'')+'"><div class="tll">'+H(t.label||'')+'</div><div class="tlc"><i></i></div><div class="tlt"><div class="tlx">'+H(t.text||'')+'</div>'+
+    return '<div class="tli'+(i===l.length-1?' now':'')+'"><div class="tll">'+H(t.label||'')+'</div><div class="tlc"><i></i></div><div class="tlt"><div class="tlx">'+linkLine(t.text||'')+'</div>'+
       '<div class="admbtn"><button class="mini" type="button" onclick="editTl('+c.id+','+t.id+')">수정</button><button class="mini" type="button" onclick="moveTl('+c.id+','+t.id+',-1)">▲</button><button class="mini" type="button" onclick="moveTl('+c.id+','+t.id+',1)">▼</button><button class="mini" type="button" onclick="delTl('+c.id+','+t.id+')">삭제</button></div></div></div>';
   }).join('')+'</div><div class="admbtn" style="margin-top:20px"><button class="btn" type="button" onclick="editTl('+c.id+')">+ 항목 추가</button></div></div>';
 }
@@ -1156,10 +1164,10 @@ function editTab(cid,tid){
 async function moveTab(cid,tid,d){
   if(needCfg())return;
   var c=CH(cid);if(!c)return;
-  var tabs=(c.tabs||[]).slice(),i=tabs.map(function(t){return t.id}).indexOf(tid),j=i+d;
-  if(i<0||j<0||j>=tabs.length)return;
-  var t=tabs[i];tabs[i]=tabs[j];tabs[j]=t;
-  try{await saveChar(Object.assign({},c,{tabs:tabs}),'탭 순서 변경')}catch(e){alert(e.message)}
+  var ord=tabOrd(c),i=ord.indexOf(tid),j=i+d;
+  if(i<0||j<0||j>=ord.length)return;
+  var t=ord[i];ord[i]=ord[j];ord[j]=t;
+  try{await saveChar(Object.assign({},c,{tabOrder:ord}),'탭 순서 변경')}catch(e){alert(e.message)}
 }
 async function delTab(cid,tid){
   var c=CH(cid);if(!c)return;
@@ -1305,7 +1313,7 @@ function editChar(id,type){
   ],async function(g){
     var name=g('name').value.trim();if(!name)throw new Error('이름을 적어주세요.');
     var img=c.img||'',f=g('img').files[0];if(f)img=await upImg(f);
-    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[],tabs:c.tabs||[],timeline:c.timeline||[],tlColor:c.tlColor};
+    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[],tabs:c.tabs||[],tabOrder:c.tabOrder,timeline:c.timeline||[],tlColor:c.tlColor};
     if(it.type==='pair'){
       for(var sd of ['a','b']){
         var xn=g(sd+'xn').value.trim();
