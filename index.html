@@ -1994,7 +1994,7 @@ function renderSched(){
   var dl=s.events.filter(function(e){return evOn(e,scSel)}).sort(evSort);
   document.getElementById('scDay').innerHTML=dl.length?dl.map(function(e){
     var c=scCat(s,e.cat);
-    return '<div class="sdi'+(dnOn(e.id,scSel)?' done':'')+'">'+evCk(e.id,scSel)+'<span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+(e.memo?'<div class="mm admonly">'+H(e.memo)+'</div>':'')+
+    return '<div class="sdi'+(dnOn(e.id,scSel)?' done':'')+'">'+evCk(e.id,scSel)+'<span class="bar2" style="background:'+H(c?c.color:'#b5b9c3')+'"></span><div style="flex:1;min-width:0"><b>'+H(e.title)+'</b><small>'+(e.time?H(e.time)+' · ':'')+(c?H(c.name):'미분류')+(e.end&&e.end!==e.date?' · ~'+H(e.end.slice(5).replace('-','.')):'')+'</small>'+
       '<div class="admbtn"><button class="mini" type="button" onclick="editEv('+e.id+')">수정</button><button class="mini" type="button" onclick="delEv('+e.id+')">삭제</button></div></div></div>';
   }).join(''):'<span class="empty">이 날짜에 일정이 없습니다</span>';
   renderDday();
@@ -2021,7 +2021,7 @@ function editEv(id,date){
     {id:'end',l:'끝나는 날짜 (하루짜리면 비워두세요)',t:'date',v:e.end},
     {id:'time',l:'시간 (예: 21:00 · 비워도 돼요)',t:'text',v:e.time},
     {id:'cat',l:'카테고리',t:'sel',o:[['','(없음)']].concat(s.cats.map(function(c){return [c.id,c.name]})),v:e.cat||''},
-    {id:'memo',l:'메모 (나만 보여요 · 편집 모드에서만 보이고 메인 화면엔 안 나와요)',t:'area',v:e.memo}
+    {id:'memo',l:'메모 (일정 목록에는 안 나오고, 이 수정 창을 열었을 때만 보여요)',t:'area',v:e.memo}
   ],async function(g){
     var t=g('title').value.trim(),d=g('date').value,en=g('end').value;
     if(!t)throw new Error('일정 이름을 적어주세요.');
