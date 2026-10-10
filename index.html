@@ -363,6 +363,7 @@ details.row summary .da{min-width:44px;text-align:right}
 .sdi.done b{text-decoration:line-through;text-decoration-thickness:1.5px}
 .sdi.done b,.sdi.done small,.sdi.done .mm{color:var(--sub);opacity:.7}
 .sdi.done .bar2{opacity:.4}
+.sq.adl img{filter:blur(16px);transform:scale(1.12)}.sq .a19{position:absolute;left:8px;top:8px;z-index:1;background:#d33;color:#fff;border-radius:10px;padding:1px 8px;font-size:12px;font-weight:700}
 .admonly{display:none}body.adm .admonly{display:block}
 .scc .ev.fin{text-decoration:line-through;color:var(--sub);opacity:.65}
 .mini{border:0;background:#ececf0;border-radius:8px;padding:1px 9px;font:inherit;font-size:11px;cursor:pointer;margin:4px 4px 0 0;color:var(--ink)}
@@ -978,7 +979,7 @@ function renderAssets(){
   el.innerHTML=order.map(function(t,ti){
     return (order.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+'<div class="grid ag2">'+g[t].map(function(a){
       ASSET_ORDER.push(a);var n=aimgs(a).length;
-      return '<div class="wk"><div class="sq" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
+      return '<div class="wk"><div class="sq'+(a.adult?' adl':'')+'" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(a.adult?'<span class="a19">19</span>':'')+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
         '<div class="admbtn" style="text-align:center"><button class="sm" type="button" onclick="editAsset('+c.id+','+a.id+')">수정</button><button class="sm" type="button" onclick="delAsset('+c.id+','+a.id+')">삭제</button></div></div>';
     }).join('')+'</div>';
   }).join('');
@@ -1119,6 +1120,7 @@ function openForm(title,fields,save){
     else if(f.t==='file')h+='<input id="'+id+'" type="file" accept="image/*"'+(f.m?' multiple':'')+'>'+(f.v?'<small>지금 사진이 있어요. 새로 고르지 않으면 그대로 둬요.</small>':'');
     else if(f.t==='negs')h+='<div id="'+id+'">'+(f.v||[]).map(negRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addNeg()">+ 네거티브 추가</button>';
     else if(f.t==='kvs')h+='<div id="'+id+'" data-area="'+(f.area?1:0)+'" data-kp="'+H(f.kp||'')+'" data-vp="'+H(f.vp||'')+'">'+(f.v||[]).map(function(r){return kvRow(r,f)}).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addKv(\''+id+'\')">+ 항목 추가</button>';
+    else if(f.t==='chk1')h+='<label class="ck" style="display:flex;gap:8px;align-items:center;margin-top:4px"><input id="'+id+'" type="checkbox"'+(f.v?' checked':'')+' style="width:auto;margin:0"> '+H(f.tx||'')+'</label>';
     else if(f.t==='ddays')h+='<div id="'+id+'">'+(f.v||[]).map(ddRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addDd()">+ D-DAY 추가</button>';
     else if(f.t==='bgms')h+='<div id="'+id+'">'+(f.v||[]).map(bgmRow).join('')+'</div><button type="button" class="btn gray" style="margin:8px 0 0" onclick="addBgm()">+ 곡 추가</button>';
     else if(f.t==='chk')h+='<div class="chk" id="'+id+'">'+(D.chars.length?D.chars.map(function(c){return '<label class="ck"><input type="checkbox" value="'+c.id+'"'+((f.v||[]).indexOf(c.id)>-1?' checked':'')+'>'+H(c.name)+'</label>'}).join(''):'<small>캐릭터를 먼저 추가하면 고를 수 있어요.</small>')+'</div>';
@@ -1794,21 +1796,22 @@ function editAsset(cid,aid,tab){
   var f=[
     {id:'tag',l:'분류 (예: 전신, 표정, 의상, 소품, 레퍼런스, 아이콘)',t:'text',v:a.tag},
     {id:'title',l:'제목 (비워도 돼요)',t:'text',v:a.title},
-    {id:'img',l:a.id?'사진 (고르면 아래 설정대로 처리돼요 · 안 고르면 그대로)':'사진 (여러 장을 한 번에 골라도 돼요. PNG/GIF는 원본 그대로 올라가요)',t:'file',v:a.img,m:true}
+    {id:'img',l:a.id?'사진 (고르면 아래 설정대로 처리돼요 · 안 고르면 그대로)':'사진 (여러 장을 한 번에 골라도 돼요. PNG/GIF는 원본 그대로 올라가요)',t:'file',v:a.img,m:true},
+    {id:'adult',l:'연령 제한',t:'chk1',v:a.adult,tx:'19금 (목록 썸네일을 흐리게 가려요 · 눌러서 열면 원본이 보여요)'}
   ];
   f.push(a.id?{id:'mode',l:'고른 사진 처리',t:'sel',o:[['add','이 묶음 뒤에 추가'],['replace','기존 사진 전부 바꾸기']],v:'add'}
              :{id:'mode',l:'여러 장 올릴 때',t:'sel',o:[['group','한 묶음으로 (슬라이드로 넘겨봐요)'],['sep','장마다 따로따로']],v:'group'});
   openForm(a.id?'에셋 수정':'에셋 추가',f,async function(g){
-    var fs=Array.prototype.slice.call(g('img').files),tag=g('tag').value.trim(),title=g('title').value.trim(),mode=g('mode').value;
+    var fs=Array.prototype.slice.call(g('img').files),tag=g('tag').value.trim(),title=g('title').value.trim(),mode=g('mode').value,adult=g('adult').checked||undefined;
     var list=(CH(cid).assets||[]).slice(),up=[],i,bt=document.getElementById('g_sv');
     for(i=0;i<fs.length;i++){if(bt)bt.textContent='업로드 중 ('+(i+1)+'/'+fs.length+')';up.push(await upAsset(fs[i]))}
     if(a.id){
       var cur=aimgs(a),imgs=!up.length?cur:(mode==='replace'?up:cur.concat(up));
-      list=list.map(function(x){return x.id===a.id?{id:a.id,tag:tag,title:title,img:imgs[0],imgs:imgs,tab:a.tab}:x});
+      list=list.map(function(x){return x.id===a.id?{id:a.id,tag:tag,title:title,img:imgs[0],imgs:imgs,tab:a.tab,adult:adult}:x});
     }else{
       if(!up.length)throw new Error('사진을 골라주세요.');
-      if(mode==='group')list.push({id:Date.now(),tag:tag,title:title,img:up[0],imgs:up,tab:tab||undefined});
-      else up.forEach(function(p,k){list.push({id:Date.now()+k,tag:tag,title:title,img:p,imgs:[p],tab:tab||undefined})});
+      if(mode==='group')list.push({id:Date.now(),tag:tag,title:title,img:up[0],imgs:up,tab:tab||undefined,adult:adult});
+      else up.forEach(function(p,k){list.push({id:Date.now()+k,tag:tag,title:title,img:p,imgs:[p],tab:tab||undefined,adult:adult})});
     }
     await saveChar(Object.assign({},CH(cid),{assets:list}),'에셋 저장');
   });
