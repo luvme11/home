@@ -262,8 +262,15 @@
  "notice": "",
  "links": "",
  "bgm": {
-  "url": "https://youtu.be/nL1naW-5Ny4?si=tcH_6hv4zf10Sr0O",
-  "title": "넌 대체 뭐하는 女子길래...",
+  "list": [
+   {
+    "url": "https://www.youtube.com/watch?v=NwsJeJgrG3Y",
+    "title": "𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 우리 소꿉친구잖아 ?!",
+    "artist": "♡"
+   }
+  ],
+  "url": "https://www.youtube.com/watch?v=NwsJeJgrG3Y",
+  "title": "𝙋𝙡𝙖𝙮𝙡𝙞𝙨𝙩 우리 소꿉친구잖아 ?!",
   "artist": "♡"
  },
  "board": [
