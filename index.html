@@ -462,6 +462,25 @@ body.adm .ctabs .tbar{min-height:0;margin-bottom:0}
 .lo .rich a.mn:hover{border-color:var(--ink)}
 .lo .admbtn{margin-top:10px}
 .lo .admbtn .btn{margin:0 6px 0 0}
+
+/* ===== 에셋 페이지 나누기 ===== */
+@media(min-width:901px){.ag2.ag6{grid-template-columns:repeat(6,minmax(0,1fr))!important}}
+.ctabs{scroll-margin-top:70px}
+/* ===== 타임라인 ===== */
+.tlv{padding:2px 0}
+.tlh{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-size:13px;letter-spacing:.24em;color:var(--sub);margin-bottom:18px}
+.tlh i{width:12px;height:12px;border-radius:50%;display:block;flex:none;box-sizing:border-box}
+.tlh i.a{background:var(--btn)}.tlh i.b{background:#c3c7d1}.tlh i.c{border:1.5px solid #c3c7d1;margin-right:6px}
+.tli{display:grid;grid-template-columns:96px 22px minmax(0,1fr);column-gap:12px;padding-bottom:20px}
+.tli:last-child{padding-bottom:0}
+.tll{font-weight:bold;color:#4a63b8;line-height:1.6;white-space:pre-line;word-break:keep-all}
+.tlc{position:relative}
+.tlc i{position:absolute;left:50%;top:5px;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;border:2px solid var(--btn);background:var(--card);box-sizing:border-box;z-index:1}
+.tli:not(:last-child) .tlc::before{content:"";position:absolute;left:50%;top:17px;bottom:-5px;width:1.5px;margin-left:-.75px;background:#d5d8e0}
+.tli.now .tlc i{background:var(--btn);box-shadow:0 0 0 4px #e6e7ec}
+.tlt{white-space:pre-wrap;word-break:break-word;color:#444;line-height:1.7}
+.tlt .admbtn{white-space:normal;margin-top:6px}
+@media(max-width:600px){.tli{grid-template-columns:76px 18px minmax(0,1fr);column-gap:8px}}
 </style>
 </head>
 <body>
@@ -965,24 +984,42 @@ function renderCharStories(){
   var el=document.getElementById('cStories');if(!el)return;
   var cc=CH(cur)||{},tid=curTabId();
   var l=posts.filter(function(p){return (p.chars||[]).indexOf(cur)>-1&&inTab(cc,p,tid)}).sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:b.id-a.id});
+  if(pf(cc)==='r'&&cTab==='s'){el.innerHTML=l.length?'<h4 class="ag">기존 서사 글</h4>'+l.map(stPost).join(''):'';return}
   el.innerHTML=l.length?l.map(stPost).join(''):'<p class="empty" style="font-size:13px">'+(tid?'아직 글이 없어요.':'아직 서사가 없어요.')+'</p>';
 }
-var ASSET_ORDER=[],ASSET_TAGS=[];
+var ASSET_ORDER=[],ASSET_TAGS=[],APG={};
+function aPer(c){var k=pf(c);return k==='p'?4:k==='r'?12:0}
+function setAP(n){APG[cur+'|'+cTab]=n;renderAssets();var e=document.querySelector('.page.on .ctabs');if(e)e.scrollIntoView({block:'start'})}
 function aimgs(a){return (a.imgs&&a.imgs.length)?a.imgs:(a.img?[a.img]:[])}
 function renderAssets(){
   var el=document.getElementById('cAssets');if(!el)return;
   var c=CH(cur),tid=curTabId(),l=((c&&c.assets)||[]).filter(function(x){return inTab(c,x,tid)});
   if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">'+(tid?'아직 그림이 없어요.':'아직 에셋이 없어요.')+'</p>';ASSET_ORDER=[];return}
+  var g0={},order0=[];
+  l.forEach(function(a){var t=a.tag||'기타';if(!g0[t]){g0[t]=[];order0.push(t)}g0[t].push(a)});
+  ASSET_TAGS=order0;
+  var flat=[];order0.forEach(function(t){g0[t].forEach(function(a){flat.push(a)})});
+  var per=aPer(c),pages=per?Math.ceil(flat.length/per):1,key=cur+'|'+cTab;
+  var pg=Math.min(Math.max(APG[key]||1,1),pages);APG[key]=pg;
+  var part=per?flat.slice((pg-1)*per,pg*per):flat;
   var g={},order=[];
-  l.forEach(function(a){var t=a.tag||'기타';if(!g[t]){g[t]=[];order.push(t)}g[t].push(a)});
-  ASSET_ORDER=[];ASSET_TAGS=order;
-  el.innerHTML=order.map(function(t,ti){
-    return (order.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+'<div class="grid ag2">'+g[t].map(function(a){
+  part.forEach(function(a){var t=a.tag||'기타';if(!g[t]){g[t]=[];order.push(t)}g[t].push(a)});
+  ASSET_ORDER=[];
+  var cls=pf(c)==='r'?' ag6':'';
+  var html=order.map(function(t){
+    return (order0.length>1?'<h4 class="ag">'+H(t)+'</h4>':'')+'<div class="grid ag2'+cls+'">'+g[t].map(function(a){
       ASSET_ORDER.push(a);var n=aimgs(a).length;
       return '<div class="wk"><div class="sq'+(a.adult?' adl':'')+'" style="position:relative" onclick="openAsset('+a.id+')">'+im(a.img||aimgs(a)[0])+(n>1?'<span class="cnt">'+n+'장</span>':'')+'</div>'+(a.title?'<div class="wt">'+H(a.title)+'</div>':'')+
         '<div class="admbtn" style="text-align:center"><button class="sm" type="button" onclick="editAsset('+c.id+','+a.id+')">수정</button><button class="sm" type="button" onclick="delAsset('+c.id+','+a.id+')">삭제</button></div></div>';
     }).join('')+'</div>';
   }).join('');
+  var pager='';
+  if(pages>1){
+    pager='<div class="pbar"><div class="pg"><button type="button" onclick="setAP('+(pg-1)+')"'+(pg===1?' disabled':'')+' aria-label="이전">‹</button>';
+    for(var n=1;n<=pages;n++)pager+='<button type="button" class="'+(n===pg?'on':'')+'" onclick="setAP('+n+')">'+n+'</button>';
+    pager+='<button type="button" onclick="setAP('+(pg+1)+')"'+(pg===pages?' disabled':'')+' aria-label="다음">›</button></div></div>';
+  }
+  el.innerHTML=html+pager;
 }
 function openAsset(aid){
   var a=ASSET_ORDER.filter(function(x){return x.id===aid})[0];if(!a)return;
@@ -1008,16 +1045,19 @@ async function mergeAssets(cid,ti){
 }
 var cTab='p';
 function setTab(t){cTab=t;viewChar(cur,1)}
-function curTabId(){return ['p','s','a'].indexOf(cTab)<0?cTab:''}
+function curTabId(){return ['p','s','a','tl'].indexOf(cTab)<0?cTab:''}
 function inTab(c,x,tid){var has=(c.tabs||[]).some(function(t){return t.id===x.tab});return (has?x.tab:'')===tid}
 function panel(c,id){
   var isPair=pf(c)==='r',tabs=c.tabs||[];
   if(isPair&&cTab==='p')cTab='s';
-  if(['p','s','a'].indexOf(cTab)<0&&!tabs.some(function(t){return t.id===cTab}))cTab=isPair?'s':'p';
-  var base=[['p','프로필'],['s','서사'],['a','에셋']].filter(function(x){return !(isPair&&x[0]==='p')}).concat(tabs.map(function(t){return [t.id,t.name]}));
+  if(isPair&&cTab==='tl')cTab='s';
+  if(['p','s','a','tl'].indexOf(cTab)<0&&!tabs.some(function(t){return t.id===cTab}))cTab=isPair?'s':'p';
+  var base=[['p','프로필'],['s','서사'],['tl','타임라인'],['a','에셋']].filter(function(x){return !(isPair&&(x[0]==='p'||x[0]==='tl'))}).concat(tabs.map(function(t){return [t.id,t.name]}));
   var chips=base.map(function(x){return '<button type="button" class="chip'+(cTab===x[0]?' on':'')+'" onclick="setTab(\''+x[0]+'\')">'+H(x[1])+'</button>'}).join('')+'<button type="button" class="chip admbtn" onclick="editTab('+id+')">+ 탭</button>';
   var ct=tabs.filter(function(t){return t.id===cTab})[0],bar,inner;
-  if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
+  if(cTab==='s'&&isPair){bar='<button class="btn admbtn" type="button" onclick="editTl('+id+')">+ 타임라인 추가</button>';inner='<div id="cTl"></div><div id="cStories"></div>'}
+  else if(cTab==='s'){bar='<button class="btn admbtn" type="button" onclick="openEd(0,'+id+')">+ 서사 쓰기</button>';inner='<div id="cStories"></div>'}
+  else if(cTab==='tl'){bar='<button class="btn admbtn" type="button" onclick="editTl('+id+')">+ 타임라인 추가</button>';inner='<div id="cTl"></div>'}
   else if(cTab==='a'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+')">+ 에셋 추가</button>';inner='<div id="cAssets"></div>'}
   else if(ct){
     if(ct.type==='image'){bar='<button class="btn admbtn" type="button" onclick="editAsset('+id+',0,\''+ct.id+'\')">+ 그림 추가</button>';inner='<div id="cAssets"></div>'}
@@ -1026,6 +1066,44 @@ function panel(c,id){
   }
   else{bar='<button class="btn admbtn" type="button" onclick="editChar('+id+')">수정</button><button class="btn gray admbtn" type="button" onclick="delChar('+id+')">삭제</button>';inner=(c.info&&c.info.trim()?rows(c.info,true):'<p class="empty">아직 설정이 없어요.</p>')}
   return '<div class="ctabs"><div class="ctl">'+chips+'</div><div class="tbar">'+bar+'</div></div><div class="tbd">'+inner+'</div>';
+}
+function tlOf(c){return (c&&c.timeline)||[]}
+function renderTimeline(){
+  var el=document.getElementById('cTl');if(!el)return;
+  var c=CH(cur),l=tlOf(c);
+  if(!l.length){el.innerHTML='<p class="empty" style="font-size:13px">아직 타임라인이 없어요.</p>';return}
+  el.innerHTML='<div class="tlv"><div class="tlh"><i class="a"></i><i class="b"></i><i class="c"></i>TIMELINE</div>'+l.map(function(t,i){
+    return '<div class="tli'+(i===l.length-1?' now':'')+'"><div class="tll">'+H(t.label||'')+'</div><div class="tlc"><i></i></div><div class="tlt">'+H(t.text||'')+
+      '<div class="admbtn"><button class="mini" type="button" onclick="editTl('+c.id+','+t.id+')">수정</button><button class="mini" type="button" onclick="moveTl('+c.id+','+t.id+',-1)">▲</button><button class="mini" type="button" onclick="moveTl('+c.id+','+t.id+',1)">▼</button><button class="mini" type="button" onclick="delTl('+c.id+','+t.id+')">삭제</button></div></div></div>';
+  }).join('')+'</div>';
+}
+function editTl(cid,tid){
+  var c=CH(cid);if(!c)return;
+  var t=tlOf(c).filter(function(x){return x.id===tid})[0]||{};
+  openForm(t.id?'타임라인 수정':'타임라인 추가',[
+    {id:'label',l:'제목 (예: 에덴 23세, 첫 만남, 현재 · 줄바꿈도 돼요)',t:'area',v:t.label,ph:'첫 만남'},
+    {id:'text',l:'내용 (맨 아래 항목은 점이 채워져서 "현재"처럼 보여요)',t:'area',v:t.text}
+  ],async function(g){
+    var lb=g('label').value.trim(),tx=g('text').value.trim();
+    if(!lb)throw new Error('제목을 적어주세요.');
+    var cc=CH(cid),l=tlOf(cc).slice(),it={id:t.id||Date.now(),label:lb,text:tx};
+    if(t.id)l=l.map(function(x){return x.id===t.id?it:x});else l.push(it);
+    await saveChar(Object.assign({},cc,{timeline:l}),'타임라인 저장');
+  });
+}
+async function delTl(cid,tid){
+  if(!confirm('이 타임라인 항목을 삭제할까요?'))return;
+  if(needCfg())return;
+  var c=CH(cid);if(!c)return;
+  try{await saveChar(Object.assign({},c,{timeline:tlOf(c).filter(function(x){return x.id!==tid})}),'타임라인 삭제')}catch(e){alert(e.message)}
+}
+async function moveTl(cid,tid,d){
+  if(needCfg())return;
+  var c=CH(cid);if(!c)return;
+  var l=tlOf(c).slice(),i=l.map(function(x){return x.id}).indexOf(tid),j=i+d;
+  if(i<0||j<0||j>=l.length)return;
+  var t=l[i];l[i]=l[j];l[j]=t;
+  try{await saveChar(Object.assign({},c,{timeline:l}),'타임라인 순서 변경')}catch(e){alert(e.message)}
 }
 function editTab(cid,tid){
   var c=CH(cid);if(!c)return;
@@ -1084,7 +1162,7 @@ function viewChar(id,keep){
   var k=pf(c);
   KIND.forEach(function(x){document.getElementById(x+'Grid').style.display='';var w=document.getElementById(x+'View');w.style.display='none';w.innerHTML=''});
   ['psc','psr','psp'].forEach(function(i){document.getElementById(i).textContent=''});
-  if(cur!==id)cTab=(k==='r'?'s':'p');
+  if(cur!==id){cTab=(k==='r'?'s':'p');APG={}}
   cur=id;
   document.getElementById({c:'psc',r:'psr',p:'psp'}[k]).textContent=c.name;
   document.getElementById(k+'Grid').style.display='none';
@@ -1101,7 +1179,7 @@ function viewChar(id,keep){
       '<div class="cimg">'+im(c.img)+'</div>'+
       '<div class="card">'+panel(c,id)+'</div></div>';
   }
-  renderCharStories();renderAssets();
+  renderCharStories();renderAssets();renderTimeline();
   if(!keep)window.scrollTo(0,0);
 }
 function renderRels(){}
@@ -1153,7 +1231,17 @@ async function upImg(f){
   LOCAL[p]='data:image/jpeg;base64,'+b;
   return p;
 }
-function saveData(nd,msg){return put('chars.json',JSON.stringify(nd,null,1),msg).then(function(){D=nd;renderChars();renderRels()})}
+/* 저장 후 다시 그릴 때 화면 위치가 위로 튀지 않게 잡아줘요 */
+function keepY(fn){
+  var y=window.scrollY,b=document.body,h=document.documentElement.scrollHeight;
+  b.style.minHeight=h+'px';
+  try{fn()}finally{
+    window.scrollTo(0,y);
+    requestAnimationFrame(function(){window.scrollTo(0,y)});
+    setTimeout(function(){b.style.minHeight=''},1200);
+  }
+}
+function saveData(nd,msg){return put('chars.json',JSON.stringify(nd,null,1),msg).then(function(){D=nd;keepY(function(){renderChars();renderRels()})})}
 
 function editChar(id,type){
   var c=CH(id)||{type:type||'main'};
@@ -1174,7 +1262,7 @@ function editChar(id,type){
   ],async function(g){
     var name=g('name').value.trim();if(!name)throw new Error('이름을 적어주세요.');
     var img=c.img||'',f=g('img').files[0];if(f)img=await upImg(f);
-    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[],tabs:c.tabs||[]};
+    var it={id:c.id||Date.now(),name:name,color:g('color').value,img:img,info:g('info').value,type:g('type').value,a:0,b:0,assets:c.assets||[],tabs:c.tabs||[],timeline:c.timeline||[]};
     if(it.type==='pair'){
       for(var sd of ['a','b']){
         var xn=g(sd+'xn').value.trim();
@@ -1320,7 +1408,7 @@ function renderDiary(){
 }
 function goBoard(){show('board');try{history.replaceState(null,'','#board')}catch(x){}}
 function renderAll(){renderSite();renderDiary();renderPrompts();renderLora();renderWorks();renderBoard();renderSched();renderThreads()}
-function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;renderAll();dday()})}
+function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;keepY(function(){renderAll();dday()})})}
 ld('site.json').then(function(d){S=d||{};
   /* 분류 이름 변경: 잡담→HTML, 기타→잡담 (기존 글도 한 번만 옮김) */
   if(S.board&&!S.catMig){S.board.forEach(function(b){if(b.kind==='road')return;if(b.cat==='잡담')b.cat='HTML';else if(b.cat==='기타')b.cat='잡담'});S.catMig=1}
