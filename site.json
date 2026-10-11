@@ -1231,6 +1231,20 @@
      "text": "white military uniform, high collar, gold epaulettes, medals on chest, golden buttons, white gloves, saber at waist,"
     }
    ]
+  },
+  {
+   "id": 1791736618670,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "snowing, winter castle, balcony, night sky, moonlight, dramatic shadows, close-up, portrait,",
+   "negs": [
+    {
+     "label": "메인 네거티브",
+     "text": "military uniform, black formal wear, fur-trimmed cape, epaulettes, medals on chest, high collar, black gloves,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
