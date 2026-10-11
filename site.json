@@ -1474,6 +1474,20 @@
      "text": "oversized t-shirt, graphic t-shirt, layered clothing, leather jacket, cargo pants, belt, chain accessory,"
     }
    ]
+  },
+  {
+   "id": 1791738756777,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "front view, dynamic pose, mid-air, action, looking down, 1::stage lighting::, spotlight, dramatic lighting, purple lighting, backlighting, shadow, glow, character focus, upper body, cinematic composition, aesthetic,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "serious, black electric guitar, playing guitar, guitar strap,  black t-shirt,  rolled up sleeves, sleeve rolled up,  short sleeves, silver bracelet,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
