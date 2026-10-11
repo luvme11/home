@@ -824,6 +824,20 @@
      "text": "wizard-school uniform, black robe with deep red accents, red-and-gold striped tie, white collared shirt, long robe sleeves, red ribbon hair accessory"
     }
    ]
+  },
+  {
+   "id": 1791730731808,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "sunlit bamboo forest setting, fresh and playful atmosphere, bright natural daylight, soft green color palette, shallow depth of field, slightly low-angle shot, dynamic full-body shot, one leg lifted in a light jump, body slightly twisted, one arm reaching forward, other hand holding a small bamboo steamer, a panda plush carried on the back in a basket, cheerful and lively pose, whimsical and fairy-tale mood",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "black and white maid-style dress with green accents, frilled skirt hem, puffed short sleeves, white apron detail, green ribbon decorations, lace-trimmed underskirt, black ankle boots with decorative fastenings, playful fantasy costume style"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
