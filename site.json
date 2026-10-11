@@ -523,6 +523,24 @@
      "text": "lying on side, eyes closed, relaxed facial expression, arms resting forward, body wrapped in blanket, leaning slightly toward person2,"
     }
    ]
+  },
+  {
+   "id": 1791726747671,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 X",
+   "img": "",
+   "text": "close-up shot, intimate playful mood, soft flash lighting, bright indoor background, warm color tone, slight grain texture, cheek-to-cheek pose, camera-facing angle, lipstick marks on both faces, casual candid moment,",
+   "negs": [
+    {
+     "label": "남",
+     "text": "expressionless face, pouty lips gently pushed upward by the other person's hand, relaxed posture, looking directly at camera, multiple lipstick marks on cheeks and forehead,"
+    },
+    {
+     "label": "여",
+     "text": "puckered lips making a kissing face, wide-open bright eyes, leaning close toward person 1, slightly tilting head, lipstick marks on cheeks, playful teasing gesture,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
