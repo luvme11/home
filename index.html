@@ -1422,7 +1422,7 @@ function setPC(c){pCat=c;pPage=1;renderPrompts()}
 function setPP(n){var el=document.getElementById('pList'),h=el?el.offsetHeight:0;pPage=n;keepY(function(){renderPrompts(h)})}
 function renderPrompts(keepH){
   document.getElementById('pList').style.minHeight=keepH?keepH+'px':'';
-  var all=(S.prompts||[]).filter(function(p){return secOf(p)===pSec}).reverse();
+  var all=(S.prompts||[]).filter(function(p){return secOf(p)===pSec});
   var cats=[];all.forEach(function(p){var t=(p.tag||'').trim();if(t&&cats.indexOf(t)<0)cats.push(t)});
   if(pCat!=='전체'&&cats.indexOf(pCat)<0)pCat='전체';
   var l=all.filter(function(p){return pCat==='전체'||(p.tag||'').trim()===pCat});
