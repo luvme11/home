@@ -1345,6 +1345,20 @@
      "text": "1::leopard print fur jacket::, 1::black tank top::, 1::skull print::, black pants, belt, wallet chain, multiple necklaces, cross necklace, multiple earrings, stud earrings, ear piercing, lip piercing, tongue piercing, hair clip,"
     }
    ]
+  },
+  {
+   "id": 1791737652933,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "1::rappelling::, hanging from rope, mid-air, dynamic pose, floating, looking at viewer, holding gun, handgun, weapon, full body, studio background, simple background, white background, grey background, soft lighting,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "tactical gear, military uniform, black crop top, long sleeves, denim shorts, cut-offs, tactical vest, utility vest, harness, rappelling harness, large backpack, military backpack, holster, thigh holster, knee pads, platform boots, black boots, fingerless gloves, baseball cap, headphones, headset, yellow eyewear, safety glasses,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
