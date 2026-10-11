@@ -1401,6 +1401,20 @@
      "text": "1::red dress::, sleeveless dress, thin straps, flowing skirt, silk fabric,"
     }
    ]
+  },
+  {
+   "id": 1791738305120,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "cross (shape) , medical cross, pink cross, looking at viewer, expressionless,  sitting , front view, upper body, dark background, black background, 1.5::pink clouds::, stylized smoke, pink theme, black theme,high contrast,creepy, yandere, psychological,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "nurse costume , nurse cap, white shirt, collared shirt,  bandaid , bandaid on face, bandage on arms, jewelry, earrings,  holding heart , stitched heart, bleeding heart, syringe, large syringe, liquid in syringe,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
