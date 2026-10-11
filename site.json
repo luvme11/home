@@ -541,6 +541,24 @@
      "text": "puckered lips making a kissing face, wide-open bright eyes, leaning close toward person 1, slightly tilting head, lipstick marks on cheeks, playful teasing gesture,"
     }
    ]
+  },
+  {
+   "id": 1791726895522,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "upper body, tight framing, focus on hands, dynamic pose, holding from behind, gun aimed forward, dramatic tension, cinematic lighting, glossy highlights, prism light refraction, rainbow light particles, rose petals flying, elegant hall interior, soft glow, high detail, depth of field,",
+   "negs": [
+    {
+     "label": "남",
+     "text": "behind hold, one arm wrapped around waist, supporting body, other hand holding handgun forward, aiming, close proximity, protective yet aggressive stance,\n\nformal suit, black tailored jacket, dress shirt, gloves,"
+    },
+    {
+     "label": "여",
+     "text": "sitting in arms, body leaned back, legs drawn up, 2::one hand raised showing middle finger::, other hand resting near body, relaxed but defiant pose, defiant expression,\n\nwedding dress, accessories,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
