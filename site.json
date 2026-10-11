@@ -1317,6 +1317,20 @@
    "img": "",
    "text": "holding cake, candle in mouth, birthday girl, sitting, looking at viewer, cool expression, female focus, solo, 1::birthday party::, 1::silver balloon letters::,  indoor, dimly lit, warm lighting, flash photography style, black strapless top, tube top, mini tiara,",
    "negs": []
+  },
+  {
+   "id": 1791737584130,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "solo, standing, walking, 1::shibuya::, urban background, city street, neon lights, night, depth of field, from above, fisheye Lens,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "1::white leopard print jumpsuit::, 1::full length white leopard print leggings::,  white fur trim, white faux fur waist wrap, 1::white fur leg warmers::, white boots, choker, earrings,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
