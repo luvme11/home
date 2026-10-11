@@ -684,6 +684,20 @@
      "text": "red sleeveless dress with bow detail at chest, lightweight wrinkled fabric, red ribbon hair ties, thigh-high white socks, red accent straps, vintage glasses"
     }
    ]
+  },
+  {
+   "id": 1791729792525,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "kitsch high-teen barbie aesthetic, vibrant pink color palette, soft diffused lighting, glamorous bedroom-vanity setting, medium shot, slightly angled front view, playful dreamy atmosphere, holding a hand mirror gracefully with one hand, the other hand resting near vanity items, relaxed upper-body posture, slightly tilted head, playful wink, lively and charming expression, cute flirty mood,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "furry pink oversized coat, pink ribbon bodysuit with frill hem, large satin bow headband, barbie-style accessories, glossy manicure, pastel jewelry"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
