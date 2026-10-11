@@ -852,6 +852,20 @@
      "text": "light pink sleeveless pinafore-style dress, white inner blouse with small red dot pattern, soft fabric texture, pastel and cute styling coordination, white lace headscarf covering the top of the head, small pastel hairpins placed at the side"
     }
    ]
+  },
+  {
+   "id": 1791731407344,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "atmospheric oriental setting, softly blurred traditional architecture background, falling snow particles, quiet and poetic winter mood, cool muted color palette, soft diffused lighting, cinematic mid-close shot, side profile angle, upper-body framing, body facing sideways, holding a traditional paper umbrella over the shoulder, umbrella slightly tilted backward, still and composed posture, gentle sense of motion in snowfall",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "traditional yukata-style robe, pale blue fabric, delicate floral patterns, soft pastel tones, lightweight textile, wide sleeves, elegant layered traditional clothing"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
