@@ -740,6 +740,20 @@
      "text": "sheer lace dress with delicate floral texture, translucent fabric clinging softly in water, ivory tone, romantic editorial styling"
     }
    ]
+  },
+  {
+   "id": 1791729976213,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "bright indoor lifestyle scene, pastel-toned kitchen setting, warm and soft lighting, cheerful and cozy mood, colorful props filling the background, subject-centered composition, medium framing, playful cooking-themed setup, one hand holding a whisk, other hand resting on the waist, clean focus, lively and cute atmosphere,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "white chef hat with soft pastel decorations, pink and yellow striped apron dress with ruffled edges, heart-shaped chest detail, pastel pink shoulder straps, matching waist pocket, white choker-style accessory, bracelet accessories"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
