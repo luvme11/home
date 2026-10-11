@@ -2790,7 +2790,20 @@
    "type": "persona",
    "a": 0,
    "b": 0,
-   "assets": [],
+   "assets": [
+    {
+     "id": 1791711317900,
+     "tag": "",
+     "title": "",
+     "img": "images/1791711305998_3142.png",
+     "imgs": [
+      "images/1791711305998_3142.png",
+      "images/1791711309200_7318.png",
+      "images/1791711312424_3731.png",
+      "images/1791711315683_6191.png"
+     ]
+    }
+   ],
    "tabs": [],
    "timeline": []
   }
