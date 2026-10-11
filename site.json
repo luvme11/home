@@ -1566,6 +1566,20 @@
      "text": "apron, wearing apron, no shirt, bare shoulders, jeans, denim jeans, gloves, one glove, dirty gloves, holding phone, using phone,"
     }
    ]
+  },
+  {
+   "id": 1791739398053,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "stage, gold background, stage curtain, spotlight, confetti, glitter, falling sparkles, dark background,standing, singing, holding microphone, microphone stand, holding dress,  medium full shot, vintage, retro, old hollywood,gorgeous, elegant, dramatic lighting, cinematic lighting, performance, classic,",
+   "negs": [
+    {
+     "label": "메인 네거티브",
+     "text": "black dress, evening gown, tulle skirt, layered skirt, spaghetti strap, sweetheart neckline, black gloves, long gloves, pearl necklace, multiple necklaces, earrings, headwear, small hat"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
