@@ -1460,6 +1460,20 @@
    "img": "",
    "text": "beach, sandy beach, sitting on sand, looking back, over shoulder, ocean, shoreline, waves, seaside, outdoors, horizon, summer, sunlight, breeze, relaxed atmosphere, rear view,",
    "negs": []
+  },
+  {
+   "id": 1791738729483,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "dutch angle, dynamic pose, mid-air, action, looking down, 1::stage lighting::, spotlight, dramatic lighting, purple lighting, backlighting, shadow, glow, character focus, upper body, cinematic composition, aesthetic, vocalist, microphone, holding microphone, microphone stand, singing,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "oversized t-shirt, graphic t-shirt, layered clothing, leather jacket, cargo pants, belt, chain accessory,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
