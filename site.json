@@ -469,6 +469,24 @@
    "img": "",
    "text": "masterpiece, best quality, ultra-high detailed, semi-realistic anime illustration, clear lineart, Korean style, [1 girl, 여자 외형, slightly tongue-out posture, playful smirk], [1 boy, 남자외형], both lying down on floor, heads next to each other, their faces covered with multiple thin circle shaped cucumber slices, cucumber slices covering their cheeks to forehead and around the face, like a full skincare mask, evenly spread, playful and cute mood, playful expression, casual comfortable t-shirt outfits, soft home wear, their hair both wrapped in a towel, towel wrapped around head like after a shower, soft towel turban, fully covered, high angle, focus on faces, soft lighting, wood floor background,",
    "negs": []
+  },
+  {
+   "id": 1791725588013,
+   "title": "",
+   "sec": "comp",
+   "tag": "",
+   "img": "",
+   "text": "nighttime festival setting, warm lantern lighting, traditional festive atmosphere, shallow depth of field, soft background blur,",
+   "negs": [
+    {
+     "label": "남자",
+     "text": "sitting closely beside the other person, holding a lit sparkler in one hand, hand positioned slightly forward, maintaining a steady seated posture while focusing on the shared activity, dark-colored traditional robe"
+    },
+    {
+     "label": "여자",
+     "text": "sitting next to the other person, holding a sparkler with one hand, hand placed near the other person’s hand, seated posture leaning slightly inward toward the shared action, light-colored traditional robe with subtle pattern"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
