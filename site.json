@@ -1058,6 +1058,20 @@
    "img": "images/1791734463330_4411.jpg",
    "text": "full body, fashion illustration, original outfit, creative fashion, unconventional clothing combinations, character reference sheet, multiple views, front view, back view, simple white background,\n\nThe same character shown twice side by side, front view on the left and back view on the right, wearing the same outfit,",
    "negs": []
+  },
+  {
+   "id": 1791734692655,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "walking, looking back, wet, rain, puddle, water drop, bridge, railroad tracks, iron, rust, fog, night, lamppost, outdoors, dim lighting, from side,  walking the length of a rain-slick iron bridge, 2::upper body::,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "steampunk, dark green coat, long coat, double-breasted, high collar, military uniform,\nworn clothes, dirty clothes,\nbrown gloves, leather gloves,\nbrown pants, jodhpurs, cargo pants, belt pouch,\nknee boots, black boots, \na weathered olive-green double-breasted field coat with a standing collar,\nbrown breeches with bellows pockets tapering into tall worn leather boots"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
