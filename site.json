@@ -698,6 +698,20 @@
      "text": "furry pink oversized coat, pink ribbon bodysuit with frill hem, large satin bow headband, barbie-style accessories, glossy manicure, pastel jewelry"
     }
    ]
+  },
+  {
+   "id": 1791729824329,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "warm lighting, retro indoor setting, vintage posters background, waist-up angle, dynamic pose, looking over shoulder, relaxed arm position, holding a bottle casually, playful expression, soft shadows, cinematic color tones, arched back pose, one hand on hip, head turned to the side, torso slightly twisted, slightly open lips, wide-eyed expression, soft playful mood,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "brown cowboy hat, paisley patterned bandana top, blue high-waisted jeans, western-inspired accessories"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
