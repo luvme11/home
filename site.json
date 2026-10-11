@@ -329,6 +329,20 @@
    "img": "images/1791708949187_2075.jpg",
    "text": "1girl, solo, sitting, looking at viewer, profile, head tilt, twin tails, hair ribbons, flower hair ornament, gothic lolita dress, black and red dress, frilled dress, puff sleeves, detached sleeves, long gloves, thighhighs, lace, bows, corset, layered skirt, sitting sideways, legs crossed, hands resting on lap, cherries, cocktail glasses, cherry-themed drinks, large cherries in foreground, ribbons flowing, hair flowing, pink background, abstract background, sparkles, sweet atmosphere, gothic aesthetic, dramatic composition, foreground object, depth of field",
    "negs": []
+  },
+  {
+   "id": 1791711228822,
+   "title": "연",
+   "sec": "main",
+   "tag": "PERSONA",
+   "img": "images/1791711227200_526.jpg",
+   "text": "girl, aged up, delicate face, soft mood, soft expressionless, slender, medium breasts, pale skin, soft blush, light brown hair, long wavy hair, full bangs, red eyes, almond-shape eyes, 1::tareme, long eyelashes::,",
+   "negs": [
+    {
+     "label": "전용 네거티브",
+     "text": "worst quality, low quality, bad quality, lowres, jpeg artifacts, blurry, bad anatomy, bad proportions, deformed, disfigured, text, watermark, username, artist name,\n\n1boy, male, masculine face, mature masculine features, child, loli, underage appearance, childish proportions,\n\nround face, chubby face, wide face, square jaw, strong jawline, prominent cheekbones, thick neck, muscular body, broad shoulders, overweight, flat chest, oversized breasts, exaggerated curves,\n\ndark skin, tan skin, orange skin, excessive blush, heavy makeup, dark lipstick, thick eyeliner,\n\nblack hair, blonde hair, white hair, silver hair, red hair, pink hair, dark brown hair, short hair, bob cut, pixie cut, straight hair, tightly curled hair, afro, ponytail, twintails, braids, bun, blunt hair ends, short bangs, see-through bangs, curtain bangs, side swept bangs, no bangs, exposed forehead,\n\nblue eyes, green eyes, yellow eyes, purple eyes, brown eyes, heterochromia, round eyes, large round eyes, upturned eyes, tsurime, sharp eyes, narrow slit eyes, thick eyebrows, short eyelashes,\n\nwide smile, open mouth, laughing, angry expression, seductive expression, exaggerated expression, heavy tears,\n\nextra limbs, extra fingers, missing fingers, malformed hands, asymmetrical eyes, cross-eyed"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
