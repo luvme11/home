@@ -2780,6 +2780,19 @@
     "img": "images/1791615232531_5516.jpg",
     "info": "NAME: Seon Yui\n선유이\nALIAS: Yui / 유이\nSEX: 여성\nVOICE: 하이톤 · 나긋나긋한 맑은 목소리\nSCENT: (꽃) 샴푸, (꽃) 바디워시\nSTATUS: SURVIVOR\nORIGIN: 13―14F INTERSPACE\nTHREAT: NO THREAT"
    }
+  },
+  {
+   "id": 1791711280549,
+   "name": "연",
+   "color": "#8f7fd0",
+   "img": "images/1791711278543_7068.jpg",
+   "info": "",
+   "type": "persona",
+   "a": 0,
+   "b": 0,
+   "assets": [],
+   "tabs": [],
+   "timeline": []
   }
  ],
  "rels": []
