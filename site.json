@@ -712,6 +712,20 @@
      "text": "brown cowboy hat, paisley patterned bandana top, blue high-waisted jeans, western-inspired accessories"
     }
    ]
+  },
+  {
+   "id": 1791729881217,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "indoor music studio vibe, warm retro lighting, vintage posters on the wall, close-up medium shot, moody yet stylish atmosphere, soft shadows, warm brown and red-toned color palette, artistic indie-rock aesthetic, standing while holding a bass guitar, one hand resting on the strings, subtle playing pose, relaxed but confident stance, headphones hanging around the neck,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "red cropped tank top, casual fit, dark denim jeans, over-ear headphones as an accessory"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
