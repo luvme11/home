@@ -503,6 +503,34 @@ body.adm .ctabs .tbar{min-height:0;margin-bottom:0}
 body.adm .tlt .admbtn{display:flex;gap:4px;margin-top:8px}
 .tlt .mini{margin:0}
 @media(max-width:600px){.tli{grid-template-columns:84px 20px minmax(0,1fr);column-gap:8px}}
+/* ===== 폴더폰 메시지 ===== */
+.phcard{padding:14px 14px 12px}
+.fp{position:relative;max-width:340px;margin:0 auto 4px;background:#1b1d1f;border:3px solid #34373a;border-radius:18px;padding:8px 8px 0;color:#fff;overflow:hidden;font-size:12px}
+.fpst{display:flex;align-items:flex-end;gap:6px;height:16px;padding:0 4px 4px;color:#8fb4e8;font-size:9px;line-height:1}
+.fps{display:flex;align-items:flex-end;gap:1px}.fps i{display:block;width:3px;background:#8fb4e8;border-radius:1px}
+.fpb{margin-left:auto;display:flex;gap:2px}.fpb i{display:block;width:5px;height:7px;background:#8fb4e8;border-radius:1px}
+.fphd{background:linear-gradient(#4b9bf2,#2d6ac0);font-weight:700;padding:8px 10px;border-radius:8px 8px 0 0;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fpsc{background:#f7f8fd;color:#222;height:210px;overflow:auto;border-top:2px solid #14161a}
+.fpbd{min-height:100%;display:flex;flex-direction:column;padding:10px 12px}
+.fptx{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;padding:8px 0}
+.fpdt{text-align:right;color:#8a8f9c;font-size:10px}
+.fpr{padding:7px 10px;border-bottom:1px solid #e3e6f0;cursor:pointer}
+.fpr.sel{background:#dce8fb}
+.fpr b{font-weight:500;display:block}
+.fpr.un b{font-weight:700}.fpr.un b::before{content:"✉ ";color:#2d6ac0}
+.fpr .t{color:#6b7080;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fpr small{color:#9aa0ae;font-size:10px}
+.fpkeys{display:flex;justify-content:space-between;align-items:center;padding:9px 10px 10px;font-size:12px}
+.fpkeys button{border:0;background:none;color:#6fa4e8;font:inherit;cursor:pointer;padding:0}
+.fpkeys .fpc{color:#fff;font-weight:700}
+.fpmn{display:none;position:absolute;left:8px;bottom:36px;z-index:3;background:#fff;color:#222;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.35);min-width:110px;padding:4px}
+.fpmn.on{display:block}
+.fpmn button{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 8px;border-radius:6px;font:inherit;cursor:pointer;color:#222}
+.fpmn button:hover{background:#eef2fb}
+.fpkeys .fpm{pointer-events:none;cursor:default}
+body.adm .fpkeys .fpm{pointer-events:auto;cursor:pointer}
+body:not(.adm) .fpmn{display:none!important}
+.sdi .ck:disabled{pointer-events:none;cursor:default}
 </style>
 </head>
 <body>
@@ -528,6 +556,18 @@ body.adm .tlt .admbtn{display:flex;gap:4px;margin-top:8px}
 <section class="page on" id="home"><div class="home">
   <div class="col">
     <div class="card"><p class="lb">MEMO</p><div class="s-memo">(여기는 아무 말이나 쓰는 곳)</div><button class="btn admbtn" type="button" onclick="editSite()">✎ 사이트 설정</button></div>
+
+    <!-- 폴더폰 메시지 -->
+    <div class="card phcard"><p class="lb">MESSAGE</p>
+      <div class="fp">
+        <div class="fpst"><span class="fps"><i style="height:3px"></i><i style="height:5px"></i><i style="height:7px"></i><i style="height:9px"></i></span><span class="fpe">✉</span><span class="fpb"><i></i><i></i><i></i><i></i></span></div>
+        <div class="fphd" id="fpHd">받은 메시지함</div>
+        <div class="fpsc" id="fpSc"></div>
+        <div class="fpmn" id="fpMn"></div>
+        <div class="fpkeys"><button type="button" class="fpm" onclick="phMenu()">메뉴</button><button type="button" class="fpc" onclick="phOk()">확인</button><button type="button" onclick="phList()">목록</button></div>
+      </div>
+      <button class="btn admbtn" type="button" onclick="editMsg()">+ 메시지 추가</button>
+    </div>
   </div>
 
   <div class="col">
@@ -1267,7 +1307,7 @@ async function saveForm(){
   LS('gh_repo',G('repo').value.trim());LS('gh_token',G('tok').value.trim());
   if(!LS('gh_repo')||!LS('gh_token')){G('cfg').open=true;alert('저장 설정에 저장소 주소와 토큰을 넣어주세요.');return}
   var b=document.getElementById('g_sv');b.textContent='저장 중...';
-  try{await FG(G);closeForm();LS('adm','1');document.body.classList.add('adm');document.body.classList.add('own')}
+  try{await FG(G);closeForm();LS('adm','1');document.body.classList.add('adm');document.body.classList.add('own');renderSched();renderPhone()}
   catch(e){alert(e.message)}
   b.textContent='저장';
 }
@@ -1356,7 +1396,7 @@ function clip(t,btn){
 function toggleAdm(){
   if(!LS('gh_token')){openForm('저장 설정',[],async function(){});return}
   var on=!document.body.classList.contains('adm');
-  document.body.classList.toggle('adm',on);LS('adm',on?'1':'0');render();
+  document.body.classList.toggle('adm',on);LS('adm',on?'1':'0');render();renderSched();renderPhone();
 }
 function renderSite(){
   if(S.profile)document.querySelectorAll('.me .ph').forEach(function(e){e.innerHTML='<img src="'+H(U(S.profile))+'" data-p="'+H(S.profile)+'" alt="" onerror="imgFail(this)">'});
@@ -1462,7 +1502,7 @@ function renderDiary(){
   }).join(''):'<span class="empty">아직 글이 없어요</span>';
 }
 function goBoard(){show('board');try{history.replaceState(null,'','#board')}catch(x){}}
-function renderAll(){renderSite();renderDiary();renderPrompts();renderLora();renderWorks();renderBoard();renderSched();renderThreads()}
+function renderAll(){renderSite();renderDiary();renderPrompts();renderLora();renderWorks();renderBoard();renderSched();renderThreads();renderPhone()}
 function saveSite(nd,msg){return put('site.json',JSON.stringify(nd,null,1),msg).then(function(){S=nd;keepY(function(){renderAll();dday()})})}
 ld('site.json').then(function(d){S=d||{};
   /* 분류 이름 변경: 잡담→HTML, 기타→잡담 (기존 글도 한 번만 옮김) */
@@ -1985,7 +2025,7 @@ async function delAsset(cid,aid){
 // ===== 기록: 스케줄러 =====
 var MON=['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
 var scY=new Date().getFullYear(),scM=new Date().getMonth(),scSel=today();
-function SC(){var s=S.sched||{};return {cats:s.cats||[],events:s.events||[],todos:s.todos||[]}}
+function SC(){var s=S.sched||{};return {cats:s.cats||[],events:s.events||[],todos:s.todos||[],done:s.done||{}}}
 function saveSc(n,msg){return saveSite(Object.assign({},S,{sched:n}),msg)}
 function pad2(n){return ('0'+n).slice(-2)}
 function dk(y,m,d){return y+'-'+pad2(m+1)+'-'+pad2(d)}
@@ -2000,11 +2040,21 @@ function ddText(){
   return n>=0?'D+'+(n+1):'D'+n;
 }
 function evSort(a,b){return (a.time||'99')<(b.time||'99')?-1:(a.time||'99')>(b.time||'99')?1:a.id-b.id}
-function dnGet(){try{return JSON.parse(localStorage.getItem('sc_done')||'{}')}catch(e){return {}}}
+function dnGet(){return SC().done}
 function dnKey(id,k){return id+'|'+k}
 function dnOn(id,k){return !!dnGet()[dnKey(id,k)]}
-function dnToggle(id,k,on){var m=dnGet(),kk=dnKey(id,k);if(on)m[kk]=1;else delete m[kk];try{localStorage.setItem('sc_done',JSON.stringify(m))}catch(e){}renderSched()}
-function evCk(id,k){return '<input type=\"checkbox\" class=\"ck\"'+(dnOn(id,k)?' checked':'')+' onchange=\"dnToggle('+id+',\''+k+'\',this.checked)\" aria-label=\"완료\">'}
+/* 일정 체크는 관리자만 바꿀 수 있고, site.json에 저장돼서 모든 기기에서 똑같이 보여요 */
+var dnQ=Promise.resolve();
+function dnToggle(id,k,on){
+  if(!document.body.classList.contains('adm')){renderSched();return}
+  if(needCfg()){renderSched();return}
+  var s=SC(),dn=Object.assign({},s.done),kk=dnKey(id,k);
+  if(on)dn[kk]=1;else delete dn[kk];
+  S=Object.assign({},S,{sched:Object.assign({},s,{done:dn})});
+  renderSched();
+  dnQ=dnQ.then(function(){return put('site.json',JSON.stringify(S,null,1),'일정 체크')}).catch(function(e){alert(e.message)});
+}
+function evCk(id,k){return '<input type=\"checkbox\" class=\"ck\"'+(dnOn(id,k)?' checked':'')+(document.body.classList.contains('adm')?'':' disabled')+' onchange=\"dnToggle('+id+',\''+k+'\',this.checked)\" aria-label=\"완료\">'}
 function renderSched(){
   var g=document.getElementById('scGrid');if(!g)return;
   var s=SC(),first=new Date(scY,scM,1).getDay(),dim=new Date(scY,scM+1,0).getDate(),weeks=Math.ceil((first+dim)/7),tk=today(),h='';
@@ -2143,7 +2193,67 @@ async function delTh(id){
   if(!confirm('이 타래를 삭제할까요?'))return;
   try{await saveSite(Object.assign({},S,{threads:(S.threads||[]).filter(function(x){return x.id!==id})}),'감상타래 삭제')}catch(e){alert(e.message)}
 }
-renderSched();renderThreads();
+// ===== 홈: 폴더폰 메시지 =====
+var fpMode='list',fpSel=0;
+function phAll(){return (S.phone&&S.phone.msgs)||[]}
+function phMsgs(){return phAll().slice().sort(function(a,b){
+  var ka=(a.date||'')+' '+(a.time||'00:00'),kb=(b.date||'')+' '+(b.time||'00:00');
+  return ka<kb?1:ka>kb?-1:b.id-a.id})}
+function phRead(){try{return JSON.parse(localStorage.getItem('ph_read')||'{}')}catch(e){return {}}}
+function phMark(id){var m=phRead();m[id]=1;try{localStorage.setItem('ph_read',JSON.stringify(m))}catch(e){}}
+function phDate(m){var d=(m.date||'').split('-');return (d.length===3?d[0]+'/'+d[1]+'/'+d[2]:'')+(m.time?' '+m.time:'')}
+function renderPhone(){
+  var sc=document.getElementById('fpSc');if(!sc)return;
+  var l=phMsgs(),rd=phRead(),hd=document.getElementById('fpHd'),mn=document.getElementById('fpMn');
+  mn.classList.remove('on');
+  var cur=l.filter(function(m){return m.id===fpSel})[0];
+  if(fpMode==='view'&&!cur)fpMode='list';
+  if(!cur&&l.length)fpSel=l[0].id;
+  var B=function(t,f,adm){return '<button type="button"'+(adm?' class="admbtn"':'')+' onclick="'+f+'">'+t+'</button>'};
+  if(fpMode==='view'){
+    hd.textContent=cur.from;
+    sc.innerHTML='<div class="fpbd"><div class="fptx">'+H(cur.body)+'</div><div class="fpdt">'+H(phDate(cur))+'</div></div>';
+    mn.innerHTML=B('이전 메시지','phStep(-1)')+B('다음 메시지','phStep(1)')+B('수정','phEdit()',1)+B('삭제','phDel()',1)+B('새 메시지','editMsg()',1);
+  }else{
+    hd.textContent='받은 메시지함';
+    sc.innerHTML=l.length?l.map(function(m){
+      return '<div class="fpr'+(rd[m.id]?'':' un')+(m.id===fpSel?' sel':'')+'" onclick="phOpen('+m.id+')"><b>'+H(m.from)+'</b><div class="t">'+H(String(m.body).replace(/\s+/g,' ').slice(0,30))+'</div><small>'+H(phDate(m))+'</small></div>';
+    }).join(''):'<div class="fpbd"><div class="fptx" style="color:#9aa0ae">받은 메시지가 없어요</div></div>';
+    mn.innerHTML=B('열기','phOk()')+B('새 메시지','editMsg()',1)+B('수정','phEdit()',1)+B('삭제','phDel()',1);
+  }
+}
+function phOpen(id){fpSel=id;fpMode='view';phMark(id);renderPhone()}
+function phList(){fpMode='list';renderPhone()}
+function phOk(){if(fpMode==='view')phList();else if(fpSel)phOpen(fpSel)}
+function phMenu(){if(!document.body.classList.contains('adm'))return;document.getElementById('fpMn').classList.toggle('on')}
+function phStep(d){
+  var l=phMsgs(),i=l.map(function(m){return m.id}).indexOf(fpSel),j=i+d;
+  if(i<0||j<0||j>=l.length){document.getElementById('fpMn').classList.remove('on');return}
+  phOpen(l[j].id);
+}
+function phEdit(){if(fpSel)editMsg(fpSel)}
+function phDel(){if(fpSel)delMsg(fpSel)}
+function editMsg(id){
+  var l=phAll(),m=l.filter(function(x){return x.id===id})[0]||{},n=new Date();
+  openForm(m.id?'메시지 수정':'메시지 추가',[
+    {id:'from',l:'보낸 사람 (누구한테 온 문자인지)',t:'text',v:m.from},
+    {id:'date',l:'받은 날짜',t:'date',v:m.date||today()},
+    {id:'time',l:'받은 시간 (예: 17:14 · 비워도 돼요)',t:'text',v:m.time!==undefined?m.time:pad2(n.getHours())+':'+pad2(n.getMinutes())},
+    {id:'body',l:'내용',t:'area',v:m.body}
+  ],async function(g){
+    var fr=g('from').value.trim(),bd=g('body').value.trim();
+    if(!fr)throw new Error('보낸 사람을 적어주세요.');
+    if(!bd)throw new Error('내용을 적어주세요.');
+    var it={id:m.id||Date.now(),from:fr,date:g('date').value||today(),time:g('time').value.trim(),body:bd};
+    await saveSite(Object.assign({},S,{phone:{msgs:m.id?l.map(function(x){return x.id===m.id?it:x}):l.concat([it])}}),'메시지 저장');
+    fpSel=it.id;fpMode='view';phMark(it.id);renderPhone();
+  });
+}
+async function delMsg(id){
+  if(!confirm('이 메시지를 삭제할까요?'))return;
+  try{fpMode='list';await saveSite(Object.assign({},S,{phone:{msgs:phAll().filter(function(x){return x.id!==id})}}),'메시지 삭제');fpSel=0;renderPhone()}catch(e){alert(e.message)}
+}
+renderSched();renderThreads();renderPhone();
 </script>
 </body>
 </html>
