@@ -1387,6 +1387,20 @@
      "text": "1::military salute::, arm at side, standing, 1::white navy uniform::, military uniform,::, peaked cap, double breasted, white gloves, white trousers, gold buttons,"
     }
    ]
+  },
+  {
+   "id": 1791738253693,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "dutch angle, lying on back, look at viewer, looking at sky, looking up, holding fruit, 1::tomato in hand::, tomato near mouth, scattered tomatoes, white bedding, duvet, cinematic lighting, soft shadows, 1::top down view::,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "1::red dress::, sleeveless dress, thin straps, flowing skirt, silk fabric,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
