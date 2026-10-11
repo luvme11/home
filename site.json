@@ -1217,6 +1217,20 @@
    "img": "",
    "text": "beach, ocean, waves, splashing water, palm trees, clear sky, harsh sunlight, lens flare, swimwear, board shorts, shirtless, bare chest, sunglasses, surfboard,  tan skin, wet hair, carrying surfboard on beach, splashing waves, bright sunlight, lens flare, high contrast,",
    "negs": []
+  },
+  {
+   "id": 1791736594605,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "palace ballroom, golden curtains, crystal chandelier, sunlight filtering, flower petals, sparkles, regal atmosphere, elegant, portrait,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "white military uniform, high collar, gold epaulettes, medals on chest, golden buttons, white gloves, saber at waist,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
