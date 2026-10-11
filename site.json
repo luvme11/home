@@ -1359,6 +1359,20 @@
      "text": "tactical gear, military uniform, black crop top, long sleeves, denim shorts, cut-offs, tactical vest, utility vest, harness, rappelling harness, large backpack, military backpack, holster, thigh holster, knee pads, platform boots, black boots, fingerless gloves, baseball cap, headphones, headset, yellow eyewear, safety glasses,"
     }
    ]
+  },
+  {
+   "id": 1791737697126,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "1::looking at viewer::, blush, hands on face, surprised, 2::video game interface, game ui::, head-up display, hud, computer screen, monitor, window (computing), operating system, sidebar, icons, battery indicator, date (text), heart (shape), 1::limited palette::, pink theme, blue theme, purple theme, vibrant colors, dating sim,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "cyber outfit, futuristic clothing, white and pink jacket, headset, headphones, mechanical ears, hair ribbons, large hair bow, rabbit hair ornament,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
