@@ -582,6 +582,20 @@
      "text": "red santa dress with white fur trim, strapless design, lace-up corset front, fluffy white wrist cuffs, red ribbon headband, black mary jane shoes, white ankle socks"
     }
    ]
+  },
+  {
+   "id": 1791728106069,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "full-body sitting pose, gentle doll-like posture, holding balloon ribbons with both hands, surrounded by floating red balloons and white heart-shaped balloons, soft draped satin background, high-key studio lighting, elegant and whimsical atmosphere, red-and-white color scheme, fantasy photoshoot style, centered composition, straight-on camera angle, dreamy aesthetic,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "red frilled dress, ribbon bow accents, large matching head bow, white knee socks with red ribbon details, glossy red mary jane shoes, layered ruffles, elegant lolita-inspired outfit"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
