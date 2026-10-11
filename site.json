@@ -1331,6 +1331,20 @@
      "text": "1::white leopard print jumpsuit::, 1::full length white leopard print leggings::,  white fur trim, white faux fur waist wrap, 1::white fur leg warmers::, white boots, choker, earrings,"
     }
    ]
+  },
+  {
+   "id": 1791737613982,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "1::gyaru style::,  1::playing guitar::, 1::holding electric guitar::, looking at viewer, leaning against wall, 2::graffiti back::, indoors, 1::pink wall::, shadow, tattoo, neck tattoo, arm tattoo, hand on hip,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "1::leopard print fur jacket::, 1::black tank top::, 1::skull print::, black pants, belt, wallet chain, multiple necklaces, cross necklace, multiple earrings, stud earrings, ear piercing, lip piercing, tongue piercing, hair clip,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
