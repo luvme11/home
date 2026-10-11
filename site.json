@@ -810,6 +810,20 @@
      "text": "yellow ruffled crop top, yellow lace arm warmers with brown fur cuffs, leopard print beret, layered gold necklaces, brown utility belt with pouches, camouflage mini skirt, lace thigh garter"
     }
    ]
+  },
+  {
+   "id": 1791730681625,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "warm magical ambiance, golden glow lighting, detailed wizard study room, rich wooden textures, vintage magical props, cluttered scholarly desk, fantasy academia mood, straight-on angle, leaning slightly forward with one elbow resting on the desk, hand supporting the cheek, holding a wand in the other hand, wand raised lightly, soft focused expression, surrounded by books, scrolls, potion bottles, and magical instruments,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "wizard-school uniform, black robe with deep red accents, red-and-gold striped tie, white collared shirt, long robe sleeves, red ribbon hair accessory"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
