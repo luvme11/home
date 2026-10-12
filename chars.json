@@ -4710,7 +4710,20 @@
    "type": "persona",
    "a": 0,
    "b": 0,
-   "assets": [],
+   "assets": [
+    {
+     "id": 1791791343425,
+     "tag": "",
+     "title": "",
+     "img": "images/1791791329523_3561.webp",
+     "imgs": [
+      "images/1791791329523_3561.webp",
+      "images/1791791335012_8517.webp",
+      "images/1791791337739_1522.webp",
+      "images/1791791340799_7705.webp"
+     ]
+    }
+   ],
    "tabs": [],
    "timeline": []
   }
