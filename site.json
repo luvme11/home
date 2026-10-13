@@ -2792,6 +2792,20 @@
      "text": "oversized hoodie, sleeves past wrists"
     }
    ]
+  },
+  {
+   "id": 1791882134163,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "concrete wall, urban alley, graffiti, scattered stickers, warm indoor light, blurry background, upper body, standing, martial arts stance, dynamic pose, looking at viewer, head tilt, slight smile, blush, oversized black jacket, off-shoulder, wide sleeves, crop top, chinese-style collar, belt harness, rope ornament, long skirt,",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "concrete wall, urban alley, graffiti, scattered stickers, warm indoor light, blurry background, upper body, standing, one hand adjusting collar, looking away, from below, versized black jacket, off-shoulder, wide sleeves, sleeveless top, chinese-style collar, single belt, rope ornament, wide pants,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
