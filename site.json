@@ -3179,6 +3179,24 @@
      "text": "collared shirt, loose necktie, unbuttoned shirt, pleated skirt, thighhighs, hairpins,"
     }
    ]
+  },
+  {
+   "id": 1791884552100,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "simple background, white background,",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "full body, squatting, looking at viewer, eating popsicle, cool expression, short-sleeved collared shirt, loose tie, slacks, belt, backpack, chunky sneakers,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "full body, squatting, looking at viewer, holding popsicle, eating, track jacket, off shoulder, short-sleeved collared shirt, necktie, pleated skirt, backpack, bandaid on knee, loose socks, chunky sneakers,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
