@@ -3197,6 +3197,24 @@
      "text": "full body, squatting, looking at viewer, holding popsicle, eating, track jacket, off shoulder, short-sleeved collared shirt, necktie, pleated skirt, backpack, bandaid on knee, loose socks, chunky sneakers,"
     }
    ]
+  },
+  {
+   "id": 1791884934595,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "purple sky, cloudy sky, pink clouds, glowing ghost, floating spirits, sparkles,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "low angle, from below, looking at viewer, holding scythe, weapon,"
+    },
+    {
+     "label": "옷",
+     "text": "black dress, black hood, capelet, lace trim, corset, sheer skirt, bat wings, garter belt, thigh strap,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
