@@ -3251,6 +3251,24 @@
      "text": "school uniform, sailor collar, shirt, miniskirt, pleated skirt, flared skirt, pantyhose, loafers,"
     }
    ]
+  },
+  {
+   "id": 1791885144740,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "clear blue sky, fluffy clouds, contrail, sunny day, asphalt road, racetrack, extreme low angle, looking up, dynamic pose, vertical composition,",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "racing jacket, racing pants, holding racing helmet, sports car,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "racing jacket, shorts, thighhighs, holding racing helmet, sports car,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
