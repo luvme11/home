@@ -2946,6 +2946,20 @@
      "text": "black halloween dress, halterneck, gold trim, pleated skirt, small demon horns, black ribbon twintails, striped thighhighs, black arm warmers, black boots, choker,"
     }
    ]
+  },
+  {
+   "id": 1791882974880,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "pop art, collage background, chaotic, graphic patterns, geometric, comic panels, grid, stars, ribbons, halftone dots, colorful, maximalist, dynamic perspective, diagonal pose, full body framing, floating, fashion illustration,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "complex denim and lace outfit, puff sleeves with frills, layered skirt, patchwork, checkered patterns, blue beret, ribbon accents, platform denim boots, lace-up boots, maximalist fashion,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
