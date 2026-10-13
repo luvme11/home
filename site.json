@@ -2778,6 +2778,20 @@
    "img": "images/1791881939509_9963.jpg",
    "text": "1girl, solo, looking at viewer, light smile, closed mouth, head tilt, sitting, knees up, hugging object, hugging stuffed star, glowing, side braid, hair bun, hair ribbon, hair ornament, crescent earrings, oversized sweater, off shoulder, bare shoulder, sleeves past wrists, blue ribbon, neck ribbon, white pantyhose, giant clam, sitting in shell, seashell, jellyfish, bubble, constellation, ocean, waves, night sky, light trails, water, pink and blue, gradient, fantasy, sparkle",
    "negs": []
+  },
+  {
+   "id": 1791882086696,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "cozy indoor, sunlight through window, warm lighting, soft blanket, cushions, lens flare, sparkles, blurry background, upper body, from above, sitting, slouching, hood up, holding handheld game console, playing games, looking down, half-closed eyes, candy in mouth,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "oversized hoodie, sleeves past wrists"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
