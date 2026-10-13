@@ -5495,6 +5495,31 @@
    ],
    "tabs": [],
    "timeline": []
+  },
+  {
+   "id": 1791908165801,
+   "name": "에이든 x 이벨린",
+   "color": "#ff0000",
+   "img": "",
+   "info": "",
+   "type": "pair",
+   "a": 0,
+   "b": 0,
+   "assets": [],
+   "tabs": [],
+   "timeline": [],
+   "ax": {
+    "name": "에이든",
+    "color": "#ff0000",
+    "img": "images/1791908165801_6501.jpg",
+    "info": ""
+   },
+   "bx": {
+    "name": "이벨린",
+    "color": "#ff0000",
+    "img": "images/1791908169144_6333.jpg",
+    "info": ""
+   }
   }
  ],
  "rels": []
