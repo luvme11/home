@@ -3125,6 +3125,24 @@
      "text": "black oversized jacket, red ruffled trim, red necktie, criss-cross patterned pantyhose, red shoes, red hair ribbons, heart hair clip,"
     }
    ]
+  },
+  {
+   "id": 1791884052258,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "fireworks, night sky, night, bokeh, sparkling, light particles, outdoors, holding, sparkler, dynamic angle, upper body, blurry foreground, depth of field,",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "jinbei, or yukata, japanese clothes, sash"
+    },
+    {
+     "label": "여자 옷",
+     "text": "yukata, floral print, obi, sash, japanese clothes, hair ornament,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
