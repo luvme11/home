@@ -3233,6 +3233,24 @@
      "text": "layered street fashion, loose jacket, striped crop top, black shorts, fishnet tights, mismatched leg warmers, sticker patches, colorful hair clips, multi-straps,"
     }
    ]
+  },
+  {
+   "id": 1791885043885,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "night, city, street, crosswalk, neon lights, street sign, building,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "full body, dynamic pose, dancing, flowing movement, jumping, one leg up, arms spread wide, looking at viewer, high contrast, dynamic lighting, backlight,"
+    },
+    {
+     "label": "옷",
+     "text": "school uniform, sailor collar, shirt, miniskirt, pleated skirt, flared skirt, pantyhose, loafers,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
