@@ -3157,6 +3157,28 @@
      "text": "virgin killer sweater, turtleneck, backless, sleeveless, ribbed knit, cable knit, ribbon tied on neck, bare back, bare shoulders,"
     }
    ]
+  },
+  {
+   "id": 1791884504001,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "rotary telephone, telephone cord, telephone receiver, flower vase, tulip, spotlight, indoors,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "upper body, holding telephone receiver, looking at viewer, leaning, head tilt,"
+    },
+    {
+     "label": "남자 옷",
+     "text": "collared shirt, blazer, necktie, pants, belt,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "collared shirt, loose necktie, unbuttoned shirt, pleated skirt, thighhighs, hairpins,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
