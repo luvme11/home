@@ -3089,6 +3089,24 @@
      "text": "red frilled dress, tiered ruffled skirt, ribbon straps, big hair ribbon, cherry earrings, frilly socks, red mary janes,"
     }
    ]
+  },
+  {
+   "id": 1791883966107,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "bright white room, opulent palace interior, gold ornaments, floating candles, magic book,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "sitting on floor, high angle, looking at viewer, open book,"
+    },
+    {
+     "label": "옷",
+     "text": "large witch hat, white roses on hat, white frilled dress, cleavage, lace gloves, corset, neck ribbon, cross pendant,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
