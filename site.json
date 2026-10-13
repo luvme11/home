@@ -2988,6 +2988,24 @@
      "text": "jirai kei, punk style, pink plaid dress, striped arm warmers, spiked choker, belt, chains, rabbit hood, bunny ears,"
     }
    ]
+  },
+  {
+   "id": 1791883094247,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "tiled wall, bathroom, bubbles, cowboy shot, side profile, turned looking at viewer, brushing teeth, holding toothbrush,",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "white tank top, shorts,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "long white camisole, frills, ruffles, panties,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
