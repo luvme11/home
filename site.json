@@ -3269,6 +3269,28 @@
      "text": "racing jacket, shorts, thighhighs, holding racing helmet, sports car,"
     }
    ]
+  },
+  {
+   "id": 1791885250953,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "field of sunflowers, clear blue sky, white clouds, floating yellow petals, bright sunlight,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "surrounded by sunflowers, holding sunflower bouquet, warm sunbeams, soft dappled light, depth of field,"
+    },
+    {
+     "label": "남자 옷",
+     "text": "white short sleeve shirt, light blue denim overalls, straw hat,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "frilled summer dress, ribbon accessories, bright pastel colors,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
