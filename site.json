@@ -3052,6 +3052,20 @@
      "text": "baseball cap, oversized windbreaker, off-shoulder jacket, crop top, keyhole neckline, denim shorts,"
     }
    ]
+  },
+  {
+   "id": 1791883815297,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "magical forest, sparkling lake, sunny day, floating light particles, full body, flying, mid-air, holding giant red flower, smiling, looking at viewer,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "fairy dress, translucent fairy wings, floral hair ornament, barefoot,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
