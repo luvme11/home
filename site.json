@@ -3309,6 +3309,20 @@
      "text": "oversized dark hoodie, animal ear hood, light blue collared shirt, red necktie, safety pin, chain accessory, black shorts, thigh strap, black thighhighs, waist accessories, plushie, tamagotchi,"
     }
    ]
+  },
+  {
+   "id": 1791885354815,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "ancient chinese temple interior, dark wooden architecture, dim candlelight, scattered talismans, 2::eerie mist::, cowboy shot, front view, arms forward, head tilt, looking at viewer, one eye closed,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "2::jiangshi::, gothic lolita qipao, black and (색상) color scheme, tiered ruffled skirt, oversized sleeves, harness straps, (색상) dragon embroidery, 3::forehead talisman::, talisman with ribbon, fishnet stockings,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
