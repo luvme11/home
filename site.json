@@ -2960,6 +2960,20 @@
      "text": "complex denim and lace outfit, puff sleeves with frills, layered skirt, patchwork, checkered patterns, blue beret, ribbon accents, platform denim boots, lace-up boots, maximalist fashion,"
     }
    ]
+  },
+  {
+   "id": 1791883013969,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "pastel background, ornate archway, pillars, floating feathers, floating hearts, soft light, wide shot, upper body, aiming bow, drawing bow, heart arrow, 2::archery stance::, looking at viewer,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "angel wings, halo, pink frilled dress, heart motif, ribbons, frills,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
