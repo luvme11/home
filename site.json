@@ -3981,6 +3981,15 @@
    "img": "",
    "text": "military_uniform, {black_cropped_military_jacket}, open_jacket, black collar, silver embroidery, white pleated blouse, black bow tie, silver epaulettes, dangling ribbon,{black corset waist}, double-breasted_clasps, silver buckles, black long skirt, pleated skirt, side slit, black_leather_belt, asymmetrical_belt",
    "negs": []
+  },
+  {
+   "id": 1791899390338,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "",
+   "text": "black military uniform, high collar, black belt, gold trim, 1.5::black cape, short cape,:: pleated skirt, black kepi, brown pantyhose,",
+   "negs": []
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
