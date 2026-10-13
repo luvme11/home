@@ -2876,6 +2876,20 @@
      "text": "mint off-shoulder crop top, floral lace, frilled top, denim shorts, lace hem, sandals,"
     }
    ]
+  },
+  {
+   "id": 1791882515897,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "clockwork, giant gears, chains, floating window frame, dark room, dim lighting, 2::floating, marionette strings, puppet pose::, head tilt, arms limp, lifeless, expressionless, blank stare,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "mini top hat, frilled dress, puff sleeves, wide cuffs, layered frill skirt, ribbon brooch,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
