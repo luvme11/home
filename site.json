@@ -2890,6 +2890,20 @@
      "text": "mini top hat, frilled dress, puff sleeves, wide cuffs, layered frill skirt, ribbon brooch,"
     }
    ]
+  },
+  {
+   "id": 1791882564552,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "maid cafe interior, pink themed room, otaku subculture decor, plushies on shelves, heart motifs, frilled tablecloth, cafe table and chairs, menu board, checkered floor, neon sign, fairy lights, lace curtains, soft lighting, from above, looking up at viewer, hands on hips, leaning forward,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "pink maid dress, white frilled apron, puff sleeves, ribbon collar, frilled maid headband, mary jane shoes, cat ears, cat tail,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
