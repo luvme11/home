@@ -3337,6 +3337,20 @@
      "text": "oversized cardigan, gingham shirt, large ribbon bow, plaid skirt, loose socks, sneakers, school uniform,"
     }
    ]
+  },
+  {
+   "id": 1791885457527,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "blue sky, cherry blossom trees, falling cherry blossom petals, flat illustration, white outline, simple shapes, pastel pink and blue tones, horizontal line pattern clouds, sitting on bench, legs together, holding dango, eating dango, looking at viewer, :3, upper body,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "2::short yukata::, wide sleeves, cherry blossom print, obi sash, simple obi bow, cherry blossom hair ornament,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
