@@ -3323,6 +3323,20 @@
      "text": "2::jiangshi::, gothic lolita qipao, black and (색상) color scheme, tiered ruffled skirt, oversized sleeves, harness straps, (색상) dragon embroidery, 3::forehead talisman::, talisman with ribbon, fishnet stockings,"
     }
    ]
+  },
+  {
+   "id": 1791885415950,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "cluttered messy classroom, graffiti on wall, banner flags, sticker covered desk, scattered papers, overturned chairs, neon pink and cyan lighting, kitsch, vivid gradient, chromatic aberration, glowing outlines, from above, high angle, sitting on desk, knees up, 2::holding lollipop::, holding lollipop in hand, hand near face, looking at viewer,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "oversized cardigan, gingham shirt, large ribbon bow, plaid skirt, loose socks, sneakers, school uniform,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
