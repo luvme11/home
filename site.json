@@ -3107,6 +3107,24 @@
      "text": "large witch hat, white roses on hat, white frilled dress, cleavage, lace gloves, corset, neck ribbon, cross pendant,"
     }
    ]
+  },
+  {
+   "id": 1791883997851,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "red tufted background, valentine, box of chocolates, red roses, pearl necklace, hanging heart ornaments, scattered ribbons,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "high angle, looking up at viewer, sitting, knees up, parted lips, hands on feet,"
+    },
+    {
+     "label": "옷",
+     "text": "black oversized jacket, red ruffled trim, red necktie, criss-cross patterned pantyhose, red shoes, red hair ribbons, heart hair clip,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
