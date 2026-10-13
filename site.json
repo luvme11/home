@@ -3006,6 +3006,20 @@
      "text": "long white camisole, frills, ruffles, panties,"
     }
    ]
+  },
+  {
+   "id": 1791883120886,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "pastel room, bed, fluffy pillows, heart sparkles, cute stickers, lying down, top-down view, tilted head, 2::holding game controller::, cute smile, looking at viewer,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "cat ear headphones, off-shoulder sweater, frilled choker, beaded necklace, sneakers,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
