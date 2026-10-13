@@ -3143,6 +3143,20 @@
      "text": "yukata, floral print, obi, sash, japanese clothes, hair ornament,"
     }
    ]
+  },
+  {
+   "id": 1791884453375,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "2::White background, simple background::, cowboy shot, standing, from behind, looking back over shoulder, blushing deeply, coy expression, gaze lowered shyly,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "virgin killer sweater, turtleneck, backless, sleeveless, ribbed knit, cable knit, ribbon tied on neck, bare back, bare shoulders,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
