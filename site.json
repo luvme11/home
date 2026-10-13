@@ -2918,6 +2918,20 @@
      "text": "pink maid dress, white frilled apron, puff sleeves, ribbon collar, frilled maid headband, mary jane shoes, cat ears, cat tail,"
     }
    ]
+  },
+  {
+   "id": 1791882777529,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "sunny beach, shallow water, seashells, starfish, pastel sky, sea foam, sparkles, soft lighting, standing, cowboy shot, hand on hip, other hand behind head, head tilt, looking at viewer, smile, wind lift,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "pink and white mesh crop top, tied hem, sheer pink shawl, ribbon shoulder tie, starfish and shell ornaments, layered pink bikini top, pearl necklace, denim micro shorts, pink lace frill trim, ribbon belt, yellow bow,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
