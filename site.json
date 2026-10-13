@@ -3215,6 +3215,24 @@
      "text": "black dress, black hood, capelet, lace trim, corset, sheer skirt, bat wings, garter belt, thigh strap,"
     }
    ]
+  },
+  {
+   "id": 1791884980450,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "2::pop art style::, vibrant colors, abstract graphic background, paint splatters, lightning bolts, graffiti elements,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "dynamic angle, leaning forward, leaping, reaching towards viewer, foreshortening, hand reaching out, midair, energetic pose,"
+    },
+    {
+     "label": "옷",
+     "text": "layered street fashion, loose jacket, striped crop top, black shorts, fishnet tights, mismatched leg warmers, sticker patches, colorful hair clips, multi-straps,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
