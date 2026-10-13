@@ -2862,6 +2862,20 @@
      "text": "white headscarf, floral bandana, red gingham top, ruffled crop top, denim shorts, white thighhighs, lace trim, strawberry necklace, ribbon,"
     }
    ]
+  },
+  {
+   "id": 1791882472078,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "engawa, japanese house, sunflowers, shaved ice, ramune bottle, electric fan, summer, sunny sky, dutch angle, sitting, leaning back, holding spoon, open mouth, happy, looking at viewer,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "mint off-shoulder crop top, floral lace, frilled top, denim shorts, lace hem, sandals,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
