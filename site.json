@@ -3866,18 +3866,175 @@
    "negs": []
   },
   {
-   "id": 1791898837412,
-   "title": "앞/뒤",
-   "sec": "main",
-   "tag": "기본",
-   "img": "images/1791900198750_5832.jpg",
-   "text": "full body, fashion illustration, original outfit, creative fashion, unconventional clothing combinations, character reference sheet, multiple views, front view, back view, simple white background,\n\nThe same character shown twice side by side, front view on the left and back view on the right, wearing the same outfit,\n\n(1.5::direct back view::),\n(1.5::180-degree rear view::),\n(1.4::facing completely away from viewer::),\n(1.4::back of head fully visible::),\n(1.4::both shoulders aligned horizontally::),\n(1.3::symmetrical rear view::),",
-   "negs": [
-    {
-     "label": "네거티브",
-     "text": "3/4 back view, three-quarter rear view, rear three-quarter angle, side view, side profile, profile view, semi-profile, over-the-shoulder view, looking back, looking over shoulder, turning head, head turned sideways, body turned sideways, rotated torso, angled body, twisted waist, diagonal back view, partial back view, visible face from behind, visible facial features from behind, visible eye from behind, asymmetrical rear view,"
-    }
-   ]
+   "id": 1791898874984,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899178069_6025.jpg",
+   "text": "hime gyaru, agejo, y2k, gal, hair ornament, big bow, fur coat, white crop coat, fur trim, leopard dress, mini dress, camisole dress, pink lace trim, frill dress, pearl necklace, cross necklace, boots, white boots, fur boots, fuzzy boots, knee boots, pom-pom (footwear)",
+   "negs": []
+  },
+  {
+   "id": 1791898881799,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899191288_1600.jpg",
+   "text": "sweet_lolita, {pink_ruffled_overdress}, open_front, {white_pleated_bodice}, short_sleeves, puff_sleeves, {white_fluffy_cuffs}, wrist_cuffs, {layered_white_frilled_skirt}, mini_skirt, back_lacing, corset_back, {pink_leg_ribbons}, wrapped_legs, criss-cross_lacing, bare_legs, pink_platform_heels, chunky_heels, fluffy_headband, side_bows,",
+   "negs": []
+  },
+  {
+   "id": 1791898894105,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899204791_5399.jpg",
+   "text": "subculture_fashion, {black_ruffled_headdress}, white_trim, cross_charm, {black_leather_harness}, cut-out_top, off-shoulder, white_collared_shirt, {white_puffy_sleeves}, black_sleeve_straps, black_fingerless_gloves, black_cross_necklace, {black_tiered_ruffled_skirt}, white_apron_overlay, gothic_print, chains, black_cross_print_over-knee_socks, black_platform_boots, multi-strap",
+   "negs": []
+  },
+  {
+   "id": 1791898902770,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899221868_1656.jpg",
+   "text": "{moe_gothic}, {subculture_fashion}, ruffled_headband, hair_bows, {blue_collar}, bone_charm, cross_accessory, {white_ruffled_bra}, lace-up, striped_straps, white and blue striped, arm_warmers, puffed_sleeves, small_bows, {light blue ruffled_shorts}, striped_waistband, belt, buckle, garters, kneehighs, striped_socks, {ruffled_leg_warmers}, white straps, buckles, platform_shoes,",
+   "negs": []
+  },
+  {
+   "id": 1791898912849,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899247765_9650.jpg",
+   "text": "{black_mini_crown}, pearl_choker, {white_corset_bodice}, front_lacing, off-shoulder, black_lace_trim, {detached_wide_bell_sleeves}, heavily_ruffled_sleeves, {high-low_skirt}, floral_lace_skirt, purple_pleated_under_skirt, long_back_drape, hanging_pearl_chains, white_ankle_socks, ruffled_socks, white_pumps, shoe_bows",
+   "negs": []
+  },
+  {
+   "id": 1791898918094,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899256429_5860.jpg",
+   "text": "crop off-shoulder blouse, light pink micro short sleeves, ruffled top, light blue and white ruffled mini skirt, layered skirt, multiple belts, bow on skirt, white frill hem, white arm warmers, fur trim on wrist, pom pom on wrist, frilled leg strap, white loose socks, sneakers, light grey newsboy cap with pink belt, {small pink star-shaped hip sack},",
+   "negs": []
+  },
+  {
+   "id": 1791898929655,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899285572_69.jpg",
+   "text": "{pale_pink_leopard_print_hoodie}, white_fur_trim, fluffy, open_jacket, black_lace_choker, ribbon_choker, cross_necklace, pearl_necklace, {black laced top}, {vivid_pink_floral_corset}, strapless_top, sweetheart_neckline, {multiple_belts}, uneven belsts, studded_belt, rhinestone_buckle, pink_leather_belt, white_mini_skirt, frilled_tiered_skirt, black floral laced thighhighs, garter straps, platform boots,",
+   "negs": []
+  },
+  {
+   "id": 1791898934095,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899322324_3776.jpg",
+   "text": "black laced bra top, navel, {pink_and_black_sukajan}, satin_jacket, {cherry_blossom_embroidery}, floral_embroidery, white_long_sleeves, black_sleeve_stripes, ribbed_cuffs, {denim_hot_pants}, bare legs, black highheels,",
+   "negs": []
+  },
+  {
+   "id": 1791899332435,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899563755_7038.jpg",
+   "text": "{pink_floral_print_camisole}, lace_trim_top, triple_ribbon_bows_on_chest, {heart_charm}, {denim_tiered_miniskirt}, {pink_plaid_frilled_hem}, gingham_check_skirt, heart_patch_on_skirt, pink_star_buckle_belt, white_fuzzy_leg_warmers, pink_ribbon_bows_on_leg_warmers, pink_platform_shoes, pink_newsboy_cap, {strawberry_embroidery}, pink_flower_cross_earrings, beaded_bracelet, pink_frilled_boston_bag",
+   "negs": []
+  },
+  {
+   "id": 1791899347249,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899577998_3200.jpg",
+   "text": "{white_cable_knit_sweater}, v-neck, red and navy striped_trim, decorated cuff, ribbed_hem, oversized long sweater, {denim_wrap_skirt}, mini_skirt, {white_loose_socks}, silver headphones around shoulders, dark_blue_sneakers, striped_shoes",
+   "negs": []
+  },
+  {
+   "id": 1791899364368,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899597922_7787.jpg",
+   "text": "white military uniform, gold trim, white sailor collar, black sailor tie, sleeveless, white pleated skirt, sailor dress, black thin belt, 1.5::white great coat on shoulders::",
+   "negs": []
+  },
+  {
+   "id": 1791899373867,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899668211_465.jpg",
+   "text": "{white dress}, collared dress, black_bow_tie, silver brooch, {black harness}, black waist belt, bishop sleeves, buttoned cuffs, black gloves, flared_skirt, pleated_skirt, black_inner_skirt, leg strap,",
+   "negs": []
+  },
+  {
+   "id": 1791899379999,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899687847_5256.jpg",
+   "text": "military_uniform, {black_cropped_military_jacket}, open_jacket, black collar, silver embroidery, white pleated blouse, black bow tie, silver epaulettes, dangling ribbon,{black corset waist}, double-breasted_clasps, silver buckles, black long skirt, pleated skirt, side slit, black_leather_belt, asymmetrical_belt",
+   "negs": []
+  },
+  {
+   "id": 1791899390338,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899708263_1607.jpg",
+   "text": "black military uniform, high collar, black belt, gold trim, 1.5::black cape, short cape,:: pleated skirt, black kepi, brown pantyhose,",
+   "negs": []
+  },
+  {
+   "id": 1791899402424,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899717762_9524.jpg",
+   "text": "black military uniform, white dress shirt, collar chain, black short necktie, juliet sleeves, frilled cuff, black corset bodice, black pleated skirt, frilled underskirt, gothic dress, gold trim,",
+   "negs": []
+  },
+  {
+   "id": 1791899411476,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899740673_841.jpg",
+   "text": "dress shirt, white blouse, white chiffon ribbon, large bow on chest, long sleeves, sheer sleeves, black pencil skirt, short skirt, black sheer pantyhose,",
+   "negs": []
+  },
+  {
+   "id": 1791899792170,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899917891_8172.jpg",
+   "text": "white dress shirt, collared shirt, rolled-up_sleeves, loose black necktie, {dark_grey_pinstripe_vest}, {dark_grey_pinstripe_skirt}, black buttons, small chest pocket, pencil skirt, slightly side slit,",
+   "negs": []
+  },
+  {
+   "id": 1791899812869,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1791899998765_8441.jpg",
+   "text": "2::grey blazer dress, lapels,:: v-neck, double breasted suit, long sleeves, rolled-up_sleeves, {wide fabric black belt}, large square buckle, black pleated mini skirt, coat dress,",
+   "negs": []
+  },
+  {
+   "id": 1791900209977,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "",
+   "text": "black formal jacket, two buttons, white dress shirt, black ribbon tie, black pleated skirt,",
+   "negs": []
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
