@@ -3369,6 +3369,24 @@
      "text": "black oversized hoodie, zipper, striped sleeves, black crop top underneath, layered chain necklaces, choker, multiple rings, earrings, black nails, pleated skirt,"
     }
    ]
+  },
+  {
+   "id": 1791885700542,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1791885698291_3500.jpg",
+   "text": "indoors, window, rain, raining outside, raindrops, pastel colors,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "waist up, looking at viewer, hand near neck, wet, water drops,"
+    },
+    {
+     "label": "옷",
+     "text": "white t-shirt, short sleeves, wet clothes, see-through, clothing cling, bra,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
