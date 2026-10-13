@@ -3972,6 +3972,15 @@
    "img": "",
    "text": "{white dress}, collared dress, black_bow_tie, silver brooch, {black harness}, black waist belt, bishop sleeves, buttoned cuffs, black gloves, flared_skirt, pleated_skirt, black_inner_skirt, leg strap,",
    "negs": []
+  },
+  {
+   "id": 1791899379999,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "",
+   "text": "military_uniform, {black_cropped_military_jacket}, open_jacket, black collar, silver embroidery, white pleated blouse, black bow tie, silver epaulettes, dangling ribbon,{black corset waist}, double-breasted_clasps, silver buckles, black long skirt, pleated skirt, side slit, black_leather_belt, asymmetrical_belt",
+   "negs": []
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
