@@ -3034,6 +3034,24 @@
      "text": "pastry chef apron, pink frilled dress, kerchief, white gloves, hair clips, ribbon,"
     }
    ]
+  },
+  {
+   "id": 1791883180169,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "brick wall, 3::graffiti, large painted wings on wall::, vibrant lighting, cowboy shot, hand adjusting hat, hand in pocket, blowing bubblegum, confident smirk, looking at viewer,",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "baseball cap, open oversized windbreaker, oversized t-shirt, denim shorts, chain necklace, sneakers,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "baseball cap, oversized windbreaker, off-shoulder jacket, crop top, keyhole neckline, denim shorts,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
