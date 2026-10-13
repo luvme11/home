@@ -3291,6 +3291,24 @@
      "text": "frilled summer dress, ribbon accessories, bright pastel colors,"
     }
    ]
+  },
+  {
+   "id": 1791885292613,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "arcade, retro gaming cabinets, neon lights, colorful lighting, blurry background, depth of field,",
+   "negs": [
+    {
+     "label": "구도",
+     "text": "cowboy shot, dynamic pose, hands holding hood, arms up, looking at viewer,"
+    },
+    {
+     "label": "의상",
+     "text": "oversized dark hoodie, animal ear hood, light blue collared shirt, red necktie, safety pin, chain accessory, black shorts, thigh strap, black thighhighs, waist accessories, plushie, tamagotchi,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
