@@ -3020,6 +3020,20 @@
      "text": "cat ear headphones, off-shoulder sweater, frilled choker, beaded necklace, sneakers,"
     }
    ]
+  },
+  {
+   "id": 1791883148737,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "pastel background, sweet kitchen, floating hearts, sparkles, cute atmosphere, upper body, 2::holding whisk::, finger to mouth, looking at viewer, cute pose,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "pastry chef apron, pink frilled dress, kerchief, white gloves, hair clips, ribbon,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
