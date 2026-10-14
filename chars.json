@@ -5530,7 +5530,20 @@
    "type": "persona",
    "a": 0,
    "b": 0,
-   "assets": [],
+   "assets": [
+    {
+     "id": 1792002563926,
+     "tag": "",
+     "title": "",
+     "img": "images/1792002547417_7043.png",
+     "imgs": [
+      "images/1792002547417_7043.png",
+      "images/1792002551211_8859.png",
+      "images/1792002554828_4456.png",
+      "images/1792002558846_8060.png"
+     ]
+    }
+   ],
    "tabs": [],
    "timeline": []
   }
