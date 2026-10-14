@@ -5520,6 +5520,19 @@
     "img": "images/1791908169144_6333.jpg",
     "info": ""
    }
+  },
+  {
+   "id": 1792002540443,
+   "name": "츠키시로 시오리",
+   "color": "#ff0000",
+   "img": "images/1792002538047_7917.jpg",
+   "info": "",
+   "type": "persona",
+   "a": 0,
+   "b": 0,
+   "assets": [],
+   "tabs": [],
+   "timeline": []
   }
  ],
  "rels": []
