@@ -7406,6 +7406,24 @@
    "img": "images/1792162166622_9038.jpg",
    "text": "black-and-white manga page, monochrome, greyscale, ink, screentone, hatching, detailed linework, two panels, panel overlap, breaking the panel border,\n\nA black-and-white seinen manga page with two overlapping panels, the same character in both.\n\nOn the left, breaking out of the panel border with no frame around them, the character is drawn full-figure, crouching on the floor barefoot with one knee raised, one forearm resting on the knee and the back of that hand pressed against their mouth. They wear a sleeveless knit top and loose, wide black trousers filled in solid ink. Their eyes are narrowed and tired, looking off to the side.\n\nOn the right, a large rectangular panel overlaps behind the left figure, showing an extreme close-up of the same character's face. One hand presses against their forehead, eyes half-closed and heavy with exhaustion, brows slightly furrowed. A cigarette hangs from their lips, and their other hand raises a lighter toward it, about to light it.\n\nFine, sharp pen linework, cross-hatching for shadows on the face and arms, solid black ink fills on the trousers and dark areas, and subtle dot screentone in the background. Pure white paper, no color at all. Mature, weary, cinematic manga mood.",
    "negs": []
+  },
+  {
+   "id": 1792162299600,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792162297385_4325.jpg",
+   "text": "vertical portrait, full-body, slightly high-angle three-quarter shot, subject in a deep squat angled toward camera, one elbow resting on knee with hand held at the side of the head, other arm stretched diagonally down across the knee with relaxed dangling hand, head slightly tilted, direct gaze at camera, diagonal composition,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "urban rooftop, cracked weathered concrete floor, off-white stained parapet walls with soot-darkened base, thin metal railing and wire running along the top, distant apartment buildings, pale hazy overcast sky, soft natural daylight, slightly faded film tone, small object on the floor at right edge,"
+    },
+    {
+     "label": "옷",
+     "text": "fitted heather-gray short-sleeve scoop-neck tee with distressed black block-letter graphic print, faded blue frayed denim cutoff shorts, white studded belt, white crew socks with two black stripes, black canvas high-top sneakers with white rubber toe caps and white laces, thin black cord necklace, thin gold rings"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
