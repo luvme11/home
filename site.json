@@ -6823,24 +6823,6 @@
    "negs": []
   },
   {
-   "id": 1792149473627,
-   "title": "",
-   "sec": "look",
-   "tag": "",
-   "img": "",
-   "text": "pink camisole, halterneck, frilled camisole, cross necklace, pink puffy detached sleeves, pink elbow gloves, fingerless gloves, black choker, pink arm warmers, black belt, studded belt, black plaid miniskirt, pleated skirt, bone hair ornament, cross hair ornament, hair clip, single thighhigh, garter, lace-up boots, knee boots, angel wings",
-   "negs": []
-  },
-  {
-   "id": 1792149488877,
-   "title": "",
-   "sec": "look",
-   "tag": "",
-   "img": "",
-   "text": "fur hat, ushanka, black scarf, long scarf, hoodie, zip jacket, striped necktie, black and grey necktie, layered clothing, white pleated skirt, frilled skirt, tiered skirt, striped pants, striped leggings, black and white striped legwear, boots",
-   "negs": []
-  },
-  {
    "id": 1792151030348,
    "title": "",
    "sec": "comp",
@@ -7403,9 +7385,117 @@
    "title": "",
    "sec": "comp",
    "tag": "의상 O",
-   "img": "",
+   "img": "images/1792162166622_9038.jpg",
    "text": "black-and-white manga page, monochrome, greyscale, ink, screentone, hatching, detailed linework, two panels, panel overlap, breaking the panel border,\n\nA black-and-white seinen manga page with two overlapping panels, the same character in both.\n\nOn the left, breaking out of the panel border with no frame around them, the character is drawn full-figure, crouching on the floor barefoot with one knee raised, one forearm resting on the knee and the back of that hand pressed against their mouth. They wear a sleeveless knit top and loose, wide black trousers filled in solid ink. Their eyes are narrowed and tired, looking off to the side.\n\nOn the right, a large rectangular panel overlaps behind the left figure, showing an extreme close-up of the same character's face. One hand presses against their forehead, eyes half-closed and heavy with exhaustion, brows slightly furrowed. A cigarette hangs from their lips, and their other hand raises a lighter toward it, about to light it.\n\nFine, sharp pen linework, cross-hatching for shadows on the face and arms, solid black ink fills on the trousers and dark areas, and subtle dot screentone in the background. Pure white paper, no color at all. Mature, weary, cinematic manga mood.",
    "negs": []
+  },
+  {
+   "id": 1792162299600,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792162297385_4325.jpg",
+   "text": "vertical portrait, full-body, slightly high-angle three-quarter shot, subject in a deep squat angled toward camera, one elbow resting on knee with hand held at the side of the head, other arm stretched diagonally down across the knee with relaxed dangling hand, head slightly tilted, direct gaze at camera, diagonal composition,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "urban rooftop, cracked weathered concrete floor, off-white stained parapet walls with soot-darkened base, thin metal railing and wire running along the top, distant apartment buildings, pale hazy overcast sky, soft natural daylight, slightly faded film tone, small object on the floor at right edge,"
+    },
+    {
+     "label": "옷",
+     "text": "fitted heather-gray short-sleeve scoop-neck tee with distressed black block-letter graphic print, faded blue frayed denim cutoff shorts, white studded belt, white crew socks with two black stripes, black canvas high-top sneakers with white rubber toe caps and white laces, thin black cord necklace, thin gold rings"
+    }
+   ]
+  },
+  {
+   "id": 1792162387553,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792162561602_2652.jpg",
+   "text": "vertical portrait, medium shot from head accessory to thighs, slightly high angle, subject seated and angled toward camera, both hands raised near the face, one hand touching glasses frame and the other cupped beside the cheek, elbows out forming a triangular silhouette, head tilted, direct gaze at camera, tightly framed and dense composition,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "bedroom wall fully collaged with fashion magazine tear sheets showing models and boots, leopard print bedding at lower left, fluffy brown faux fur blanket at right with a studded leopard bag, direct on-camera flash with soft shadows on the wall, warm saturated colors, slightly grainy late-2000s Japanese gyaru magazine editorial look,"
+    },
+    {
+     "label": "옷",
+     "text": "leopard print camisole bodysuit with sheer black mesh sleeve layer, vintage-wash denim hot shorts with yellow-faded patches, wide leopard faux fur belt with large black square studded buckle, black thigh-high stockings with leopard print top band, oversized tortoiseshell glasses with bow detail on the frame, sequin and pearl hair accessory, wide leopard cuff on one wrist, stacked leopard and gold bangles on the other arm, layered long chain necklaces with cross pendant and coin charm, chunky rings, Y2K gyaru style"
+    }
+   ]
+  },
+  {
+   "id": 1792162418485,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792162623310_5598.jpg",
+   "text": "vertical portrait, bust shot from head to waist, slightly high selfie-like angle, body angled slightly toward camera, one hand raised beside the face with fingers spread touching near the glasses frame, other arm hanging relaxed and cropped at the bottom, head slightly tilted, direct gaze at camera, tight framing with subject centered-left,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "indoor office hallway or elevator lobby, pale gray-blue paneled wall with vertical seams and horizontal grooves, darker gray wall corner at right creating depth, small paper partially visible at upper left, flat soft fluorescent lighting with minimal shadows, desaturated cool tone, casual smartphone snapshot look,"
+    },
+    {
+     "label": "옷",
+     "text": "fitted gray ribbed-knit short-sleeve top dress with white shirt collar layered inside a V-neckline, white folded contrast cuffs on the sleeves, thin gold chain necklace, light blue and white ribbon lanyard with ID badge holder, thin black metal oval half-rim glasses with small heart detail at the bridge and pink-tinted lenses, long nude-tone nails, thin ring, office lady uniform style"
+    }
+   ]
+  },
+  {
+   "id": 1792162496415,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792162653597_6293.jpg",
+   "text": "landscape frame, bust shot from headwear to chest, eye-level straight-on angle, subject centered, both hands raised to shoulder height beside the head with fingers curled in a playful pinching gesture, elbows bent and out, shoulders slightly lifted, head slightly tilted, sideways glance, near-symmetrical composition,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "crowded Japanese souvenir variety shop interior, wire grid display wall at left with cute plush dolls in kimono outfits and yellow plush merchandise with price tags, shelves of small packaged goods and keychains at right, pink t-shirt on a hanger, red paper lantern at upper right, bright flat fluorescent lighting, warm tone, casual travel snapshot, softly blurred background,"
+    },
+    {
+     "label": "옷",
+     "text": "red plush octopus hat with a round snout bump and two black oval eyes on the front, long ear flaps ending in tentacles sticking out sideways, navy one-shoulder top with a twisted fabric knot at the chest, thin black shoulder bag strap across the other shoulder, short red coral bead necklace with a small white pearl pendant, thin black elastic band bracelet, pink manicured nails, quirky tourist style"
+    }
+   ]
+  },
+  {
+   "id": 1792162530654,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792162676040_3761.jpg",
+   "text": "nearly square frame, bust shot from head to chest, arm-extended selfie angle, subject placed at right side of frame with a transit map panel filling the left half, face tilted slightly toward camera with an upward glance, a slice of toast held horizontally in the mouth, body turned sideways with shoulder filling lower right, one hand holding a plastic-wrapped bread package partially visible at lower left,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "outdoor subway platform or bus stop, vertical transit route map in a metal frame filling the left side, white background with a long blue vertical line, round station markers with small labels, transfer icons and triangle markers, glass window at upper right showing green trees and sunlight, bright midday natural light with slightly overexposed highlights, clean fresh tone, casual daily snapshot,"
+    },
+    {
+     "label": "옷",
+     "text": "light blue and white thin windbreaker jacket with navy color-block panels on the shoulders and chest, small white embroidered emblem logo on navy chest panel, hood folded down at the back of the neck, thin orange cord or lanyard hanging below the jacket, bag strap visible behind the shoulder, thin black band bracelet on the wrist, casual sporty commuter style"
+    }
+   ]
+  },
+  {
+   "id": 1792163009659,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "vertical portrait, medium shot from head to upper thighs, slightly high angle, body angled slightly toward camera, one arm hanging down with wrist resting against a balcony railing, other hand placed at the waist near the belt, head slightly tilted, direct calm gaze at camera, railing crossing diagonally through the lower frame, subject centered-left,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "outdoor apartment balcony, wooden railing running across the foreground, aging tile-clad residential apartment blocks behind with barred windows, air conditioner units and drainpipes on the walls, small awnings and potted plants, green tree foliage at the bottom, soft natural daylight, slightly warm faded tone, late-2000s digital camera snapshot look,"
+    },
+    {
+     "label": "옷",
+     "text": "washed dark brown cropped sleeveless tank top with cream lace trim at the neckline and armholes, distressed black-and-white vintage poster-style graphic print with blackletter-style lettering on the chest, dark washed frayed denim shorts, black leather belt densely studded and perforated with a large antique silver buckle, black leather buckle choker layered with a thin chain cross pendant necklace, stacked leather cord, chain and bead bracelets on one wrist, brown wooden bead bracelet on the other wrist, grunge punk Y2K street style"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
@@ -7657,12 +7747,12 @@
    },
    {
     "id": 1791706362492,
-    "title": "갠홈 제작",
+    "title": "로그 업로드",
     "date": "2026-10-17",
     "end": "",
     "time": "",
     "cat": 1791559076787,
-    "memo": "해당 사이트 참고해 갠홈 비슷하게 제작\nhttps://xn--2i0bk4cxb18eb9bywrtjy.ilyf.to/"
+    "memo": ""
    },
    {
     "id": 1791908202053,
@@ -7681,15 +7771,6 @@
     "time": "",
     "cat": 1791559076787,
     "memo": ""
-   },
-   {
-    "id": 1792162822973,
-    "title": "룩/구도 추가 업로드",
-    "date": "2026-10-17",
-    "end": "",
-    "time": "",
-    "cat": 1791559076787,
-    "memo": ""
    }
   ],
   "todos": [],
@@ -7699,8 +7780,7 @@
    "1791572278938|2026-10-10": 1,
    "1791572299504|2026-10-10": 1,
    "1791573983699|2026-10-10": 1,
-   "1791572324414|2026-10-13": 1,
-   "1792090738256|2026-10-16": 1
+   "1791572324414|2026-10-13": 1
   }
  },
  "loras": [
