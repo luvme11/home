@@ -6830,6 +6830,24 @@
    "img": "images/1792147591493_5003.jpg",
    "text": "masterpiece, best quality, amazing quality, very aesthetic, year 2025, extravagant cute cat maid cafe illustration, 1.6::large beautiful face dominating foreground::, 1.5::dynamic chest-up portrait::, 1.4::clear expressive eyes::, dramatic close three-quarter view, character leaning playfully across a luxurious cafe table toward viewer, one hand presenting an ornate strawberry shortcake, other hand making a playful cat paw gesture beside cheek, teasing affectionate smile, large fluffy cat ears, long fluffy cat tail curling behind shoulders, elegant black and cream maid dress, intricate lace apron, decorative frilled headpiece fitted between cat ears, satin ribbons, delicate bell accessories, ornate pearl buttons, fluffy wrist cuffs, luxurious pastel gothic maid cafe interior, heart-shaped velvet chairs, elaborate dessert stands, strawberry parfaits, porcelain tea cups, decorative bows, pink rose-patterned wallpaper, delicate lace curtains, warm cream and strawberry pink dominant palette, glossy black accents, soft golden cafe lighting illuminating face, delicate pink rim lighting, rich painterly shading, bold expressive anime linework, elaborate cute fashion illustration, no text, no typography",
    "negs": []
+  },
+  {
+   "id": 1792147675395,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "2people, couple, 3::spacious elevator, large elevator interior::, metal walls, handrail, 4::elevator doors opening, view from outside elevator::, 2::frame within frame, doorframe::, light spilling in, 4::kissing on the lips::, deep kiss, 3::embracing, bodies pressed together::, 2::wide shot, cowboy shot::, front view, Korean romance manhwa, sketchy lineart, soft muted coloring",
+   "negs": [
+    {
+     "label": "턱 잡는 사람",
+     "text": "formal suit, dress shirt, necktie, 3::left hand on another's waist::, 3::right hand holding another's chin, chin grab::, 2::leaning toward another::, 3::kissing, smiling into the kiss::, 3::eyes open, half-closed eyes, looking at another::, 2::confident smile::, side profile, 2::source#kiss::"
+    },
+    {
+     "label": "턱 잡힌 사람",
+     "text": "formal suit, loosened necktie, unbuttoned collar, 4::leaning back against elevator wall::, 4::arms around another's neck::, 2::target#kiss::, 3::hickey on neck, visible kiss mark::, 4::surprised, wide eyes, eyes looking at viewer::, 2::sideways glance::, flushed face, blush, exclamation mark above head, sweat drop"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
