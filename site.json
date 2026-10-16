@@ -6778,6 +6778,15 @@
    "negs": []
   },
   {
+   "id": 1792146879567,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "masterpiece, best quality, solo, 1.1::upper body::, 1.2::close-up::, 1.3::multiple view, dynamic view::, looking viewer, 1.1::head down slightly, upturned eyes::, 1.3::closed mouth::,\n\ntortoiseshell glasses, 1.2::thick-framed glasses sliding down nose holding white toothbrush near mouth::, 1.3::[color] toothpaste, toothpaste flowing down the jaw::, 1.2::hand to toothbrush, finger on toothbrush::, collarbone, 1.1::white shirt slipping off shoulders::, open messy shirt, loosened black tortoiseshell necktie,\n\nfashion magazine cover, editorial photoshoot, 1.2::[color] marble background::, [color] and [color] color scheme, crowded but balanced composition,\n\n2.2::huge masthead text across top::, 2.5::oversized stylized Japanese typography::, 2.6::dense Japanese headlines and teaser captions::, 1.75::vertical side headlines, stacked text blocks, credits text::, 1.6::issue number, barcode::, 1.4::editorial blurbs, tagline, subtitle, issue number, thick outlined text overlapping illustration::",
+   "negs": []
+  },
+  {
    "id": 1792149399169,
    "title": "",
    "sec": "look",
@@ -6832,21 +6841,12 @@
    "negs": []
   },
   {
-   "id": 1792150866881,
+   "id": 1792151030348,
    "title": "",
    "sec": "comp",
    "tag": "의상 O",
    "img": "",
-   "text": "dynamic angle, 1.5::high angle::, 2::ruined city::, sitting, looking up, looking back, from above, outdoors, overgrown, vines, moss, debris, skyscrapers, cityscape, sky, bokeh, cinematic shot, digital media,\n\npeaked cap, military uniform, peaked cap, black jacket, necktie, shoulder straps, black pantyhose,",
-   "negs": []
-  },
-  {
-   "id": 1792150888551,
-   "title": "",
-   "sec": "comp",
-   "tag": "의상 O",
-   "img": "",
-   "text": "looking away, side view, spring, outdoors, cherry blossom viewing, standing, surrounded by flowers, reaching up, 2::touching cherry blossoms::, 1.5::hand reaching for flowers::, hair blowing, wind, peaceful expression, flower in hair, cherry blossom in hair, 2::cherry blossoms::, 1.5::flying petals::, 1.3::falling petals::, excessive cherry blossoms, cherry blossom tree, blue sky, clear sky, 1.2::dappled sunlight::, soft lighting, shadow, sunbeam,\n\nwhite sundress, spaghetti straps, frills, ruffles,",
+   "text": "kitsune mask on side of head, white fox mask with red markings, crystal tassel hair ornament, pearl drop earrings, white kimono lowered off shoulders, bare back partially visible, black obi, ink-wash floral print, kneeling in snow, back turned, looking back over shoulder, chin lowered, seductive glance, lips slightly parted, finger touching lower lip, other hand holding kimono at chest, wind-blown hair, snowy mountain pass, misty peaks, night, falling snow, red lantern glow from side, low-key lighting, strong contrast, glowing skin, dreamy haze, alluring, sensual mood, femme fatale, eerie elegance",
    "negs": []
   }
  ],
@@ -7225,16 +7225,6 @@
    "id": 1791727111461,
    "title": "",
    "html": "<img src=\"images/1791727051790_2234.jpg\" data-p=\"images/1791727051790_2234.jpg\" alt=\"\"><div><br></div><div><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2065946881949730068/2065973633671563276\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">ㅁi오</a> 비중 1.1</p><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2064202469394156703/2064226408914032977\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">차니</a> 비중 0.9~1.0</p><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2056752254072910127/2056757896103936946\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">bixx</a> 비중 0.4~0.5</p></div>"
-  },
-  {
-   "id": 1792149928433,
-   "title": "",
-   "html": "<img src=\"images/1792149899824_4232.jpg\" data-p=\"images/1792149899824_4232.jpg\" alt=\"\"><div><br></div><div><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2056752254072910127/2056757896103936946\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">bixx</a> 비중 0.7</p><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2067733804537230106/2067756070352740034\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">X</a> 비중 1.1</p></div>"
-  },
-  {
-   "id": 1792150015372,
-   "title": "",
-   "html": "<img src=\"images/1792149991913_3959.png\" data-p=\"images/1792149991913_3959.png\" alt=\"\"><div><br></div><div><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2056752254072910127/2056757896103936946\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">bixx</a> 비중 0.6</p><p><a class=\"mn\" href=\"https://pixai.art/ko/model/2065946881949730068\" target=\"_blank\" rel=\"noopener noreferrer\"><img src=\"https://www.google.com/s2/favicons?domain=pixai.art&amp;sz=64\" alt=\"\">ㅁi오</a> 비중 1.1</p></div>"
   }
  ],
  "catMig": 1,
