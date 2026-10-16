@@ -6883,7 +6883,12 @@
    "tag": "의상 O",
    "img": "images/1792147967089_3285.jpg",
    "text": "1person, solo, 3::seated with a natural leg-crossing pose::, radiating an oppressive atmosphere, 1.8::holding a queen's staff decorated with red hearts::, against a vivid crimson background. 1.1::queen of hearts theme with heart-shaped symbols, playing card motif, ornate crown::, wearing a 1.1::inner avant-garde puff long-sleeve dress shirt covering only the shoulders, neck, and arms::, 1.2::high collar styled as a playing card collar::, black leather corset with red heart patterns, extremely tight waist cincher, underbust corset, cleavage cutout, and enamel black heart-shaped pasties. 1.1::thin leather straps form an intricate harness: red leather harness::, criss-cross harness, body harness, garter harness with garter straps. thigh-highs with sheer black stockings, 1.1::vivid crimson background, decorative playing card motifs, scattered heart symbols, dramatic theatrical atmosphere::,",
-   "negs": []
+   "negs": [
+    {
+     "label": "메인 네거티브",
+     "text": "2::werewolf-inspired Halloween cosplay::,\n1.6::dark gothic werewolf costume::,\n1.6::large pointed furry wolf ears on top of the head::,\n1.6::large fluffy wolf tail::,\nsharp decorative fangs,\ntorn dark flannel shirt,\ndistressed leather jacket,\nripped black trousers,\nheavy combat boots,\nfaux fur collar and shoulder details,\nclawed leather gloves,\nwild rugged accessories,\n\nstanding in a dark autumn forest,\nslightly hunched forward,\none hand resting against a tree,\nintense predatory gaze,\nsubtle feral grin,\nancient twisted trees,\nfallen autumn leaves,\nabandoned wooden cabin,\nlarge full moon,\ndrifting ground fog,\n\n1.8::cold blue moonlight::,\n1.7::strong silver rim lighting::,\n1.5::warm amber light from the distant cabin::,\n1.4::deep forest shadows::,\ndramatic backlighting,\nhigh contrast lighting,\nwild mysterious atmosphere,\ncinematic supernatural horror"
+    }
+   ]
   },
   {
    "id": 1792147928843,
