@@ -6884,6 +6884,24 @@
    "img": "",
    "text": "1person, solo, 3::seated with a natural leg-crossing pose::, radiating an oppressive atmosphere, 1.8::holding a queen's staff decorated with red hearts::, against a vivid crimson background. 1.1::queen of hearts theme with heart-shaped symbols, playing card motif, ornate crown::, wearing a 1.1::inner avant-garde puff long-sleeve dress shirt covering only the shoulders, neck, and arms::, 1.2::high collar styled as a playing card collar::, black leather corset with red heart patterns, extremely tight waist cincher, underbust corset, cleavage cutout, and enamel black heart-shaped pasties. 1.1::thin leather straps form an intricate harness: red leather harness::, criss-cross harness, body harness, garter harness with garter straps. thigh-highs with sheer black stockings, 1.1::vivid crimson background, decorative playing card motifs, scattered heart symbols, dramatic theatrical atmosphere::,",
    "negs": []
+  },
+  {
+   "id": 1792147928843,
+   "title": "",
+   "sec": "comp",
+   "tag": "",
+   "img": "",
+   "text": "2people, inside a UFO catcher machine, cramped enclosed space, very close body contact, both in side view, faces very close together, looking at each other, clinging to each other, tangled pose, intimate dangerous atmosphere,\n\npastel pink arcade interior, UFO catcher machine, glass enclosure, claw arm overhead, tightly packed plush toys, scattered prize balls, control panel, cute lighting,",
+   "negs": [
+    {
+     "label": "캐릭터 A",
+     "text": "crouching over character 1, side profile, body pressed tightly close, face near character 1, clinging posture, looking at character 1"
+    },
+    {
+     "label": "캐릭터 B",
+     "text": "seated low inside the machine, side profile, leaning back against the glass, pressed closely against character 2, face very close, looking at character 2"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
