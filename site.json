@@ -6911,6 +6911,20 @@
    "img": "images/1792148049561_4096.jpg",
    "text": "1person, solo, 3::seated with a natural leg-crossing pose::, radiating an oppressive atmosphere, 1.8::holding a queen's staff decorated with red hearts::, against a vivid crimson background. 1.1::queen of hearts theme with heart-shaped symbols, playing card motif, ornate crown::, wearing a 1.1::inner avant-garde puff long-sleeve dress shirt covering only the shoulders, neck, and arms::, 1.2::high collar styled as a playing card collar::, black leather corset with red heart patterns, extremely tight waist cincher, underbust corset, cleavage cutout, and enamel black heart-shaped pasties. 1.1::thin leather straps form an intricate harness: red leather harness::, criss-cross harness, body harness, garter harness with garter straps. thigh-highs with sheer black stockings, 1.1::vivid crimson background, decorative playing card motifs, scattered heart symbols, dramatic theatrical atmosphere::,",
    "negs": []
+  },
+  {
+   "id": 1792148127453,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "3::magazine cover::, y2k magazine, pink background, 2::large title text \"CHERRY\"::, bold pink typography, cover lines, side photo strip, multiple small photos, photo booth strip, heart speech bubbles, star stickers, cherry motif, barcode, sparkles, glossy paper texture, retro 2000s aesthetic, upper body, holding flip phone, phone to ear, looking to side, head tilt,",
+   "negs": [
+    {
+     "label": "옷",
+     "text": "pink lace camisole, ribbon bow on chest, red ribbon choker, cherry charm, heart sticker on cheek,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
