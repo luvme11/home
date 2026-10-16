@@ -7403,7 +7403,7 @@
    "title": "",
    "sec": "comp",
    "tag": "의상 O",
-   "img": "",
+   "img": "images/1792162166622_9038.jpg",
    "text": "black-and-white manga page, monochrome, greyscale, ink, screentone, hatching, detailed linework, two panels, panel overlap, breaking the panel border,\n\nA black-and-white seinen manga page with two overlapping panels, the same character in both.\n\nOn the left, breaking out of the panel border with no frame around them, the character is drawn full-figure, crouching on the floor barefoot with one knee raised, one forearm resting on the knee and the back of that hand pressed against their mouth. They wear a sleeveless knit top and loose, wide black trousers filled in solid ink. Their eyes are narrowed and tired, looking off to the side.\n\nOn the right, a large rectangular panel overlaps behind the left figure, showing an extreme close-up of the same character's face. One hand presses against their forehead, eyes half-closed and heavy with exhaustion, brows slightly furrowed. A cigarette hangs from their lips, and their other hand raises a lighter toward it, about to light it.\n\nFine, sharp pen linework, cross-hatching for shadows on the face and arms, solid black ink fills on the trousers and dark areas, and subtle dot screentone in the background. Pure white paper, no color at all. Mature, weary, cinematic manga mood.",
    "negs": []
   }
@@ -7657,12 +7657,12 @@
    },
    {
     "id": 1791706362492,
-    "title": "메모에 적힌 사이트 참고해 갠홈 제작",
+    "title": "로그 업로드",
     "date": "2026-10-17",
     "end": "",
     "time": "",
     "cat": 1791559076787,
-    "memo": "https://xn--2i0bk4cxb18eb9bywrtjy.ilyf.to/"
+    "memo": ""
    },
    {
     "id": 1791908202053,
@@ -7690,8 +7690,7 @@
    "1791572278938|2026-10-10": 1,
    "1791572299504|2026-10-10": 1,
    "1791573983699|2026-10-10": 1,
-   "1791572324414|2026-10-13": 1,
-   "1792090738256|2026-10-16": 1
+   "1791572324414|2026-10-13": 1
   }
  },
  "loras": [
