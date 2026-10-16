@@ -7145,6 +7145,32 @@
    "img": "",
    "text": "1.3::film photography::, 1.2::grainy texture::, 1.3::yacht::, 1.2::luxury yacht::, 1.2::yacht deck::, 1.2::boat railing::, 1.2::aegean sea::, 1.2::santorini cliffs in background::, 1.2::sitting on deck::, 1.2::leaning back::, 1.3::cowboy shot::, 1.3::head tilted back::, 1.2::serene expression::, 1.3::wind in hair::, 1.3::swimsuit::, 1.2::wet skin::, water droplets, 1.1::wedding ring::, outdoors, 1.3::afternoon sun::, 1.2::sparkling water::, bright, 1.2::candid::,",
    "negs": []
+  },
+  {
+   "id": 1792153777168,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "grapefruit-inspired fashion, grapefruit-shaped accessories, grapefruit hairpin, green grapefruit leaves, cute hair accessory, off-shoulder blouse, ribbon belt, high-waisted wide-leg pants, sheer socks, loafers, cute, stylish, fresh, grapefruit pink and leaf green colors, oversized grapefruit soda, giant grapefruits, oversized grapefruit slices, grapefruit garnish, grapefruit leaves, soft pink glow, pink reflections,",
+   "negs": [
+    {
+     "label": "자몽",
+     "text": "grapefruit-inspired fashion, grapefruit-shaped accessories, grapefruit hairpin, green grapefruit leaves, cute hair accessory, off-shoulder blouse, ribbon belt, high-waisted wide-leg pants, sheer socks, loafers, cute, stylish, fresh, grapefruit pink and leaf green colors, oversized grapefruit soda, giant grapefruits, oversized grapefruit slices, grapefruit garnish, grapefruit leaves, soft pink glow, pink reflections,"
+    },
+    {
+     "label": "라임",
+     "text": "lime-inspired fashion, lime-shaped accessories, lime hairpin, green lime leaves, cute hair accessory, white sundress, cropped bolero, puff sleeves, waist ribbon, ankle socks, green lime mary jane shoes, cute, stylish, fresh, lime green and leaf green colors, oversized lime soda, giant limes, oversized lime slices, lime garnish, lime leaves, fresh green glow, green reflections,"
+    },
+    {
+     "label": "오렌지",
+     "text": "orange-inspired fashion, orange-shaped accessories, orange hairpin, green orange leaves, cute hair accessory, oversized hoodie, short pleated skirt, striped knee socks, sneakers, crossbody bag, cute, stylish, fresh, orange and leaf green colors, oversized orange soda, giant oranges, oversized orange slices, orange garnish, orange leaves, warm orange glow, orange reflections,"
+    },
+    {
+     "label": "블루베리",
+     "text": "blueberry-inspired fashion, blueberry-shaped accessories, blueberry hairpin, green blueberry leaves, cute hair accessory, cropped cardigan, sailor collar, high-waisted shorts, knee socks, platform loafers, cute, stylish, fresh, blueberry blue and leaf green colors, oversized blueberry soda, giant blueberries, oversized blueberry slices, blueberry garnish, blueberry leaves, soft blue glow, blue reflections,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
