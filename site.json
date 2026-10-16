@@ -7289,6 +7289,24 @@
    "img": "",
    "text": "solo, beautiful, [character appearance], standing beside an oversized [phone color] retro flip phone, giant open clamshell phone nearly as tall as her, glossy plastic body, chunky rounded design, early 2000s Japanese keitai aesthetic, large black reflective screen displaying a clear reflection of the girl, metallic accents matching the phone color, detailed keypad, circular navigation pad, many oval buttons, tiny speaker holes, cute stickers and small character charms decorating the phone, cute shy expression, full body, knee-high leg warmers, chunky platform shoes, playful pose, both girl and phone fully visible, clean white background, kawaii Y2K aesthetic, clean thin line art",
    "negs": []
+  },
+  {
+   "id": 1792156406130,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "holding camcorder, holding camera up, camera covering face, one hand raised, filming, first person perspective, close-up, front view, standing,",
+   "negs": [
+    {
+     "label": "배경",
+     "text": "hallway, indoor corridor, window light, blurry background, sunlight through window,"
+    },
+    {
+     "label": "옷",
+     "text": "white shirt, school uniform, necktie, loose necktie, collared shirt, student uniform, youthful, high school student"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
