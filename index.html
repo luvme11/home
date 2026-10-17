@@ -531,11 +531,6 @@ body.adm .tlt .admbtn{display:flex;gap:4px;margin-top:8px}
 body.adm .fpkeys .fpm{pointer-events:auto;cursor:pointer}
 body:not(.adm) .fpmn{display:none!important}
 .sdi .ck:disabled{pointer-events:none;cursor:default}
-.pwrap.nocat{grid-template-columns:minmax(0,1fr)}
-.pwrap.nocat .pside{display:none}
-nav .pmenu a.on{font-weight:normal;color:#555a65}
-nav .pmenu a:hover{color:#000}
-nav .pmenu a.cur{font-weight:bold;color:#000}
 </style>
 </head>
 <body>
@@ -548,7 +543,7 @@ nav .pmenu a.cur{font-weight:bold;color:#000}
     <div class="nd"><a href="#board" class="top">게시판</a><div class="sub"><a href="#board">글</a><a href="#road">로드비</a></div></div>
     <div class="nd"><a href="#chars" class="top">OC</a><div class="sub"><a href="#chars">메인</a><a href="#rels">페어</a><a href="#persona">페르소나</a></div></div>
     <a href="#log">로그</a>
-    <div class="nd"><a href="#prompt" class="top" data-sec="main">프롬프트</a><div class="sub pmenu"><a href="#prompt" data-sec="main">OC/드림/페소</a><a href="#prompt" data-sec="comp">구도</a><a href="#prompt" data-sec="look">룩</a></div></div>
+    <a href="#prompt">프롬프트</a>
     <a href="#lora">로라</a>
     <div class="nd"><a href="#sched" class="top">기록</a><div class="sub"><a href="#sched">스케줄러</a><a href="#threads">감상타래</a></div></div>
   </nav>
@@ -677,8 +672,8 @@ nav .pmenu a.cur{font-weight:bold;color:#000}
 <!-- ================= 프롬프트 ================= -->
 <section class="page" id="prompt">
   <button class="btn admbtn" style="float:right;margin:0" type="button" onclick="editPrompt()">✎ 프롬프트 추가</button>
-  <h1 class="pt">PROMPT</h1><p class="ps nm" id="pSubT"></p>
-  <div class="pwrap" id="pWrap">
+  <h1 class="pt">PROMPT</h1><p class="ps"></p>
+  <div class="pwrap">
     <div class="pmain">
       <div id="pList" class="grid pl4"></div>
       <div class="pbar"><div id="pPager" class="pg"></div></div>
@@ -1059,9 +1054,11 @@ function aPer(c){var k=pf(c);return k==='p'?4:k==='r'?12:0}
 /* 페이지 번호는 5개씩 묶어서 보여줘요 (1~5, 6~10 ...) */
 function pgHtml(pg,pages,fn){
   var st=Math.floor((pg-1)/5)*5+1,en=Math.min(st+4,pages);
-  var h='<button type="button" onclick="'+fn+'('+(pg-1)+')"'+(pg===1?' disabled':'')+' aria-label="이전">‹</button>';
+  var h='<button type="button" onclick="'+fn+'(1)"'+(pg===1?' disabled':'')+' aria-label="맨 처음">«</button>'+
+    '<button type="button" onclick="'+fn+'('+(pg-1)+')"'+(pg===1?' disabled':'')+' aria-label="이전">‹</button>';
   for(var n=st;n<=en;n++)h+='<button type="button" class="'+(n===pg?'on':'')+'" onclick="'+fn+'('+n+')">'+n+'</button>';
-  return h+'<button type="button" onclick="'+fn+'('+(pg+1)+')"'+(pg===pages?' disabled':'')+' aria-label="다음">›</button>';
+  return h+'<button type="button" onclick="'+fn+'('+(pg+1)+')"'+(pg===pages?' disabled':'')+' aria-label="다음">›</button>'+
+    '<button type="button" onclick="'+fn+'('+pages+')"'+(pg===pages?' disabled':'')+' aria-label="맨 끝">»</button>';
 }
 /* 페이지를 넘겨도 화면이 움직이지 않게: 스크롤 위치와 목록 높이를 그대로 유지 */
 function setAP(n){var el=document.getElementById('cAssets'),h=el?el.offsetHeight:0;APG[cur+'|'+cTab]=n;keepY(function(){renderAssets(h)})}
@@ -1415,45 +1412,30 @@ function renderSite(){
     return '<a class="lk" href="'+H(u)+'" target="_blank" rel="noopener">'+H(r.k)+'</a>';}).join('')}
   if(S.favicon){var fv=document.getElementById('favicon');fv.removeAttribute('type');fv.href=U(S.favicon);fv.onerror=function(){fv.onerror=null;fv.href=RAW(S.favicon)}}
 }
-var SECS=[['main','OC/드림/페소'],['comp','구도'],['look','룩']],pSec='main',pCat='전체',pPage=1,PPER=8;
-/* 예전에 만든 프롬프트(구분이 없는 것)는 자동으로 OC/드림/페소에 들어가요 */
-function secOf(p){return p.sec==='comp'||p.sec==='look'?p.sec:'main'}
-function secName(k){return SECS.filter(function(x){return x[0]===k})[0][1]}
-/* 구도/룩은 제목 대신 #1, #2 ... 순서 번호로 보여줘요 (삭제하면 자동으로 다시 매겨져요) */
-function pTitle(p){
-  var sc=secOf(p);if(sc==='main')return p.title||'';
-  var l=(S.prompts||[]).filter(function(x){return secOf(x)===sc});
-  return '#'+(l.map(function(x){return x.id}).indexOf(p.id)+1);
-}
-function setPS(k){pSec=k||'main';pCat='전체';pPage=1;renderPrompts()}
+var pCat='전체',pPage=1,PPER=8;
 function setPC(c){pCat=c;pPage=1;renderPrompts()}
 function setPP(n){var el=document.getElementById('pList'),h=el?el.offsetHeight:0;pPage=n;keepY(function(){renderPrompts(h)})}
 function renderPrompts(keepH){
   document.getElementById('pList').style.minHeight=keepH?keepH+'px':'';
-  var all=(S.prompts||[]).filter(function(p){return secOf(p)===pSec});
+  var all=(S.prompts||[]).slice().reverse();
   var cats=[];all.forEach(function(p){var t=(p.tag||'').trim();if(t&&cats.indexOf(t)<0)cats.push(t)});
   if(pCat!=='전체'&&cats.indexOf(pCat)<0)pCat='전체';
-  if(pSec!=='main')pCat='전체';
   var l=all.filter(function(p){return pCat==='전체'||(p.tag||'').trim()===pCat});
   var pages=Math.max(1,Math.ceil(l.length/PPER));
   if(pPage>pages)pPage=pages;if(pPage<1)pPage=1;
   var cur=l.slice((pPage-1)*PPER,pPage*PPER);
   document.getElementById('pList').innerHTML=cur.length?cur.map(function(p){
     return '<div class="wk"><div class="sq" style="cursor:pointer" onclick="openPrompt('+p.id+')">'+
-      (p.img?im(p.img):'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(pTitle(p))+'</span>')+'</div>'+
-      '<div class="wt">'+H(pTitle(p))+'</div>'+
+      (p.img?im(p.img):'<span style="padding:10px;text-align:center;color:#8a8f9c;font-size:13px">'+H(p.title)+'</span>')+'</div>'+
+      '<div class="wt">'+H(p.title)+'</div>'+
       '<div class="admbtn" style="text-align:center"><button class="btn" type="button" onclick="editPrompt('+p.id+')">수정</button> <button class="btn gray" type="button" onclick="delPrompt('+p.id+')">삭제</button></div></div>';
   }).join(''):'<p class="empty" style="grid-column:1/-1">아직 프롬프트가 없어요.</p>';
   var pg=pages>1?pgHtml(pPage,pages,'setPP'):'';
   document.getElementById('pPager').innerHTML=pg;
-  document.getElementById('pSubT').textContent=secName(pSec);
-  document.getElementById('pWrap').classList.toggle('nocat',pSec!=='main');
-  document.querySelectorAll('.pmenu a').forEach(function(a){a.classList.toggle('cur',a.getAttribute('data-sec')===pSec)});
   document.getElementById('pCats').innerHTML=cats.length?['전체'].concat(cats).map(function(c){
     return '<button type="button" class="chip'+(pCat===c?' on':'')+'" data-c="'+H(c)+'">'+H(c)+'</button>';
   }).join(''):'';
 }
-document.addEventListener('click',function(e){var a=e.target.closest('a[data-sec]');if(a){setPS(a.getAttribute('data-sec'));a.blur()}});
 document.addEventListener('click',function(e){var b=e.target.closest('#pCats .chip');if(b)setPC(b.getAttribute('data-c'))});
 function closeModal(){document.getElementById('modal').classList.remove('on')}
 function openPrompt(id){
@@ -1461,7 +1443,7 @@ function openPrompt(id){
   var b=document.getElementById('mb');b.style.maxWidth='640px';
   var ng=negsOf(p);
   b.innerHTML=(p.img?'<img src="'+H(U(p.img))+'" data-p="'+H(p.img)+'" alt="" onerror="imgFail(this)" style="max-height:34vh;object-fit:contain;background:#f1f2f5">':'')+
-    '<h2>'+H(pTitle(p))+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</h2>'+
+    '<h2>'+H(p.title)+(p.tag?' <span class="pill">'+H(p.tag)+'</span>':'')+'</h2>'+
     '<pre>'+H(p.text)+'</pre><button class="btn" type="button" onclick="copyP('+p.id+',0,this)">복사</button>'+
     ng.map(function(n,i){return '<details class="sd"><summary>'+H(n.label||'네거티브')+'</summary><pre>'+H(n.text)+'</pre><button class="btn" type="button" onclick="copyN('+p.id+','+i+',this)">복사</button></details>'}).join('')+
     '<div class="admbtn" style="margin-top:6px"><button class="btn" type="button" onclick="closeModal();editPrompt('+p.id+')">수정</button><button class="btn gray" type="button" onclick="closeModal();delPrompt('+p.id+')">삭제</button></div>';
@@ -1624,21 +1606,18 @@ function editPrompt(id){
   var p=(S.prompts||[]).filter(function(x){return x.id===id})[0]||{},ng=negsOf(p);
   if(!ng.length)ng=[{label:'메인 네거티브',text:''}];
   openForm(p.id?'프롬프트 수정':'프롬프트 추가',[
-    {id:'title',l:'제목 (구도/룩은 비워도 돼요. #번호로 자동 표시돼요)',t:'text',v:p.title},
-    {id:'sec',l:'구분 (어느 메뉴에 들어갈지)',t:'sel',o:SECS,v:p.id?secOf(p):pSec},
-    {id:'tag',l:'카테고리 (옆 CATEGORY 패널에 나와요. 예: 캐릭터, 배경)',t:'text',v:p.tag},
+    {id:'title',l:'제목',t:'text',v:p.title},
+    {id:'tag',l:'분류 (예: 캐릭터, 배경)',t:'text',v:p.tag},
     {id:'img',l:'결과 사진 (썸네일로 나와요)',t:'file',v:p.img},
     {id:'text',l:'프롬프트',t:'area',v:p.text},
     {id:'negs',l:'네거티브 프롬프트 (여러 개 추가할 수 있어요. 예: 메인 / 커플)',t:'negs',v:ng}
   ],async function(g){
-    var sc=g('sec').value,t=g('title').value.trim(),x=g('text').value.trim();if(!x||(sc==='main'&&!t))throw new Error(sc==='main'?'제목과 프롬프트를 적어주세요.':'프롬프트를 적어주세요.');
+    var t=g('title').value.trim(),x=g('text').value.trim();if(!t||!x)throw new Error('제목과 프롬프트를 적어주세요.');
     var img=p.img||'',f=g('img').files[0];if(f)img=await upImg(f);
     var negs=Array.prototype.map.call(document.querySelectorAll('#g_negs .ng'),function(r){return {label:r.querySelector('.nl_t').value.trim(),text:r.querySelector('.nl_x').value.trim()}}).filter(function(n){return n.text});
-    var it=Object.assign({},p,{id:p.id||Date.now(),title:t,sec:g('sec').value,tag:g('tag').value.trim(),img:img,text:x,negs:negs}),l=S.prompts||[];
+    var it={id:p.id||Date.now(),title:t,tag:g('tag').value.trim(),img:img,text:x,negs:negs},l=S.prompts||[];
     await saveSite(Object.assign({},S,{prompts:p.id?l.map(function(y){return y.id===p.id?it:y}):l.concat([it])}),'프롬프트 저장: '+t);
   });
-  var tg=function(){var r=G('sec').value!=='main',e=G('title');e.style.display=r?'none':'';e.previousElementSibling.style.display=r?'none':''};
-  G('sec').onchange=tg;tg();
 }
 async function delPrompt(id){
   if(!confirm('이 프롬프트를 삭제할까요?'))return;
