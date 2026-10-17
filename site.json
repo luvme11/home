@@ -7813,7 +7813,7 @@
    "title": "",
    "sec": "comp",
    "tag": "의상 O",
-   "img": "",
+   "img": "images/1792258641055_9892.jpg",
    "text": "2people, upper body, partnered dance, character on left holding character on right by the waist, bodies close together, facing each other, looking at each other, intimate dance pose, dynamic movement, dramatic theatrical composition, retro Halloween magazine cover style, gothic theater stage, deep red velvet curtains, strong spotlight, dramatic stage lighting, glowing marquee bulbs, rich shadows, black and gold ornate frame, antique candelabras, hanging gothic ornaments, lace-like decorative banners, floating confetti, ribbon streamers, sparkles, drifting smoke, subtle bats, orange and dark navy color scheme, bold editorial cover layout, fashion magazine cover aesthetic, halftone dots, retro print texture, comic-style dot shading, vintage poster texture, large serif title text \"HAPPY HALLOWEEN\", large year text \"2026\", smaller cover-line text, stylish typography, luxurious gothic atmosphere",
    "negs": [
     {
@@ -7840,36 +7840,36 @@
    "title": "",
    "sec": "comp",
    "tag": "의상 X",
-   "img": "",
+   "img": "images/1792258723329_730.jpg",
    "text": "1boy/girl, solo, full body on the left, 1.4::bust shot on the upper right::, 4::chibi::, only chibi on the lower  right, character sheet style",
    "negs": []
   },
   {
-   "id": 1792258569998,
+   "id": 1792258767580,
    "title": "",
    "sec": "comp",
    "tag": "의상 O",
    "img": "",
-   "text": "Y2K Chinese-inspired women's fashion, bold early 2000s streetwear, outfit design only ,isolated fashion design, plain background, authentic Y2K, edgy Chinese street style, futuristic oriental fashion, sexy, sophisticated, cyber-chic, fitted white qipao-inspired blouse, high mandarin collar, diagonal crossover closure, traditional Chinese frog buttons, cropped silhouette, exposed waist, oversized puff sleeves, voluminous balloon sleeves, fitted wrist cuffs with Chinese knot buttons, subtle satin sheen, light blue high-waisted fishtail skirt, body-hugging hips, dramatic mermaid flare, high side slit, asymmetrical Chinese-inspired construction, delicate pearl embellishments along the slit and hem, glossy icy-blue satin, sharp waist definition, bold Y2K proportions, striking white and blue color blocking, authentic Chinese tailoring, minimal ornaments,",
+   "text": "cropped baby blue adidas track jacket with puff sleeves, 1.3::white adidas trefoil logo and three stripes::, white frilly bandeau underneath, white tiered ruffle mini skirt with pearl trim, white knee-high boots with ribbon laces, sitting at cafe table, chin on hands, eating strawberry cake, looking at viewer, pastel dessert cafe, pink walls, cake display, soft light, cute, girly",
    "negs": []
   },
   {
-   "id": 1792258597327,
+   "id": 1792259089137,
    "title": "",
-   "sec": "look",
-   "tag": "",
-   "img": "images/1792258744413_5543.jpg",
-   "text": "Y2K Chinese-inspired women's fashion, bold early 2000s streetwear, outfit design only ,isolated fashion design, plain background, authentic Y2K, edgy Chinese street style, futuristic oriental fashion, sexy, sophisticated, cyber-chic, fitted white qipao-inspired blouse, high mandarin collar, diagonal crossover closure, traditional Chinese frog buttons, cropped silhouette, exposed waist, oversized puff sleeves, voluminous balloon sleeves, fitted wrist cuffs with Chinese knot buttons, subtle satin sheen, light blue high-waisted fishtail skirt, body-hugging hips, dramatic mermaid flare, high side slit, asymmetrical Chinese-inspired construction, delicate pearl embellishments along the slit and hem, glossy icy-blue satin, sharp waist definition, bold Y2K proportions, striking white and blue color blocking, authentic Chinese tailoring, minimal ornaments,",
-   "negs": []
-  },
-  {
-   "id": 1792258924280,
-   "title": "",
-   "sec": "look",
-   "tag": "",
-   "img": "images/1792258990015_5067.jpg",
-   "text": "the character is wearing, dressed in, outfit worn on the character's body, clothes fitted naturally to the character, white and pastel cyan jirai-kei outfit, oversized hoodie-style cropped jacket, layered white and light blue fabric panels, lace-trimmed cuffs, oversized pale cyan ribbons and bows, silver buckles, chunky decorative straps, symmetrical white ribcage harness worn over the torso, curved skeletal rib-shaped pieces connected by straps, silver chain details, heart-shaped waist belt worn around the waist, oversized heart buckle, dangling heart charms, layered silver chains, gothic silver pendants, white and pale cyan pleated skirt worn at the hips, layered ruffles, delicate lace hem, decorative garter straps, silver hardware, yamikawaii, jirai-kei, modern Japanese subculture street fashion, edgy kawaii styling, white and icy blue color blocking",
-   "negs": []
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "2people, extreme low angle, viewer lying perspective, both leaning down toward camera, looking directly downward, character 1 closer on the left, character 2 slightly behind on the right, close face framing, centered chandelier, gothic ceiling, candlelight, dark mansion interior, dramatic foreshortening, glossy blood, dim lighting, dutch angle, dark mansion interior, gothic ceiling, centered chandelier, candlelight, unsettling atmosphere,",
+   "negs": [
+    {
+     "label": "왼쪽 캐릭터",
+     "text": "left side, closer to camera, leaning lower, holding a blood-stained knife, blood dripping from cheek, sharp grin, gothic butler outfit, black tailored suit, fitted vest, white dress shirt, black tie, gloves, silver chain accessories, dark formalwear, elegant gothic aesthetic, matching outfits"
+    },
+    {
+     "label": "오른쪽 캐릭터",
+     "text": "gothic butler outfit, black tailored suit, fitted vest, white dress shirt, black tie, gloves, silver chain accessories, dark formalwear, elegant gothic aesthetic, matching outfits, right side, slightly behind, leaning toward camera, holding a blood-stained fork, blood dripping from utensil"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
