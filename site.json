@@ -7807,6 +7807,24 @@
    "img": "",
    "text": "1.3::white embroidered lace bralette and high-waist lace panties, satin ribbon details::, white lace garter, 1.2::standing by window, body angled three-quarters away, looking back over shoulder, one hand holding sheer curtain, other hand resting on hip, weight on one leg::, three-quarter back view, cowboy shot, slightly low angle, 1.2::soft innocent gaze, gentle closed-mouth smile, faint blush::, strong backlight through curtains, rim light on silhouette, hazy glow, airy, romantic, bridal boudoir",
    "negs": []
+  },
+  {
+   "id": 1792258361374,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "2people, upper body, partnered dance, character on left holding character on right by the waist, bodies close together, facing each other, looking at each other, intimate dance pose, dynamic movement, dramatic theatrical composition, retro Halloween magazine cover style, gothic theater stage, deep red velvet curtains, strong spotlight, dramatic stage lighting, glowing marquee bulbs, rich shadows, black and gold ornate frame, antique candelabras, hanging gothic ornaments, lace-like decorative banners, floating confetti, ribbon streamers, sparkles, drifting smoke, subtle bats, orange and dark navy color scheme, bold editorial cover layout, fashion magazine cover aesthetic, halftone dots, retro print texture, comic-style dot shading, vintage poster texture, large serif title text \"HAPPY HALLOWEEN\", large year text \"2026\", smaller cover-line text, stylish typography, luxurious gothic atmosphere",
+   "negs": [
+    {
+     "label": "캐릭터 A",
+     "text": "leading the dance, extended arm, stepping forward, theatrical posture"
+    },
+    {
+     "label": "캐릭터 B",
+     "text": "dancing closely with character 1, supporting pose, matching stage presence, refined posture"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
