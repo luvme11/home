@@ -7681,6 +7681,24 @@
    "img": "images/1792256370955_897.jpg",
    "text": "1girl, 1.5::elegant white backless dress::, deep backless cut, silver details, fitted white gloves, silver accessories, holding a handgun, 1.5::cowboy shot::, 1.5::dramatic low angle::, three-quarter back view, looking back over her shoulder, asymmetrical composition, flowing long hair, dramatic wind, 1.6::heavy blood splatter covering the white dress::, 1.5::large crimson bloodstains across the fabric::, blood-soaked skirt, bloodstained gloves, 1.5::blood splattered across the face::, 1.4::blood droplets on cheeks and forehead::, blood streaks on jawline, blood on lips, 1.5::blood smeared across bare back and shoulders::, blood on arms and neck, scattered blood droplets, gun smoke, 1.8::pitch black background::, deep black shadows, dark noir atmosphere, subtle emerald rim lighting, faint silver highlights, dramatic chiaroscuro, low-key cinematic lighting, high contrast, femme fatale, elegant brutality, clean lineart, polished cel shading",
    "negs": []
+  },
+  {
+   "id": 1792256458844,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "images/1792256456733_6252.jpg",
+   "text": "1 person, side view, sitting, elegant seated pose, flower-patterned lantern, holding a glowing paper lantern, one hand gently holding the lantern handle, other hand resting against cheek, looking softly at the lantern, calm expression, outdoor, graceful posture, traditional korean garden, stone pathway, rocks, wooden fence, nighttime, traditional korean courtyard, light pink lighting, golden amber glow, deep shadows, soft cinematic lighting, rich warm color harmony, peaceful atmosphere, dreamy mood, shallow depth of field, bokeh, editorial photography, cinematic composition",
+   "negs": [
+    {
+     "label": "남자 옷",
+     "text": "black hanbok robe, black silk outer robe, gold floral embroidery, wide sleeves, deep V-neck, partially open chest, loose fit, flowing silhouette, luxurious silk fabric, traditional korean aesthetic,"
+    },
+    {
+     "label": "여자 옷",
+     "text": "traditional hanbok, soft blush pink jeogori, white collar, voluminous pastel pink organza chima, layered translucent skirt, flowing silhouette, delicate floral norigae, elegant korean traditional attire,"
+    }
+   ]
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
