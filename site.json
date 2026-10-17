@@ -7813,7 +7813,7 @@
    "title": "",
    "sec": "comp",
    "tag": "의상 O",
-   "img": "images/1792258641055_9892.jpg",
+   "img": "",
    "text": "2people, upper body, partnered dance, character on left holding character on right by the waist, bodies close together, facing each other, looking at each other, intimate dance pose, dynamic movement, dramatic theatrical composition, retro Halloween magazine cover style, gothic theater stage, deep red velvet curtains, strong spotlight, dramatic stage lighting, glowing marquee bulbs, rich shadows, black and gold ornate frame, antique candelabras, hanging gothic ornaments, lace-like decorative banners, floating confetti, ribbon streamers, sparkles, drifting smoke, subtle bats, orange and dark navy color scheme, bold editorial cover layout, fashion magazine cover aesthetic, halftone dots, retro print texture, comic-style dot shading, vintage poster texture, large serif title text \"HAPPY HALLOWEEN\", large year text \"2026\", smaller cover-line text, stylish typography, luxurious gothic atmosphere",
    "negs": [
     {
@@ -7840,8 +7840,26 @@
    "title": "",
    "sec": "comp",
    "tag": "의상 X",
-   "img": "images/1792258723329_730.jpg",
+   "img": "",
    "text": "1boy/girl, solo, full body on the left, 1.4::bust shot on the upper right::, 4::chibi::, only chibi on the lower  right, character sheet style",
+   "negs": []
+  },
+  {
+   "id": 1792258569998,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 O",
+   "img": "",
+   "text": "Y2K Chinese-inspired women's fashion, bold early 2000s streetwear, outfit design only ,isolated fashion design, plain background, authentic Y2K, edgy Chinese street style, futuristic oriental fashion, sexy, sophisticated, cyber-chic, fitted white qipao-inspired blouse, high mandarin collar, diagonal crossover closure, traditional Chinese frog buttons, cropped silhouette, exposed waist, oversized puff sleeves, voluminous balloon sleeves, fitted wrist cuffs with Chinese knot buttons, subtle satin sheen, light blue high-waisted fishtail skirt, body-hugging hips, dramatic mermaid flare, high side slit, asymmetrical Chinese-inspired construction, delicate pearl embellishments along the slit and hem, glossy icy-blue satin, sharp waist definition, bold Y2K proportions, striking white and blue color blocking, authentic Chinese tailoring, minimal ornaments,",
+   "negs": []
+  },
+  {
+   "id": 1792258597327,
+   "title": "",
+   "sec": "look",
+   "tag": "",
+   "img": "images/1792258744413_5543.jpg",
+   "text": "Y2K Chinese-inspired women's fashion, bold early 2000s streetwear, outfit design only ,isolated fashion design, plain background, authentic Y2K, edgy Chinese street style, futuristic oriental fashion, sexy, sophisticated, cyber-chic, fitted white qipao-inspired blouse, high mandarin collar, diagonal crossover closure, traditional Chinese frog buttons, cropped silhouette, exposed waist, oversized puff sleeves, voluminous balloon sleeves, fitted wrist cuffs with Chinese knot buttons, subtle satin sheen, light blue high-waisted fishtail skirt, body-hugging hips, dramatic mermaid flare, high side slit, asymmetrical Chinese-inspired construction, delicate pearl embellishments along the slit and hem, glossy icy-blue satin, sharp waist definition, bold Y2K proportions, striking white and blue color blocking, authentic Chinese tailoring, minimal ornaments,",
    "negs": []
   }
  ],
