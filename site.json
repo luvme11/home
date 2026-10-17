@@ -7934,6 +7934,15 @@
    "img": "",
    "text": "solo, sitting, leaning against seat, \n1.5::sleeping pose, eyes closed::, peaceful expression, head tilted, resting, dozing off,\n\nblack school uniform, black blazer, school uniform,\n\nabandoned subway train interior, post-apocalyptic, overgrown with plants, \n1.5::dense vegetation, ferns and leaves covering floor::, vines climbing walls, nature reclaiming, ivy on windows, moss, wild growth,\nbroken windows, rusted metal, decayed interior, subway poles, handrails,\n\n1.5::sunbeams filtering through windows::, god rays, volumetric light, dust particles in light,\n2::sunlight illuminating character::, warm sunlight on skin, dappled light and shadow, golden hour lighting, soft glow,\nbutterflies flying, floating leaves, hazy atmosphere,\n\nbest quality, masterpiece, detailed background, cinematic lighting, atmospheric",
    "negs": []
+  },
+  {
+   "id": 1792276504342,
+   "title": "",
+   "sec": "comp",
+   "tag": "의상 X",
+   "img": "",
+   "text": "solo, 2.5::sitting on a tree branch, looking up toward the sky::, hands resting on the branch, head tilted upward,\n\n2.5::goldfish swimming through the sky above::, multiple goldfish floating and drifting overhead like they're swimming in water,\n\ndark green watery atmosphere, rippling water-like light effects, warm golden orange glow mixed with deep green tones, dreamy surreal underwater-sky fusion,",
+   "negs": []
   }
  ],
  "profile": "images/1791557129112_1856.jpg",
