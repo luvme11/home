@@ -1059,9 +1059,11 @@ function aPer(c){var k=pf(c);return k==='p'?4:k==='r'?12:0}
 /* 페이지 번호는 5개씩 묶어서 보여줘요 (1~5, 6~10 ...) */
 function pgHtml(pg,pages,fn){
   var st=Math.floor((pg-1)/5)*5+1,en=Math.min(st+4,pages);
-  var h='<button type="button" onclick="'+fn+'('+(pg-1)+')"'+(pg===1?' disabled':'')+' aria-label="이전">‹</button>';
+  var h='<button type="button" onclick="'+fn+'(1)"'+(pg===1?' disabled':'')+' aria-label="맨 처음">«</button>'+
+    '<button type="button" onclick="'+fn+'('+(pg-1)+')"'+(pg===1?' disabled':'')+' aria-label="이전">‹</button>';
   for(var n=st;n<=en;n++)h+='<button type="button" class="'+(n===pg?'on':'')+'" onclick="'+fn+'('+n+')">'+n+'</button>';
-  return h+'<button type="button" onclick="'+fn+'('+(pg+1)+')"'+(pg===pages?' disabled':'')+' aria-label="다음">›</button>';
+  return h+'<button type="button" onclick="'+fn+'('+(pg+1)+')"'+(pg===pages?' disabled':'')+' aria-label="다음">›</button>'+
+    '<button type="button" onclick="'+fn+'('+pages+')"'+(pg===pages?' disabled':'')+' aria-label="맨 끝">»</button>';
 }
 /* 페이지를 넘겨도 화면이 움직이지 않게: 스크롤 위치와 목록 높이를 그대로 유지 */
 function setAP(n){var el=document.getElementById('cAssets'),h=el?el.offsetHeight:0;APG[cur+'|'+cTab]=n;keepY(function(){renderAssets(h)})}
